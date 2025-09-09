@@ -4,22 +4,7 @@ import "./Registration.css"
 const TandartsRegistratie = () => {
   return (
     <>
-      <header>
-        <nav className="navbar">
-          <div className="nav-container">
-            <div className="logo">
-              <h1>Tandarts praktijk</h1>
-              <span className="logo-subtitle">hhvhh</span>
-            </div>
-            <ul className="nav-menu">
-              <li><a href="#" className="nav-link">Home</a></li>
-              <li><a href="#" className="nav-link">Over ons</a></li>
-              <li><a href="#" className="nav-link">Blah</a></li>
-            </ul>
-          </div>
-        </nav>
-      </header>
-
+     
       <main className="main-container">
         <div className="content-wrapper">
           <div className="image-section">
