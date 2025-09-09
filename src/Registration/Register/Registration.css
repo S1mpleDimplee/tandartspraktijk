@@ -1,9 +1,8 @@
 .main-container-registration {
-  max-width: 1200px;
-  margin: 40px auto;
-  padding: 0 20px;
-  justify-content: center !important;
-  align-items: center !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
 }
 
 .registration-section {
@@ -11,27 +10,26 @@
   background-color: white;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  height: 69vh;
-  width: 70vw;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  width: 68vw;
+  max-height: 80vh;
 }
 
 .image-section {
   flex: 1;
-  background-color: #f0f0f0;
+  background-color: #f8f9fa;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .image-placeholder {
   width: 100%;
   height: 100%;
-  min-height: 600px;
-  background-color: #e0e0e0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #999;
-  font-size: 14px;
+  object-fit: cover;
+  object-position: center;
 }
 
 .form-section-registration {
@@ -39,27 +37,28 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px;
+  padding: 50px 40px;
   background-color: white;
 }
 
 .form-container {
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
 }
 
 .form-title {
-  color: #00b4d8;
+  color: #008b8b;
   font-size: 32px;
-  font-weight: 600;
-  margin-bottom: 30px;
+  font-weight: 700;
   text-align: center;
+  margin-bottom: 35px;
+  letter-spacing: -0.5px;
 }
 
 .registration-form {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 20px;
 }
 
 .form-group {
@@ -68,66 +67,67 @@
 
 .form-input {
   width: 100%;
-  padding: 10px 15px;
-  border: 1px solid #e0e0e0;
-  border-radius: 25px;
+  padding: 14px 20px;
+  border: 1px solid #cacdcd;
+  border-radius: 10px;
   font-size: 15px;
-  transition: border-color 0.3s ease;
-  background-color: #fafafa;
+  font-family: inherit;
+  transition: all 0.3s ease;
+    background-color: #fafafa;
+}
+
+.form-input:hover {
+  border-color: #d0d0d0;
 }
 
 .form-input:focus {
   outline: none;
   border-color: #00b4d8;
   background-color: white;
+  box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.1);
 }
 
 .form-input::placeholder {
   color: #999;
+  font-size: 14px;
 }
 
 .form-label {
   display: block;
-  margin-top: 8px;
+  margin-left: 15px;
   font-size: 12px;
   color: #666;
   line-height: 1.4;
-  padding-left: 10px;
 }
 
-/* Submit Button */
 .submit-button {
   background-color: #00b4d8;
   color: white;
   border: none;
-  padding: 15px 40px;
+  padding: 14px 50px;
   border-radius: 25px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  margin-top: 20px;
-  width: auto;
-  align-self: center;
+  transition: all 0.3s ease;
+  margin: 10px auto 0;
+  display: block;
+  box-shadow: 0 4px 15px rgba(0, 180, 216, 0.3);
 }
 
 .submit-button:hover {
   background-color: #0096b8;
   transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 180, 216, 0.4);
 }
 
-.submit-button:active {
-  transform: translateY(0);
-}
-
-/* Login Link */
 .login-link {
   text-align: center;
   color: #666;
   font-size: 14px;
-  margin-top: 10px;
   cursor: pointer;
   transition: color 0.3s ease;
+  margin-top: -10px;
 }
 
 .login-link:hover {

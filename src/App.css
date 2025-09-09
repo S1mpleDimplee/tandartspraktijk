@@ -1,0 +1,30 @@
+body {
+    background-color: #F1F1F1 !important;
+    font-family: poppins, sans-serif !important;
+    margin: 0;
+}
+
+.content-wrapper {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.main-content {
+  flex: 1;
+}
+
+
+.dashboard-sidebar {
+  background-color: #f8f9fa;
+  width: 200px;
+  min-height: calc(100vh - 60px); 
+  border-right: 1px solid #e0e0e0;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.navbar-dashboard {
+  height: 60px; 
+  width: 100%;
+}

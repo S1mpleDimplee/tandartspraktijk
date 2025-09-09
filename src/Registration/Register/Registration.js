@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import "./Registration.css"
+import image from "../register.png"
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 
@@ -8,13 +10,17 @@ const TandartsRegistratie = () => {
 
   const [email, setEmail] = useState();
 
+  const Navigate = useNavigate();
+
   return (
     <>
       <main className="main-container-registration">
         <div className="registration-section">
           <div className="image-section">
-            <div className="image-placeholder">
-            </div>
+            <img 
+              src={image} 
+              className="image-placeholder"
+            />
           </div>
           
           <div className="form-section-registration">
@@ -59,8 +65,8 @@ const TandartsRegistratie = () => {
                 </div>
 
                 <button type="submit" className="submit-button">Registreren</button>
-                
-                <p className="login-link">Ik heb al een account</p>
+
+                <p className="login-link" onClick={() => Navigate("/inloggen")}>Ik heb al een account</p>
               </form>
             </div>
           </div>
