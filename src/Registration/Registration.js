@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./Registration.css"
 
+
+
+
 const TandartsRegistratie = () => {
+
+  const [email, setEmail] = useState();
+
   return (
     <>
-     
-      <main className="main-container">
-        <div className="content-wrapper">
+      <main className="main-container-registration">
+        <div className="registration-section">
           <div className="image-section">
             <div className="image-placeholder">
             </div>
           </div>
           
-          <div className="form-section">
+          <div className="form-section-registration">
             <div className="form-container">
               <h2 className="form-title">Maak een account aan</h2>
               
@@ -22,7 +27,6 @@ const TandartsRegistratie = () => {
                     type="text" 
                     className="form-input" 
                     placeholder="Bijv. Klaas van den Hof"
-                    required 
                   />
                   <label className="form-label">Voer hier uw voor en achternaam is inclusief tussenvoegsel</label>
                 </div>
@@ -32,7 +36,6 @@ const TandartsRegistratie = () => {
                     type="email" 
                     className="form-input" 
                     placeholder="mijnemailadress@gmail.com"
-                    required 
                   />
                   <label className="form-label">Voer hier uw e-mail adress in</label>
                 </div>
@@ -42,7 +45,6 @@ const TandartsRegistratie = () => {
                     type="password" 
                     className="form-input" 
                     placeholder="EenSterkWachtwoord123"
-                    required 
                   />
                   <label className="form-label">Voer hier een sterk wachtwoord<br />(Minimaal 8 karakters waarvan 1 hoofdletter en 1 cijfer)</label>
                 </div>
@@ -52,7 +54,6 @@ const TandartsRegistratie = () => {
                     type="password" 
                     className="form-input" 
                     placeholder="EenSterkWachtwoord123"
-                    required 
                   />
                   <label className="form-label">Herhaal hier uw wachtwoord</label>
                 </div>

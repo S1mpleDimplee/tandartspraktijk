@@ -13,9 +13,11 @@ function App() {
 
   return (
     <>
-    <NavbarHome/>
-    
-      <TandartsRegistratie />
+      <div className="main-content-style">
+        <NavbarHome />
+
+        <TandartsRegistratie />
+      </div>
     </>
   );
 }
