@@ -10,23 +10,40 @@ const DashboardPatient = () => {
         <div className="content-left">
           {/* Check-up Status Card */}
           <div className="card status-card">
-            <h3>Vorige gebit check-up status</h3>
-            <p className="status-text">
-              Uit vorige onderzoek blijkt uw gebit in perfecte staat.
-            </p>
-
-            <div className="services-section">
-              <h4>Huidige diensten</h4>
-              <ul className="services-list">
-                <li>Beugel</li>
-                <li>Beugel</li>
-                <li>Beugel</li>
-                <li>Beugel</li>
-              </ul>
+            <div
+              className="services-treatments-row"
+              style={{ display: "flex", gap: "2rem" }}
+            >
+              {/* Huidige diensten */}
+              <div className="services-section">
+                  <h3>Vorige gebit check-up status</h3>
+                <p className="status-text">
+                  Uit vorige onderzoek blijkt uw gebit in perfecte staat.
+                </p>
+                <h4>Huidige diensten</h4>
+                <ul className="services-list">
+                  <li>Beugel</li>
+                  <li>Beugel</li>
+                  <li>Beugel</li>
+                  <li>Beugel</li>
+                </ul>
+              </div>
+              <div className="treatments-section">
+                <h3>Recente behandelingen</h3>
+                <div className="treatment-list">
+                  <div className="treatment-item completed">
+                    <span className="check-icon">✓</span>
+                    <span>Fluoride behandeling</span>
+                  </div>
+                  <div className="treatment-item completed">
+                    <span className="check-icon">✓</span>
+                    <span>Gebit vulling</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Health Info Card */}
           <div className="card health-card">
             <div className="health-content">
               <div className="health-text">
@@ -35,23 +52,6 @@ const DashboardPatient = () => {
               </div>
               <div className="health-image">
                 {/* <img src={dentalImage} alt="Dental Health" /> */}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Middle Column */}
-        <div className="content-middle">
-          <div className="card treatments-card">
-            <h3>Recente behandelingen</h3>
-            <div className="treatment-list">
-              <div className="treatment-item completed">
-                <span className="check-icon">✓</span>
-                <span>Fluoride behandeling</span>
-              </div>
-              <div className="treatment-item completed">
-                <span className="check-icon">✓</span>
-                <span>Gebit vulling</span>
               </div>
             </div>
           </div>
