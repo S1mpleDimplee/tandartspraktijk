@@ -5,47 +5,33 @@ import { useNavigate } from 'react-router-dom';
 
 const TandartsRegistratie = () => {
   const navigate = useNavigate();
-  
+
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
+    name: 'test',
+    email: 'test@gmail.com',
+    password: 'testWachtwoord123',
+    confirmPassword: 'testWachtwoord123'
   });
-  
+
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    
-    // Clear error for this field when user starts typing
-    if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
-    }
-  };
-
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
-    
+
+
+
     setLoading(true);
-    
+
     try {
       // Call the PHP API with the addUser function
-      const response = await fetch('http://localhost/tandartspraktijk/api.php', {
+      const response = await fetch('http://localhost/tandartspraktijk/PHP/register.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -57,48 +43,48 @@ const TandartsRegistratie = () => {
           password: formData.password
         })
       });
-      
-      const data = await response.json();
-      
-      if (data.success) {
-        // Store user data in localStorage
-        localStorage.setItem('user', JSON.stringify(data.user));
-        
-        // Show success message (optional)
-        alert('Registratie succesvol! U wordt doorgestuurd naar de login pagina.');
-        
-        // Navigate to login or dashboard
-        navigate('/inloggen');
-      } else {
-        // Show error message
-        setErrors({ general: data.message || 'Registratie mislukt' });
-      }
-    } catch (error) {
-      console.error('Registration error:', error);
-      setErrors({ general: 'Er is een fout opgetreden. Probeer het later opnieuw.' });
+
+      //   const data = await response.json();
+
+      //   if (data.success) {
+      //     // Store user data in localStorage
+      //     localStorage.setItem('user', JSON.stringify(data.user));
+
+      //     // Show success message (optional)
+      //     alert('Registratie succesvol! U wordt doorgestuurd naar de login pagina.');
+
+      //     // Navigate to login or dashboard
+      //     navigate('/inloggen');
+      //   } else {
+      //     // Show error message
+      //     setErrors({ general: data.message || 'Registratie mislukt' });
+      //   }
+      // } catch (error) {
+      //   console.error('Registration error:', error);
+      //   setErrors({ general: 'Er is een fout opgetreden. Probeer het later opnieuw.' });
     } finally {
-      setLoading(false);
+      // setLoading(false);
     }
   };
 
-        
+
 
   return (
     <>
       <main className="main-container-registration">
         <div className="registration-section">
           <div className="image-section">
-            <img 
-              src={image} 
+            <img
+              src={image}
               alt="Tandarts Registratie"
               className="image-placeholder"
             />
           </div>
-          
+
           <div className="form-section-registration">
             <div className="form-container">
               <h2 className="form-title">Maak een account aan</h2>
-              
+
               {errors.general && (
                 <div style={{
                   color: 'red',
@@ -110,10 +96,10 @@ const TandartsRegistratie = () => {
                   {errors.general}
                 </div>
               )}
-              
+
               <form className="registration-form" onSubmit={handleSubmit}>
                 <div className="form-group">
-                  <input 
+                  <input
                     type="text"
                     name="name"
                     className={`form-input ${errors.name ? 'error' : ''}`}
@@ -128,21 +114,20 @@ const TandartsRegistratie = () => {
                 </div>
 
                 <div className="form-group">
-                  <input 
+                  <input
                     type="email"
                     name="email"
                     className={`form-input ${errors.email ? 'error' : ''}`}
                     placeholder="mijnemailadress@gmail.com"
                     value={formData.email}
                     onChange={handleInputChange}
-                    onBlur={(e) => checkEmailAvailability(e.target.value)}
                   />
                   <label className="form-label">Voer hier uw e-mail adress in</label>
                   {errors.email && <span className="error-message">{errors.email}</span>}
                 </div>
 
                 <div className="form-group">
-                  <input 
+                  <input
                     type="password"
                     name="password"
                     className={`form-input ${errors.password ? 'error' : ''}`}
@@ -158,7 +143,7 @@ const TandartsRegistratie = () => {
                 </div>
 
                 <div className="form-group">
-                  <input 
+                  <input
                     type="password"
                     name="confirmPassword"
                     className={`form-input ${errors.confirmPassword ? 'error' : ''}`}
@@ -170,16 +155,16 @@ const TandartsRegistratie = () => {
                   {errors.confirmPassword && <span className="error-message">{errors.confirmPassword}</span>}
                 </div>
 
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   className="submit-button"
                   disabled={loading}
                 >
                   {loading ? 'Bezig met registreren...' : 'Registreren'}
                 </button>
 
-                <p 
-                  className="login-link" 
+                <p
+                  className="login-link"
                   onClick={() => navigate("/inloggen")}
                   style={{ cursor: 'pointer' }}
                 >
@@ -192,6 +177,6 @@ const TandartsRegistratie = () => {
       </main>
     </>
   );
-};
+}
 
 export default TandartsRegistratie;
