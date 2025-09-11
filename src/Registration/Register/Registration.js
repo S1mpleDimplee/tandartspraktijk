@@ -35,7 +35,7 @@ const TandartsRegistratie = () => {
 
     try {
       const response = await fetch(
-        "http://localhost/tandartspraktijkBackend/register/register.php",
+        "http://localhost/tandartspraktijk-api/register/register.php",
         {
           method: "POST",
           headers: {
