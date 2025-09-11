@@ -7,10 +7,10 @@ const TandartsRegistratie = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
+    name: "testname",
+    email: "test@example.com",
+    password: "testPassword123",
+    confirmPassword: "testPassword123",
   });
 
   const [message, setMessage] = useState("");
@@ -35,7 +35,7 @@ const TandartsRegistratie = () => {
 
     try {
       const response = await fetch(
-        "http://localhost/tandartspraktijk/PHP/register.php",
+        "http://localhost/tandartspraktijkBackend/register/register.php",
         {
           method: "POST",
           headers: {
