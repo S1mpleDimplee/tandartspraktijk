@@ -1,7 +1,7 @@
 /* Login.css */
 
 .main-container-login {
-  min-height: 89vh; 
+  min-height: 89vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,7 +16,7 @@
   overflow: hidden;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
   width: 68vw;
-  }
+}
 
 .image-section-login {
   flex: 1;
@@ -101,7 +101,6 @@
   margin-top: 4px;
   margin-left: 15px;
   font-size: 12px;
-  font-weight: 600;
   line-height: 1.4;
 }
 
@@ -146,4 +145,3 @@
   color: #00b4d8;
   text-decoration: underline;
 }
-

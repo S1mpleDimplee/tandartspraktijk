@@ -20,7 +20,7 @@ const Login = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const checkLogin = (e) => {
     e.preventDefault();
     console.log("Login attempt:", formData);
   };
@@ -40,7 +40,7 @@ const Login = () => {
           <div className="form-container-login">
             <h2 className="form-title-login">Inloggen</h2>
 
-            <form className="login-form" onSubmit={handleSubmit}>
+            <form className="login-form" onSubmit={checkLogin}>
               <div className="form-group-login">
                 <input
                   className="form-input-login"
@@ -72,7 +72,7 @@ const Login = () => {
 
               <p
                 className="register-link"
-                onClick={() => Navigate("/registreren")}
+                onClick={() => checkLogin()}
               >
                 Ik heb nog geen account
               </p>

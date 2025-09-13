@@ -15,6 +15,12 @@
   height: 80vh;
 }
 
+.name-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px !important;
+}
+
 .image-section {
   flex: 1;
   background-color: #f8f9fa;

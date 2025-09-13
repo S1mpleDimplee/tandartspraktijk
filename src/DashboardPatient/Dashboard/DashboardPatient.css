@@ -18,7 +18,6 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1.5rem;
-  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -46,6 +45,7 @@
 .status-card {
   background: white;
   width: 45vw;
+  height: 46vh;
 }
 
 .status-text {
@@ -71,7 +71,6 @@
 .services-list li {
   padding: 0.5rem 0;
   color: #666;
-  border-bottom: 1px solid #f0f0f0;
 }
 
 .services-list li:last-child {
