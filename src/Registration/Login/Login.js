@@ -20,9 +20,42 @@ const Login = () => {
     }));
   };
 
-  const checkLogin = (e) => {
+  const addLoginData = () => {
+    // Store login state in localStorage with 30-minute expiry
+    // const expiryDate = new Date(new Date().getTime() + 30 * 60 * 1000);
+
+
+    localStorage.setItem("loggedInData", expiryDate);
+  }
+
+  const checkLogin = async (e) => {
     e.preventDefault();
-    console.log("Login attempt:", formData);
+    try {
+      const response = await fetch(
+        "http://localhost/tandartspraktijkBackend/Datareceiver/datareceiver.php",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            function: "loginUser",
+            email: formData.email || "",
+            password: formData.password || "",
+          }),
+        }
+      );
+      const data = await response.json();
+      if (data.success) {
+        addLoginData(data.LoggedInData);
+        Navigate("/dashboard");
+      } else {
+        alert("Inloggen mislukt: " + data.message);
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      alert("Er is een fout opgetreden tijdens het inloggen. Probeer het later opnieuw.");
+    }
   };
 
   return (
@@ -66,13 +99,13 @@ const Login = () => {
                 </label>
               </div>
 
-              <button type="submit" className="submit-button-login" onClick={() => Navigate("/dashboard")}>
+              <button type="submit" className="submit-button-login" onClick={() => checkLogin}>
                 Log in
               </button>
 
               <p
                 className="register-link"
-                onClick={() => checkLogin()}
+                onClick={() => Navigate("/registreren")}
               >
                 Ik heb nog geen account
               </p>
