@@ -1,8 +1,15 @@
 // Dashboard.js
-import React from "react";
+import React, { useState } from "react";
 import "./DashboardPatient.css";
 
+
 const DashboardPatient = () => {
+
+  const [RecentTreatments, setRecentTreatments] = useState([
+    "Fluoride behandeling",
+    "Gebit vulling",
+  ]);
+
   return (
     <main className="dashboard-main">
       <div className="dashboard-content">
@@ -16,7 +23,7 @@ const DashboardPatient = () => {
             >
               {/* Huidige diensten */}
               <div className="services-section">
-                  <h3>Vorige gebit check-up status</h3>
+                <h3>Vorige gebit check-up status</h3>
                 <p className="status-text">
                   Uit vorige onderzoek blijkt uw gebit in perfecte staat.
                 </p>
@@ -29,16 +36,14 @@ const DashboardPatient = () => {
                 </ul>
               </div>
               <div className="treatments-section">
-                <h3>Recente behandelingen</h3>
+                <h3 className="treatment-title">Recente behandelingen</h3>
                 <div className="treatment-list">
-                  <div className="treatment-item completed">
-                    <span className="check-icon">✓</span>
-                    <span>Fluoride behandeling</span>
-                  </div>
-                  <div className="treatment-item completed">
-                    <span className="check-icon">✓</span>
-                    <span>Gebit vulling</span>
-                  </div>
+                  {RecentTreatments.map((treatment) => (
+                    <div className="treatment-item completed" key={treatment}>
+                      <span className="check-icon">✓</span>
+                      <span>{treatment}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

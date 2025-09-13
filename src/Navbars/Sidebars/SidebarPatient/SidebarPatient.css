@@ -21,9 +21,9 @@
   padding: 0.875rem 1.5rem;
   background: none;
   border: none;
-  color: #333;
+  color: #006767;
   font-size: 0.95rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: left;
@@ -33,13 +33,12 @@
 
 .sidebar-item:hover {
   background-color: #e8f4f4;
-  color: #0a5f5f;
+  color: #006767;
 }
 
 .sidebar-item.active {
-  background-color: #e0f2f2;
-  color: #0a5f5f;
-  border-left: 3px solid #0a5f5f;
+  background-color: #006767;
+  color: #ffffff;
   padding-left: calc(1.5rem - 3px);
 }
 
@@ -55,7 +54,6 @@
   flex: 1;
 }
 
-/* Logout specific styling */
 .sidebar-item:last-child {
   margin-top: auto;
   border-top: 1px solid #e0e0e0;
@@ -66,4 +64,3 @@
   background-color: #ffebee;
   color: #d32f2f;
 }
-

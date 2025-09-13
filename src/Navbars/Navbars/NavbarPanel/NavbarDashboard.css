@@ -1,7 +1,7 @@
 /* DashboardNavbar.css */
 
 .dashboard-navbar {
-  background-color: #0a5f5f;
+  background-color: #0B3F3F;
   color: white;
   padding: 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -54,4 +54,3 @@
   font-weight: 500;
   color: white;
 }
-

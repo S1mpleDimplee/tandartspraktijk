@@ -35,7 +35,7 @@ const TandartsRegistratie = () => {
 
     try {
       const response = await fetch(
-        "http://localhost/tandartspraktijk-api/register/register.php",
+        "http://localhost/tandartspraktijkBackend/Datareceiver/datareceiver.php",
         {
           method: "POST",
           headers: {
@@ -53,7 +53,7 @@ const TandartsRegistratie = () => {
       const data = await response.json();
 
       if (data.success) {
-        setMessage("Registratie succesvol! U wordt doorgestuurd...");
+        // setMessage("Registratie succesvol! U wordt doorgestuurd...");
         setTimeout(() => {
           navigate("/inloggen");
         }, 2000);

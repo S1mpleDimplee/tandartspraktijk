@@ -12,7 +12,7 @@
   overflow: hidden;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
   width: 68vw;
-  max-height: 80vh;
+  height: 80vh;
 }
 
 .image-section {
@@ -73,7 +73,7 @@
   font-size: 15px;
   font-family: inherit;
   transition: all 0.3s ease;
-    background-color: #fafafa;
+  background-color: #fafafa;
 }
 
 .form-input:hover {
