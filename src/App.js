@@ -12,6 +12,7 @@ import Login from "./Registration/Login/Login";
 import NavbarDashboard from "./Navbars/Navbars/NavbarPanel/NavbarDashboard";
 import SidebarPatiënt from "./Navbars/Sidebars/SidebarPatient/SidebarPatient";
 import DashboardPatient from "./DashboardPatient/Dashboard/DashboardPatient";
+import Home from "./MainPages/Home/Home";
 
 // Inner component that uses useLocation
 function AppContent() {
@@ -27,15 +28,15 @@ function AppContent() {
     <div className="app-container">
       {/* Navbar at the top */}
       {isPatientDashboard ? <NavbarDashboard /> : <NavbarHome />}
-      
+
       {/* Content area with sidebar and main content */}
       <div className="content-wrapper">
         {isPatientDashboard && <SidebarPatiënt />}
-        
+
         {/* Main content area */}
         <main className="main-content">
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<Home />} />
             <Route path="/registreren" element={<TandartsRegistratie />} />
             <Route path="/inloggen" element={<Login />} />
             <Route path="/dashboard" element={<DashboardPatient />} />
