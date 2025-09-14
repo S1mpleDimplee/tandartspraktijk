@@ -48,7 +48,7 @@
 }
 
 .form-title-login {
-  color: #008B8B;
+  color: #05acac;
   font-size: 36px;
   font-weight: 700;
   text-align: center;
@@ -72,7 +72,7 @@
   padding: 14px 20px;
   border: 3px solid #636262;
   border-radius: 10px;
-  font-size: 15px;
+  font-size: 16px;
   font-family: inherit;
   transition: all 0.3s ease;
   background-color: #3a3939;
@@ -91,12 +91,11 @@
 
 .form-input-login::placeholder {
   color: #999;
-  font-size: 14px;
 }
 
 .form-label-login {
   display: block;
-  color: #fff;
+  color: #fffefe;
   margin-top: 4px;
   margin-left: 15px;
   font-size: 12px;
@@ -110,7 +109,7 @@
   border: none;
   padding: 14px 50px;
   border-radius: 25px;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -121,7 +120,26 @@
   min-width: 200px;
 }
 
-.submit-button-login:hover {
+.login-message {
+  text-align: center;
+  font-size: 12pt;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  background-color: #32333357;
+  border: 1px solid #636262;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.login-success {
+  color: #00b4d8;
+}
+
+.login-error {
+  color: #ff4c4c;
+}
+
+s .submit-button-login:hover {
   background-color: #053944;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 180, 216, 0.4);
