@@ -1,10 +1,10 @@
 /* DashboardSidebar.css */
 
 .dashboard-sidebar {
-  background-color: #f8f9fa;
+  background-color: #1D2839;
   width: 200px;
   min-height: calc(100vh - 60px);
-  border-right: 1px solid #e0e0e0;
+  border-right: 1px solid #494646;
   flex-shrink: 0;
 }
 
@@ -21,8 +21,8 @@
   padding: 0.875rem 1.5rem;
   background: none;
   border: none;
-  color: #006767;
-  font-size: 0.95rem;
+  color: #ffffff;
+  font-size: 13pt;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -32,8 +32,7 @@
 }
 
 .sidebar-item:hover {
-  background-color: #e8f4f4;
-  color: #006767;
+  background-color: rgba(30, 253, 253, 0.089);
 }
 
 .sidebar-item.active {

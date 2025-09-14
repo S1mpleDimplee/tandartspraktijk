@@ -5,8 +5,12 @@ import ToothIcon from '../../Media/Icons/ToothIcon.svg'
 import PatientsIcon from '../../Media/Icons/PatientsIcon.svg'
 import LocationIcon from '../../Media/Icons/LocationIcon.svg'
 import ReviewIcon from '../../Media/Icons/ReviewIcon.svg'
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const Home = () => {
+
+    const navigate = useNavigate();
+
     return (
         <div className="home-container">
             {/* Hero Section */}
@@ -21,7 +25,7 @@ const Home = () => {
                         Registreer en maak snel en handig<br />
                         een afspraak blah blah blah
                     </p>
-                    <button className="hero-button">Registreer nu</button>
+                    <button className="hero-button" onClick={() => { navigate('/registreren') }}>Registreer nu</button>
                 </div>
             </div>
 

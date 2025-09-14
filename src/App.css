@@ -1,7 +1,8 @@
 body {
-  background-color: #F1F1F1 !important;
+  background-color: #181c2c !important;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   margin: 0;
+  height: 100%;
 }
 
 .content-wrapper {
