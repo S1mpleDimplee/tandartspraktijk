@@ -47,7 +47,7 @@ function AppContent() {
 
       </div>
       <footer className="footer">
-        <Footer />
+        {isPatientDashboard ? null : <Footer />}
       </footer>
     </div>
   );
