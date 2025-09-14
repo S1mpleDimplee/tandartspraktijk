@@ -1,7 +1,7 @@
 // Login.js
 import React, { useState } from "react";
 import "./Login.css";
-import image from "../register.png"; // Use same image or replace with login image
+import image from "../register.png";
 import { Navigate, useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -12,6 +12,8 @@ const Login = () => {
     password: "",
   });
 
+  const [message, setMessage] = useState("Er is een fout opgetreden tijdens het inloggen. Probeer het later opnieuw.");
+
   const handleChange = (e, inputName) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -20,9 +22,63 @@ const Login = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const addLoginData = (loggedInData) => {
+    console.log("Storing login data:", loggedInData);
+
+    localStorage.setItem("loggedInData", JSON.stringify(loggedInData));
+
+    const getUserData = async () => {
+      const response = await fetch("http://localhost/tandartspraktijkBackend/Datareceiver/datareceiver.php", {
+        method: "GET",
+        body: JSON.stringify({
+          function: "getUserData",
+          email: formData.email || "",
+        }),
+      });
+      const data = await response.json();
+      console.log("Fetched data for login storage:", data);
+
+      // Add userID to the loggedInData
+      const updatedLoggedInData = { ...loggedInData, userID: data.userID || "placeholderUserID" };
+      localStorage.setItem("loggedInData", JSON.stringify(updatedLoggedInData));
+    };
+
+    getUserData();
+
+    // Store login state in localStorage with 30-minute expiry
+    // const expiryDate = new Date(new Date().getTime() + 30 * 60 * 1000);
+    // localStorage.setItem("loggedInData", JSON.stringify({ ...loggedInData, expiry: expiryDate }));
+
+  }
+
+  const checkLogin = async (e) => {
     e.preventDefault();
-    console.log("Login attempt:", formData);
+    try {
+      const response = await fetch(
+        "http://localhost/tandartspraktijkBackend/Datareceiver/datareceiver.php",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            function: "loginUser",
+            email: formData.email || "",
+            password: formData.password || "",
+          }),
+        });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setMessage("U bent succesvol ingelogd!");
+        setTimeout(() => {
+          Navigate("/dashboard");
+        }, 2000);
+      } else {
+        setMessage("Inloggen mislukt: " + data.message);
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      setMessage("Er is een fout opgetreden tijdens het inloggen. Probeer het later opnieuw.");
+    }
   };
 
   return (
@@ -40,7 +96,13 @@ const Login = () => {
           <div className="form-container-login">
             <h2 className="form-title-login">Inloggen</h2>
 
-            <form className="login-form" onSubmit={handleSubmit}>
+            {message && (
+              <div className={`login-message ${message.includes("succesvol") ? "login-success" : "login-error"}`}>
+                {message}
+              </div>
+            )}
+
+            <div className="login-form" onSubmit={checkLogin}>
               <div className="form-group-login">
                 <input
                   className="form-input-login"
@@ -66,7 +128,7 @@ const Login = () => {
                 </label>
               </div>
 
-              <button type="submit" className="submit-button-login" onClick={() => Navigate("/dashboard")}>
+              <button type="submit" className="submit-button-login" onClick={checkLogin}>
                 Log in
               </button>
 
@@ -76,7 +138,7 @@ const Login = () => {
               >
                 Ik heb nog geen account
               </p>
-            </form>
+            </div>
           </div>
         </div>
       </div>

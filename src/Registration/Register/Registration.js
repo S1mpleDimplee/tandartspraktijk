@@ -7,7 +7,8 @@ const TandartsRegistratie = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    name: "testname",
+    firstName: "testname",
+    lastName: "testlast",
     email: "test@example.com",
     password: "testPassword123",
     confirmPassword: "testPassword123",
@@ -16,8 +17,7 @@ const TandartsRegistratie = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  const handleInputChange = (value, name) => {
     setFormData({ ...formData, [name]: value });
   };
 
@@ -35,7 +35,7 @@ const TandartsRegistratie = () => {
 
     try {
       const response = await fetch(
-        "http://localhost/tandartspraktijkBackend/register/register.php",
+        "http://localhost/tandartspraktijkBackend/Datareceiver/datareceiver.php",
         {
           method: "POST",
           headers: {
@@ -43,9 +43,10 @@ const TandartsRegistratie = () => {
           },
           body: JSON.stringify({
             function: "addUser",
-            name: formData.name,
-            email: formData.email,
-            password: formData.password,
+            firstName: formData.firstName || "",
+            lastName: formData.lastName || "",
+            email: formData.email || "",
+            password: formData.password || "",
           }),
         }
       );
@@ -53,12 +54,12 @@ const TandartsRegistratie = () => {
       const data = await response.json();
 
       if (data.success) {
-        setMessage("Registratie succesvol! U wordt doorgestuurd...");
+        setMessage("U bent succesvol geregistreerd!");
         setTimeout(() => {
           navigate("/inloggen");
         }, 2000);
       } else {
-        setMessage(data.message || "Registratie mislukt");
+        setMessage(data.message || "Er is iets fout gegaan tijdens de registratie.");
       }
     } catch (error) {
       console.error("Registration error:", error);
@@ -89,11 +90,6 @@ const TandartsRegistratie = () => {
                   style={{
                     color: message.includes("succesvol") ? "green" : "red",
                     marginBottom: "15px",
-                    padding: "10px",
-                    backgroundColor: message.includes("succesvol")
-                      ? "#e6ffe6"
-                      : "#ffe6e6",
-                    borderRadius: "4px",
                     textAlign: "center",
                   }}
                 >
@@ -102,16 +98,28 @@ const TandartsRegistratie = () => {
               )}
 
               <form className="registration-form" onSubmit={handleSubmit}>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    name="name"
-                    className="form-input"
-                    placeholder="Bijv. Klaas van den Hof"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                  />
+                <div className="form-group ">
+                  <div className="name-group">
+                    <input
+                      type="text"
+                      name="name"
+                      className="form-input"
+                      placeholder="Voornaam"
+                      value={formData.firstName}
+                      onChange={(e) => handleInputChange(e.target.value, "firstName")}
+                      required
+                    />
+
+                    <input
+                      type="text"
+                      name="lastName"
+                      className="form-input"
+                      placeholder="Achternaam"
+                      value={formData.lastName}
+                      onChange={(e) => handleInputChange(e.target.value, "lastName")}
+                      required
+                    />
+                  </div>
                   <label className="form-label">
                     Voer hier uw voor en achternaam is inclusief tussenvoegsel
                   </label>
@@ -124,7 +132,7 @@ const TandartsRegistratie = () => {
                     className="form-input"
                     placeholder="mijnemailadress@gmail.com"
                     value={formData.email}
-                    onChange={handleInputChange}
+                    onChange={(e) => handleInputChange(e.target.value, "email")}
                     required
                   />
                   <label className="form-label">
@@ -139,7 +147,7 @@ const TandartsRegistratie = () => {
                     className="form-input"
                     placeholder="EenSterkWachtwoord123"
                     value={formData.password}
-                    onChange={handleInputChange}
+                    onChange={(e) => handleInputChange(e.target.value, "password")}
                     required
                   />
                   <label className="form-label">
@@ -156,7 +164,7 @@ const TandartsRegistratie = () => {
                     className="form-input"
                     placeholder="EenSterkWachtwoord123"
                     value={formData.confirmPassword}
-                    onChange={handleInputChange}
+                    onChange={(e) => handleInputChange(e.target.value, "confirmPassword")}
                     required
                   />
                   <label className="form-label">

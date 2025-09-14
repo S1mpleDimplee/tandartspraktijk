@@ -1,0 +1,295 @@
+/* Figma Design Precise Recreation */
+.home-container {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Hero Section */
+.hero-section {
+    position: relative;
+    height: 500px;
+    background-image: url('../../Media/Images/homeDentistBG.png');
+    /* Replace with your actual image path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+}
+
+.hero-title {
+    font-size: 48px;
+    font-weight: bold;
+    margin: 0 0 20px 0;
+    line-height: 1.1;
+}
+
+.hero-subtitle {
+    font-size: 16px;
+    margin: 0 0 40px 0;
+    line-height: 1.4;
+    font-weight: normal;
+}
+
+.hero-button {
+    background-color: #00B4A6;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.hero-button:hover {
+    background-color: #009688;
+}
+
+/* Description Section */
+.description-section {
+    background-color: #F5F5F5;
+    padding: 80px 40px;
+    text-align: center;
+}
+
+.description-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.description-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+    margin: 0 0 30px 0;
+    line-height: 1.2;
+}
+
+.description-text {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Statistics Section */
+.statistics-section {
+    background-color: #2C3E50;
+    padding: 80px 40px;
+    text-align: center;
+}
+
+.stats-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: white;
+    margin: 0 0 20px 0;
+}
+
+.purple-line {
+    width: 60px;
+    height: 4px;
+    background-color: #9B59B6;
+    margin: 0 auto 60px auto;
+}
+
+.statistics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.stat-card {
+    background-color: #34495E;
+    padding: 40px 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.stat-icon {
+    color: white;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.stat-icon-img {
+    width: 80px;
+    height: 80px;
+}
+
+.stat-number {
+    font-size: 32px;
+    font-weight: bold;
+    color: #E91E63;
+    margin: 0 0 10px 0;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: white;
+    margin: 0;
+    line-height: 1.3;
+}
+
+/* Reviews Section */
+.reviews-section {
+    background-color: #F5F5F5;
+    padding: 80px 40px;
+}
+
+.reviews-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.reviews-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin: 0 0 60px 0;
+}
+
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.review-card {
+    background-color: #2C3E50;
+    padding: 30px 25px;
+    border-radius: 10px;
+    color: white;
+    position: relative;
+}
+
+.review-stars {
+    color: #FFD700;
+    font-size: 16px;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+}
+
+.reviewer-name {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: white;
+}
+
+.review-text {
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+    color: #BDC3C7;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .statistics-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+
+    .reviews-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 32px;
+    }
+
+    .hero-subtitle {
+        font-size: 14px;
+    }
+
+    .description-title {
+        font-size: 28px;
+    }
+
+    .stats-title {
+        font-size: 28px;
+    }
+
+    .reviews-title {
+        font-size: 28px;
+    }
+
+    .statistics-section {
+        padding: 60px 20px;
+    }
+
+    .description-section {
+        padding: 60px 20px;
+    }
+
+    .reviews-section {
+        padding: 60px 20px;
+    }
+
+    .statistics-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .reviews-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .stat-card {
+        padding: 30px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 24px;
+    }
+
+    .hero-button {
+        padding: 12px 25px;
+        font-size: 14px;
+    }
+
+    .description-title {
+        font-size: 24px;
+    }
+
+    .stats-title {
+        font-size: 24px;
+    }
+
+    .reviews-title {
+        font-size: 24px;
+    }
+}
