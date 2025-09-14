@@ -13,6 +13,7 @@ import NavbarDashboard from "./Navbars/Navbars/NavbarPanel/NavbarDashboard";
 import SidebarPatiënt from "./Navbars/Sidebars/SidebarPatient/SidebarPatient";
 import DashboardPatient from "./DashboardPatient/Dashboard/DashboardPatient";
 import Home from "./MainPages/Home/Home";
+import Footer from "./Footer/Footer";
 
 // Inner component that uses useLocation
 function AppContent() {
@@ -42,7 +43,12 @@ function AppContent() {
             <Route path="/dashboard" element={<DashboardPatient />} />
           </Routes>
         </main>
+
+
       </div>
+      <footer className="footer">
+        <Footer />
+      </footer>
     </div>
   );
 }

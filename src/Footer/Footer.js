@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="footer-column">
           <h3 className="footer-title">Tandartspraktijk Hengelo</h3>
           <p className="footer-description">
-            Uw vertrouwde partner voor een gezonde en stralende lach. 
+            Uw vertrouwde partner voor een gezonde en stralende lach.
             Moderne tandheelkunde met persoonlijke zorg.
           </p>
         </div>
