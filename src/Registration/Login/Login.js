@@ -13,7 +13,7 @@ const Login = () => {
     password: "",
   });
 
-  const [message, setMessage] = useState("Er is een fout opgetreden tijdens het inloggen. Probeer het later opnieuw.");
+  const [message, setMessage] = useState("");
 
   const handleChange = (e, inputName) => {
     const { name, value } = e.target;
