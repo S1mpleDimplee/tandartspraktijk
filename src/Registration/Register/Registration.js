@@ -31,16 +31,17 @@ const TandartsRegistratie = () => {
 
     setLoading(true);
 
-    const result = await postCall("addUser", formData);
 
-    if (result.isSuccess) {
+    const response = await postCall("addUser", formData);
+
+    if (response.isSuccess) {
       setMessage("Registratie succesvol!");
       setTimeout(() => {
         navigate("/inloggen");
       }, 2000);
     } else {
       setLoading(false);
-      setMessage("Registratie mislukt: " + result.message);
+      setMessage("Registratie mislukt: " + response.message);
     }
   };
 

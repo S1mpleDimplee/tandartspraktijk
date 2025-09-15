@@ -23,6 +23,7 @@ function AppContent() {
 
   useEffect(() => {
     setIsPatientDashboard(patientDashboardUrls.includes(location.pathname));
+
   }, [location.pathname]);
 
   return (
