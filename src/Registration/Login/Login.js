@@ -2,7 +2,8 @@
 import React, { useState } from "react";
 import "./Login.css";
 import image from "../register.png";
-import { Navigate, useNavigate } from "react-router-dom";
+import { data, Navigate, useNavigate } from "react-router-dom";
+import postCall from "../../Calls/calls";
 
 const Login = () => {
   const Navigate = useNavigate();
@@ -22,62 +23,47 @@ const Login = () => {
     }));
   };
 
-  const addLoginData = (loggedInData) => {
-    console.log("Storing login data:", loggedInData);
+  // const addLoginData = (loggedInData) => {
+  //   console.log("Storing login data:", loggedInData);
 
-    localStorage.setItem("loggedInData", JSON.stringify(loggedInData));
+  //   localStorage.setItem("loggedInData", JSON.stringify(loggedInData));
 
-    const getUserData = async () => {
-      const response = await fetch("http://localhost/tandartspraktijkBackend/Datareceiver/datareceiver.php", {
-        method: "GET",
-        body: JSON.stringify({
-          function: "getUserData",
-          email: formData.email || "",
-        }),
-      });
-      const data = await response.json();
-      console.log("Fetched data for login storage:", data);
+  //   const getUserData = async () => {
+  //     const response = await fetch("http://localhost/tandartspraktijkBackend/Datareceiver/datareceiver.php", {
+  //       method: "GET",
+  //       body: JSON.stringify({
+  //         function: "getUserData",
+  //         email: formData.email || "",
+  //       }),
+  //     });
+  //     const data = await response.json();
+  //     console.log("Fetched data for login storage:", data);
 
-      // Add userID to the loggedInData
-      const updatedLoggedInData = { ...loggedInData, userID: data.userID || "placeholderUserID" };
-      localStorage.setItem("loggedInData", JSON.stringify(updatedLoggedInData));
-    };
+  //     // Add userID to the loggedInData
+  //     const updatedLoggedInData = { ...loggedInData, userID: data.userID || "placeholderUserID" };
+  //     localStorage.setItem("loggedInData", JSON.stringify(updatedLoggedInData));
+  //   };
 
-    getUserData();
+  //   getUserData();
 
-    // Store login state in localStorage with 30-minute expiry
-    // const expiryDate = new Date(new Date().getTime() + 30 * 60 * 1000);
-    // localStorage.setItem("loggedInData", JSON.stringify({ ...loggedInData, expiry: expiryDate }));
+  //   // Store login state in localStorage with 30-minute expiry
+  //   // const expiryDate = new Date(new Date().getTime() + 30 * 60 * 1000);
+  //   // localStorage.setItem("loggedInData", JSON.stringify({ ...loggedInData, expiry: expiryDate }));
 
-  }
+  // }
 
   const checkLogin = async (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch(
-        "http://localhost/tandartspraktijkBackend/Datareceiver/datareceiver.php",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            function: "loginUser",
-            email: formData.email || "",
-            password: formData.password || "",
-          }),
-        });
 
-      const data = await response.json();
+    const result = await postCall("loginUser", formData);
 
-      if (data.success) {
-        setMessage("U bent succesvol ingelogd!");
-        setTimeout(() => {
-          Navigate("/dashboard");
-        }, 2000);
-      } else {
-        setMessage("Inloggen mislukt: " + data.message);
-      }
-    } catch (error) {
-      console.error("Error during login:", error);
-      setMessage("Er is een fout opgetreden tijdens het inloggen. Probeer het later opnieuw.");
+    if (result.isSuccess) {
+      setMessage("U bent succesvol ingelogd!");
+      setTimeout(() => {
+        Navigate("/dashboard");
+      }, 2000);
+    } else {
+      setMessage("Inloggen mislukt: " + result.message);
     }
   };
 

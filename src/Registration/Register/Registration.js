@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import "./Registration.css";
 import image from "../register.png";
 import { useNavigate } from "react-router-dom";
+import postCall from "../../Calls/calls";
 
 const TandartsRegistratie = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    firstName: "testname",
-    lastName: "testlast",
-    email: "test@example.com",
-    password: "testPassword123",
-    confirmPassword: "testPassword123",
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const [message, setMessage] = useState("");
@@ -21,9 +22,7 @@ const TandartsRegistratie = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async () => {
     // Simple password confirmation check
     if (formData.password !== formData.confirmPassword) {
       setMessage("Wachtwoorden komen niet overeen");
@@ -31,41 +30,17 @@ const TandartsRegistratie = () => {
     }
 
     setLoading(true);
-    setMessage("");
 
-    try {
-      const response = await fetch(
-        "http://localhost/tandartspraktijkBackend/Datareceiver/datareceiver.php",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            function: "addUser",
-            firstName: formData.firstName || "",
-            lastName: formData.lastName || "",
-            email: formData.email || "",
-            password: formData.password || "",
-          }),
-        }
-      );
+    const result = await postCall("addUser", formData);
 
-      const data = await response.json();
-
-      if (data.success) {
-        setMessage("U bent succesvol geregistreerd!");
-        setTimeout(() => {
-          navigate("/inloggen");
-        }, 2000);
-      } else {
-        setMessage(data.message || "Er is iets fout gegaan tijdens de registratie.");
-      }
-    } catch (error) {
-      console.error("Registration error:", error);
-      setMessage("Er is een fout opgetreden. Probeer het later opnieuw.");
-    } finally {
+    if (result.isSuccess) {
+      setMessage("Registratie succesvol!");
+      setTimeout(() => {
+        navigate("/inloggen");
+      }, 2000);
+    } else {
       setLoading(false);
+      setMessage("Registratie mislukt: " + result.message);
     }
   };
 
@@ -97,7 +72,7 @@ const TandartsRegistratie = () => {
                 </div>
               )}
 
-              <form className="registration-form" onSubmit={handleSubmit}>
+              <div className="registration-form">
                 <div className="form-group ">
                   <div className="name-group">
                     <input
@@ -176,8 +151,9 @@ const TandartsRegistratie = () => {
                   type="submit"
                   className="submit-button"
                   disabled={loading}
+                  onClick={handleSubmit}
                 >
-                  {loading ? "Bezig met registreren..." : "Registreren"}
+                  {loading ? "Bezig met registreren..." : "Registreer"}
                 </button>
 
                 <p
@@ -187,7 +163,7 @@ const TandartsRegistratie = () => {
                 >
                   Ik heb al een account
                 </p>
-              </form>
+              </div>
             </div>
           </div>
         </div>
