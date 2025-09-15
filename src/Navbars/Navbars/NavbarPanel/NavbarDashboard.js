@@ -11,7 +11,7 @@ const NavbarDashboard = () => {
   useEffect(() => {
     // Fetch user data from localStorage
     const loggedInData = JSON.parse(localStorage.getItem("loggedInData"));
-    setUserName(loggedInData.firstName ? loggedInData.firstName : "Klant naam");
+    setUserName(loggedInData ? loggedInData.firstName : "Klant naam");
   }, []);
 
   return (

@@ -30,8 +30,6 @@ const TandartsRegistratie = () => {
     }
 
     setLoading(true);
-
-
     const response = await postCall("addUser", formData);
 
     if (response.isSuccess) {
