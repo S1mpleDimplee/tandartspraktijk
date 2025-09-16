@@ -2,7 +2,7 @@
 const postCall = async (usedFunction, dataSend) => {
     try {
         const response = await fetch(
-            "http://localhost/tandartspraktijkBackend/Datareceiver/datareceiver.php",
+            "http://localhost/tandartspraktijkBackend/router/router.php",
             {
                 method: "POST",
                 body: JSON.stringify({
