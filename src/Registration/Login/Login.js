@@ -27,28 +27,6 @@ const Login = () => {
 
     localStorage.setItem("loggedInData", JSON.stringify(data));
 
-    // const getUserData = async () => {
-    //   const response = await fetch("http://localhost/tandartspraktijkBackend/Datareceiver/datareceiver.php", {
-    //     method: "GET",
-    //     body: JSON.stringify({
-    //       function: "getUserData",
-    //       email: formData.email || "",
-    //     }),
-    //   });
-    //   const data = await response.json();
-    //   console.log("Fetched data for login storage:", data);
-
-    //   // Add userID to the loggedInData
-    //   const updatedLoggedInData = { ...loggedInData, userID: data.userID || "placeholderUserID" };
-    //   localStorage.setItem("loggedInData", JSON.stringify(updatedLoggedInData));
-    // };
-
-    // getUserData();
-
-    // Store login state in localStorage with 30-minute expiry
-    // const expiryDate = new Date(new Date().getTime() + 30 * 60 * 1000);
-    // localStorage.setItem("loggedInData", JSON.stringify({ ...loggedInData, expiry: expiryDate }));
-
   }
 
   const checkLogin = async () => {

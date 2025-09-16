@@ -35,7 +35,7 @@ function AppContent() {
   const checkIfUserIsLoggedIn = () => {
     const loggedInData = JSON.parse(localStorage.getItem("loggedInData"));
     if (!loggedInData && !isNonLoggedIn) {
-      navigate("/");
+      navigate("/inloggen");
     }
   };
 
