@@ -22,6 +22,9 @@ function AppContent() {
   const [isPatientDashboard, setIsPatientDashboard] = useState(false);
   const patientDashboardUrls = ["/dashboard"];
 
+  const nonLoggedInUrls = ["/", "/inloggen", "/registreren"];
+  const isNonLoggedIn = nonLoggedInUrls.includes(location.pathname);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,8 +34,8 @@ function AppContent() {
 
   const checkIfUserIsLoggedIn = () => {
     const loggedInData = JSON.parse(localStorage.getItem("loggedInData"));
-    if (!loggedInData) {
-      navigate("/inloggen");
+    if (!loggedInData && !isNonLoggedIn) {
+      navigate("/");
     }
   };
 
