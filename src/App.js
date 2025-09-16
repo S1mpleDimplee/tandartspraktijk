@@ -5,6 +5,7 @@ import {
   Routes,
   Route,
   useLocation,
+  useNavigate,
 } from "react-router-dom";
 import { useEffect, useState } from "react";
 import NavbarHome from "./Navbars/Navbars/NavbarHome/NavbarHome";
@@ -21,9 +22,22 @@ function AppContent() {
   const [isPatientDashboard, setIsPatientDashboard] = useState(false);
   const patientDashboardUrls = ["/dashboard"];
 
+  const nonLoggedInUrls = ["/", "/inloggen", "/registreren"];
+  const isNonLoggedIn = nonLoggedInUrls.includes(location.pathname);
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     setIsPatientDashboard(patientDashboardUrls.includes(location.pathname));
+    checkIfUserIsLoggedIn();
   }, [location.pathname]);
+
+  const checkIfUserIsLoggedIn = () => {
+    const loggedInData = JSON.parse(localStorage.getItem("loggedInData"));
+    if (!loggedInData && !isNonLoggedIn) {
+      navigate("/");
+    }
+  };
 
   return (
     <div className="app-container">

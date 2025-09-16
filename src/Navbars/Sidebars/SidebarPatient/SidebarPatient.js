@@ -1,15 +1,17 @@
 // DashboardSidebar.js
 import React, { useState } from 'react';
 import './SidebarPatient.css';
+import { useNavigate } from 'react-router-dom';
 
-const   SidebarPatiënt = () => {
+const SidebarPatiënt = () => {
   const [activeItem, setActiveItem] = useState('dashboard');
+
+  const navigate = useNavigate();
 
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: '🏠' },
     { id: 'afspraken', label: 'Afspraken', icon: '📅' },
     { id: 'profiel', label: 'Profiel', icon: '👤' },
-    { id: 'uitloggen', label: 'Uitloggen', icon: '🚪' }
   ];
 
   const handleItemClick = (itemId) => {
@@ -21,8 +23,18 @@ const   SidebarPatiënt = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("loggedInData");
+    navigate("/");
+  }
+
   return (
     <aside className="dashboard-sidebar">
+
+      <div className="sidebar-header">
+        <h2>{activeItem}</h2>
+      </div>
+
       <nav className="sidebar-nav">
         {menuItems.map((item) => (
           <button
@@ -33,8 +45,16 @@ const   SidebarPatiënt = () => {
             <span className="sidebar-icon">{item.icon}</span>
             <span className="sidebar-label">{item.label}</span>
           </button>
+
         ))}
-      </nav>
+
+
+      </nav> <button
+        className={`sidebar-item logout-button`}
+        onClick={() => handleLogout()}
+      >
+        <span className="sidebar-label">Uitloggen</span>
+      </button>
     </aside>
   );
 };
