@@ -2,28 +2,27 @@ import React, { useState } from "react";
 import "./Registration.css";
 import image from "../register.png";
 import { useNavigate } from "react-router-dom";
+import postCall from "../../Calls/calls";
 
 const TandartsRegistratie = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    name: "testname",
-    email: "test@example.com",
-    password: "testPassword123",
-    confirmPassword: "testPassword123",
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  const handleInputChange = (value, name) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async () => {
     // Simple password confirmation check
     if (formData.password !== formData.confirmPassword) {
       setMessage("Wachtwoorden komen niet overeen");
@@ -31,40 +30,16 @@ const TandartsRegistratie = () => {
     }
 
     setLoading(true);
-    setMessage("");
+    const response = await postCall("addUser", formData);
 
-    try {
-      const response = await fetch(
-        "http://localhost/tandartspraktijkBackend/register/register.php",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            function: "addUser",
-            name: formData.name,
-            email: formData.email,
-            password: formData.password,
-          }),
-        }
-      );
-
-      const data = await response.json();
-
-      if (data.success) {
-        setMessage("Registratie succesvol! U wordt doorgestuurd...");
-        setTimeout(() => {
-          navigate("/inloggen");
-        }, 2000);
-      } else {
-        setMessage(data.message || "Registratie mislukt");
-      }
-    } catch (error) {
-      console.error("Registration error:", error);
-      setMessage("Er is een fout opgetreden. Probeer het later opnieuw.");
-    } finally {
+    if (response.isSuccess) {
+      setMessage("Registratie succesvol!");
+      setTimeout(() => {
+        navigate("/inloggen");
+      }, 2000);
+    } else {
       setLoading(false);
+      setMessage("Registratie mislukt: " + response.message);
     }
   };
 
@@ -89,11 +64,6 @@ const TandartsRegistratie = () => {
                   style={{
                     color: message.includes("succesvol") ? "green" : "red",
                     marginBottom: "15px",
-                    padding: "10px",
-                    backgroundColor: message.includes("succesvol")
-                      ? "#e6ffe6"
-                      : "#ffe6e6",
-                    borderRadius: "4px",
                     textAlign: "center",
                   }}
                 >
@@ -101,17 +71,29 @@ const TandartsRegistratie = () => {
                 </div>
               )}
 
-              <form className="registration-form" onSubmit={handleSubmit}>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    name="name"
-                    className="form-input"
-                    placeholder="Bijv. Klaas van den Hof"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                  />
+              <div className="registration-form">
+                <div className="form-group ">
+                  <div className="name-group">
+                    <input
+                      type="text"
+                      name="name"
+                      className="form-input"
+                      placeholder="Voornaam"
+                      value={formData.firstName}
+                      onChange={(e) => handleInputChange(e.target.value, "firstName")}
+                      required
+                    />
+
+                    <input
+                      type="text"
+                      name="lastName"
+                      className="form-input"
+                      placeholder="Achternaam"
+                      value={formData.lastName}
+                      onChange={(e) => handleInputChange(e.target.value, "lastName")}
+                      required
+                    />
+                  </div>
                   <label className="form-label">
                     Voer hier uw voor en achternaam is inclusief tussenvoegsel
                   </label>
@@ -124,7 +106,7 @@ const TandartsRegistratie = () => {
                     className="form-input"
                     placeholder="mijnemailadress@gmail.com"
                     value={formData.email}
-                    onChange={handleInputChange}
+                    onChange={(e) => handleInputChange(e.target.value, "email")}
                     required
                   />
                   <label className="form-label">
@@ -139,7 +121,7 @@ const TandartsRegistratie = () => {
                     className="form-input"
                     placeholder="EenSterkWachtwoord123"
                     value={formData.password}
-                    onChange={handleInputChange}
+                    onChange={(e) => handleInputChange(e.target.value, "password")}
                     required
                   />
                   <label className="form-label">
@@ -156,7 +138,7 @@ const TandartsRegistratie = () => {
                     className="form-input"
                     placeholder="EenSterkWachtwoord123"
                     value={formData.confirmPassword}
-                    onChange={handleInputChange}
+                    onChange={(e) => handleInputChange(e.target.value, "confirmPassword")}
                     required
                   />
                   <label className="form-label">
@@ -168,8 +150,9 @@ const TandartsRegistratie = () => {
                   type="submit"
                   className="submit-button"
                   disabled={loading}
+                  onClick={handleSubmit}
                 >
-                  {loading ? "Bezig met registreren..." : "Registreren"}
+                  {loading ? "Bezig met registreren..." : "Registreer"}
                 </button>
 
                 <p
@@ -179,7 +162,7 @@ const TandartsRegistratie = () => {
                 >
                   Ik heb al een account
                 </p>
-              </form>
+              </div>
             </div>
           </div>
         </div>

@@ -1,17 +1,26 @@
 /* DashboardSidebar.css */
 
 .dashboard-sidebar {
-  background-color: #f8f9fa;
+  background-color: #1D2839;
   width: 200px;
   min-height: calc(100vh - 60px);
-  border-right: 1px solid #e0e0e0;
+  border-right: 1px solid #494646;
   flex-shrink: 0;
+}
+
+.sidebar-header {
+  font-size: 12pt;
+  border-bottom: 1px solid #8d8989;
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 3vh;
 }
 
 .sidebar-nav {
   padding: 1rem 0;
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
 }
 
 .sidebar-item {
@@ -21,9 +30,9 @@
   padding: 0.875rem 1.5rem;
   background: none;
   border: none;
-  color: #333;
-  font-size: 0.95rem;
-  font-weight: 500;
+  color: #ffffff;
+  font-size: 13pt;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: left;
@@ -32,15 +41,20 @@
 }
 
 .sidebar-item:hover {
-  background-color: #e8f4f4;
-  color: #0a5f5f;
+  background-color: rgba(30, 253, 253, 0.089);
 }
 
 .sidebar-item.active {
-  background-color: #e0f2f2;
-  color: #0a5f5f;
-  border-left: 3px solid #0a5f5f;
+  background-color: #038a78;
+  border-radius: 10px;
+  width: calc(100% - 30px);
+  justify-content: center;
+  justify-self: center;
+  margin-left: 15px;
+  color: #ffffff;
   padding-left: calc(1.5rem - 3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
 }
 
 .sidebar-icon {
@@ -55,15 +69,12 @@
   flex: 1;
 }
 
-/* Logout specific styling */
-.sidebar-item:last-child {
+.logout-button {
   margin-top: auto;
-  border-top: 1px solid #e0e0e0;
-  color: #666;
+  text-align: center;
+  width: 150px;
+  justify-content: center;
+  justify-self: center;
+  border-radius: 10px;
+  background-color: #fd5d00;
 }
-
-.sidebar-item:last-child:hover {
-  background-color: #ffebee;
-  color: #d32f2f;
-}
-

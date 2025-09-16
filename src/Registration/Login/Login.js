@@ -1,8 +1,9 @@
 // Login.js
 import React, { useState } from "react";
 import "./Login.css";
-import image from "../register.png"; // Use same image or replace with login image
-import { Navigate, useNavigate } from "react-router-dom";
+import image from "../register.png";
+import { data, Navigate, useNavigate } from "react-router-dom";
+import postCall from "../../Calls/calls";
 
 const Login = () => {
   const Navigate = useNavigate();
@@ -12,6 +13,8 @@ const Login = () => {
     password: "",
   });
 
+  const [message, setMessage] = useState("");
+
   const handleChange = (e, inputName) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -20,9 +23,48 @@ const Login = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Login attempt:", formData);
+  const addLoginData = (data) => {
+
+    localStorage.setItem("loggedInData", JSON.stringify(data));
+
+    // const getUserData = async () => {
+    //   const response = await fetch("http://localhost/tandartspraktijkBackend/Datareceiver/datareceiver.php", {
+    //     method: "GET",
+    //     body: JSON.stringify({
+    //       function: "getUserData",
+    //       email: formData.email || "",
+    //     }),
+    //   });
+    //   const data = await response.json();
+    //   console.log("Fetched data for login storage:", data);
+
+    //   // Add userID to the loggedInData
+    //   const updatedLoggedInData = { ...loggedInData, userID: data.userID || "placeholderUserID" };
+    //   localStorage.setItem("loggedInData", JSON.stringify(updatedLoggedInData));
+    // };
+
+    // getUserData();
+
+    // Store login state in localStorage with 30-minute expiry
+    // const expiryDate = new Date(new Date().getTime() + 30 * 60 * 1000);
+    // localStorage.setItem("loggedInData", JSON.stringify({ ...loggedInData, expiry: expiryDate }));
+
+  }
+
+  const checkLogin = async () => {
+    const response = await postCall("loginUser", formData);
+
+    if (response.isSuccess) {
+      setMessage("U bent succesvol ingelogd!");
+
+      addLoginData(response.data);
+
+      setTimeout(() => {
+        Navigate("/dashboard");
+      }, 2000);
+    } else {
+      setMessage("Inloggen mislukt: " + response.message);
+    }
   };
 
   return (
@@ -40,7 +82,13 @@ const Login = () => {
           <div className="form-container-login">
             <h2 className="form-title-login">Inloggen</h2>
 
-            <form className="login-form" onSubmit={handleSubmit}>
+            {message && (
+              <div className={`login-message ${message.includes("succesvol") ? "login-success" : "login-error"}`}>
+                {message}
+              </div>
+            )}
+
+            <div className="login-form" onSubmit={checkLogin}>
               <div className="form-group-login">
                 <input
                   className="form-input-login"
@@ -66,7 +114,7 @@ const Login = () => {
                 </label>
               </div>
 
-              <button type="submit" className="submit-button-login" onClick={() => Navigate("/dashboard")}>
+              <button type="submit" className="submit-button-login" onClick={checkLogin}>
                 Log in
               </button>
 
@@ -76,7 +124,7 @@ const Login = () => {
               >
                 Ik heb nog geen account
               </p>
-            </form>
+            </div>
           </div>
         </div>
       </div>
