@@ -32,7 +32,7 @@ const TandartsRegistratie = () => {
     setLoading(true);
     const response = await postCall("addUser", formData);
 
-    if (response.isSuccess) {
+    if (response.isSuccess  ) {
       setMessage("Registratie succesvol!");
       setTimeout(() => {
         navigate("/inloggen");
