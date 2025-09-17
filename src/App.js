@@ -17,6 +17,7 @@ import Home from "./MainPages/Home/Home";
 import Footer from "./Footer/Footer";
 import DashboardTandarts from "./Dashboards/DashboardTandarts/Dashboard/DashboardTandarts";
 import DentisTimetable from "./Dashboards/DashboardTandarts/Timetable/Timetable";
+import NotFound from "./404/404";
 
 // Inner component that uses useLocation
 function AppContent() {
@@ -68,7 +69,7 @@ function AppContent() {
             <Route path="/dashboard" element={currentRole === 0 ? <DashboardPatient /> : <DashboardTandarts />} />
             <Route path="/dashboard-tandarts" element={<DashboardTandarts />} />
             <Route path="/dashboard/rooster" element={<DentisTimetable />} />
-            <Route path="*" element={<h1>404 - Pagina niet gevonden</h1>} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
 
