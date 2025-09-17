@@ -35,20 +35,12 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Column 4 - Opening Hours */}
-        <div className="footer-column">
-          <h4 className="footer-heading">Openingstijden</h4>
-          <div className="footer-hours">
-            <p>Ma - Vr: 08:00 - 17:00</p>
-            <p>Zaterdag: 09:00 - 13:00</p>
-            <p>Zondag: Gesloten</p>
-          </div>
-        </div>
+
       </div>
 
       {/* Bottom Bar */}
       <div className="footer-bottom">
-        <p>&copy; 2024 Tandartspraktijk Hengelo. Alle rechten voorbehouden.</p>
+        <p>&copy; 2025 Tandartspraktijk Hengelo. Alle rechten voorbehouden.</p>
       </div>
     </footer>
   );

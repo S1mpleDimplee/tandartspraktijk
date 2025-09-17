@@ -1,0 +1,406 @@
+/* TandartsRooster.css */
+.rooster-container {
+  min-height: 100vh;
+  font-family: 'Arial', sans-serif;
+  color: white;
+}
+
+/* Header */
+.rooster-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border-radius: 20px;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(100, 116, 139, 0.2);
+  transition: all 0.4s ease;
+}
+
+.rooster-header:hover {
+  border-color: rgba(0, 180, 166, 0.3);
+}
+
+.rooster-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  color: #f1f5f9;
+}
+
+.doctor-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.doctor-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00B4A6 0%, #00D4C4 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #00B4A6;
+}
+
+.avatar-placeholder {
+  font-size: 1.5rem;
+}
+
+.doctor-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+
+/* Main Layout */
+.rooster-main {
+  display: flex;
+  gap: 2rem;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+
+/* Schedule Content */
+.schedule-content {
+  flex: 1;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  border-radius: 20px;
+  padding: 2rem;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.schedule-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  transition: left 0.6s ease;
+  pointer-events: none;
+}
+
+.schedule-content:hover::before {
+  left: 100%;
+}
+
+.schedule-content:hover {
+  border-color: rgba(0, 180, 166, 0.3);
+}
+
+/* Week Header */
+.week-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.week-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin: 0;
+  margin-left: 40%;
+}
+
+.week-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.week-display {
+  background: linear-gradient(135deg, #00B4A6 0%, #00D4C4 100%);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  font-weight: 700;
+  position: relative;
+  overflow: hidden;
+}
+
+.week-display::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  animation: rotate 10s linear infinite;
+  pointer-events: none;
+}
+
+.week-nav-btn {
+  width: 40px;
+  height: 40px;
+  background: rgba(15, 23, 42, 0.6);
+  color: #cbd5e1;
+  border: 2px solid rgba(100, 116, 139, 0.3);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  backdrop-filter: blur(10px);
+}
+
+.week-nav-btn:hover {
+  background: rgba(0, 180, 166, 0.2);
+  border-color: #00B4A6;
+  color: #f1f5f9;
+}
+
+/* Calendar Grid */
+.calendar-grid {
+  background: rgba(15, 23, 42, 0.4);
+  border-radius: 15px;
+  padding: 1rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(100, 116, 139, 0.1);
+  position: relative;
+  z-index: 1;
+}
+
+.calendar-header {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.day-header {
+  background-color: #00B4A6;
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 180, 166, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.day-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+
+.day-date {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Time Slots Grid */
+.time-slots-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 600px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 116, 139, 0.3) transparent;
+}
+
+.time-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+}
+
+.time-slot {
+  min-height: 120px;
+  background: rgba(30, 41, 59, 0.6);
+  border-radius: 12px;
+  padding: 0.5rem;
+  border: 2px solid rgba(100, 116, 139, 0.2);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.time-slot:hover {
+  border-color: rgba(0, 180, 166, 0.4);
+  background: rgba(30, 41, 59, 0.8);
+}
+
+/* Appointment Cards */
+.appointment-card {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  min-height: 120px;
+  max-height: 120px !important;
+  border-radius: 10px;
+  margin: -0.5rem;
+  padding: 0.8rem;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+
+
+.appointment-time {
+  text-align: end;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.appointment-patient,
+.appointment-patient-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+}
+
+.appointment-type {
+  font-size: 0.9rem;
+  margin: 0.3rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+
+
+
+/* Animations */
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .rooster-main {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .rooster-sidebar {
+    width: 100%;
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .calendar-header,
+  .time-row {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .rooster-container {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .rooster-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .rooster-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .week-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .week-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .calendar-header,
+  .time-row {
+    grid-template-columns: 1fr;
+  }
+
+  .rooster-container {
+    padding: 10px;
+  }
+
+  .schedule-content {
+    padding: 1.5rem;
+  }
+
+  .rooster-sidebar {
+    padding: 1.5rem;
+  }
+
+  .sidebar-nav {
+    gap: 0.5rem;
+  }
+
+  .nav-item {
+    padding: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .rooster-container {
+    padding: 5px;
+  }
+
+  .rooster-header h1 {
+    font-size: 1.3rem;
+  }
+
+  .doctor-name {
+    font-size: 1rem;
+  }
+
+  .schedule-content,
+  .rooster-sidebar {
+    padding: 1rem;
+  }
+
+  .week-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .appointment-card,
+  .no-appointment {
+    padding: 0.6rem;
+  }
+
+  .appointment-time,
+  .appointment-patient,
+  .appointment-type {
+    font-size: 0.8rem;
+  }
+}

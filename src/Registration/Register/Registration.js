@@ -163,7 +163,7 @@ const TandartsRegistratie = () => {
                   Ik heb al een account
                 </p>
               </div>
-            </div>
+                </div>
           </div>
         </div>
       </main>

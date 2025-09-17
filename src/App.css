@@ -15,6 +15,11 @@ body {
   flex: 1;
 }
 
+.dashboard-main-content {
+  flex: 1;
+  padding: 2rem;
+}
+
 
 .dashboard-sidebar {
   background-color: #f8f9fa;

@@ -11,21 +11,32 @@ import { useEffect, useState } from "react";
 import NavbarHome from "./Navbars/Navbars/NavbarHome/NavbarHome";
 import Login from "./Registration/Login/Login";
 import NavbarDashboard from "./Navbars/Navbars/NavbarPanel/NavbarDashboard";
-import SidebarPatiënt from "./Navbars/Sidebars/SidebarPatient/SidebarPatient";
-import DashboardPatient from "./DashboardPatient/Dashboard/DashboardPatient";
+import Sidebar from "./Navbars/Sidebar/Sidebar";
+import DashboardPatient from "./Dashboards/DashboardPatient/Dashboard/DashboardPatient";
 import Home from "./MainPages/Home/Home";
 import Footer from "./Footer/Footer";
+import DashboardTandarts from "./Dashboards/DashboardTandarts/Dashboard/DashboardTandarts";
+import DentisTimetable from "./Dashboards/DashboardTandarts/Timetable/Timetable";
 
 // Inner component that uses useLocation
 function AppContent() {
   const location = useLocation();
   const [isPatientDashboard, setIsPatientDashboard] = useState(false);
-  const patientDashboardUrls = ["/dashboard"];
+  const patientDashboardUrls = ["/dashboard", "/dashboard-tandarts", "/dashboard/rooster"];
 
+  const [currentRole, setCurrentRole] = useState(null);
   const nonLoggedInUrls = ["/", "/inloggen", "/registreren"];
   const isNonLoggedIn = nonLoggedInUrls.includes(location.pathname);
 
   const navigate = useNavigate();
+
+
+  useEffect(() => {
+    const loggedInData = JSON.parse(localStorage.getItem("loggedInData"));
+    if (loggedInData) {
+      setCurrentRole(parseInt(loggedInData.role));
+    }
+  }, []);
 
   useEffect(() => {
     setIsPatientDashboard(patientDashboardUrls.includes(location.pathname));
@@ -46,15 +57,18 @@ function AppContent() {
 
       {/* Content area with sidebar and main content */}
       <div className="content-wrapper">
-        {isPatientDashboard && <SidebarPatiënt />}
+        {isPatientDashboard && <Sidebar />}
 
         {/* Main content area */}
-        <main className="main-content">
+        <main className={`main-content ${isPatientDashboard ? 'dashboard-main-content' : ''}`}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/registreren" element={<TandartsRegistratie />} />
             <Route path="/inloggen" element={<Login />} />
-            <Route path="/dashboard" element={<DashboardPatient />} />
+            <Route path="/dashboard" element={currentRole === 0 ? <DashboardPatient /> : <DashboardTandarts />} />
+            <Route path="/dashboard-tandarts" element={<DashboardTandarts />} />
+            <Route path="/dashboard/rooster" element={<DentisTimetable />} />
+            <Route path="*" element={<h1>404 - Pagina niet gevonden</h1>} />
           </Routes>
         </main>
 
