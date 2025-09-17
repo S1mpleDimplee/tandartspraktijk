@@ -1,9 +1,9 @@
 // DashboardSidebar.js
 import React, { useEffect, useState } from "react";
-import "./SidebarPatient.css";
+import "./Sidebar.css";
 import { useNavigate } from "react-router-dom";
 
-const SidebarPatiënt = () => {
+const Sidebar = () => {
   const [activeItem, setActiveItem] = useState("dashboard");
 
   const navigate = useNavigate();
@@ -30,7 +30,6 @@ const SidebarPatiënt = () => {
     0: menuItemsPatient,
     1: menuItemsTandarts,
     2: menuItemsTandartsAssistente,
-
   };
 
   const [currentRole, setCurrentRole] = useState(null);
@@ -42,16 +41,14 @@ const SidebarPatiënt = () => {
 
   const handleItemClick = (itemId) => {
     setActiveItem(itemId);
-    // Add navigation logic here
     if (itemId === "uitloggen") {
-      // Handle logout
       console.log("Logging out...");
     }
   };
 
   const handleLogout = () => {
     localStorage.removeItem("loggedInData");
-    navigate("/");
+    navigate("/inloggen");
   };
 
   return (
@@ -70,7 +67,7 @@ const SidebarPatiënt = () => {
             <span className="sidebar-label">{item.label}</span>
           </button>
         ))}
-      </nav>{" "}
+      </nav>
       <button
         className={`sidebar-item logout-button`}
         onClick={() => handleLogout()}
@@ -81,4 +78,4 @@ const SidebarPatiënt = () => {
   );
 };
 
-export default SidebarPatiënt;
+export default Sidebar;

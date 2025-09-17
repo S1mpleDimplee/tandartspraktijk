@@ -1,16 +1,7 @@
 /* TandartsDashboard.css */
 .dashboard-tandarts-container {
-background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
-  min-height: 100vh;
   font-family: "Arial", sans-serif;
   color: white;
-}
-
-
-.doctor-info {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
 }
 
 .doctor-avatar {
@@ -39,7 +30,6 @@ background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
-  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -55,10 +45,6 @@ background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
   overflow: hidden;
 }
 
-.left-section:hover {
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-  border-color: rgba(0, 180, 166, 0.3);
-}
 
 .search-section h2 {
   font-size: 1.5rem;
@@ -118,12 +104,10 @@ background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent);
   transition: left 0.5s ease;
 }
 
@@ -156,7 +140,8 @@ background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
 
 .table-body {
   max-height: 300px;
-  overflow-y: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
   background: rgba(15, 23, 42, 0.6);
   border-radius: 0 0 12px 12px;
   backdrop-filter: blur(10px);
@@ -171,18 +156,6 @@ background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
   transition: all 0.3s ease;
   cursor: pointer;
   position: relative;
-}
-
-.table-row::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 4px;
-  height: 100%;
-  background: linear-gradient(180deg, #00b4a6, #00d4c4);
-  transform: scaleY(0);
-  transition: transform 0.3s ease;
 }
 
 .table-row:hover::before {
@@ -240,12 +213,10 @@ background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent);
   transition: left 0.5s ease;
 }
 
@@ -293,10 +264,7 @@ background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
   left: 100%;
 }
 
-.patient-info-card:hover {
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-  border-color: rgba(0, 180, 166, 0.3);
-}
+
 
 .patient-info-card h3 {
   font-size: 1.5rem;
@@ -329,7 +297,6 @@ background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
   font-weight: 700;
 }
 
-/* Treatments Card */
 .treatments-card {
   background: rgba(52, 73, 94, 0.8);
   border-radius: 12px;
@@ -449,12 +416,10 @@ background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent);
   transition: left 0.5s ease;
 }
 

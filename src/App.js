@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import NavbarHome from "./Navbars/Navbars/NavbarHome/NavbarHome";
 import Login from "./Registration/Login/Login";
 import NavbarDashboard from "./Navbars/Navbars/NavbarPanel/NavbarDashboard";
-import SidebarPatiënt from "./Navbars/Sidebars/SidebarPatient/SidebarPatient";
+import Sidebar from "./Navbars/Sidebar/Sidebar";
 import DashboardPatient from "./Dashboards/DashboardPatient/Dashboard/DashboardPatient";
 import Home from "./MainPages/Home/Home";
 import Footer from "./Footer/Footer";
@@ -57,7 +57,7 @@ function AppContent() {
 
       {/* Content area with sidebar and main content */}
       <div className="content-wrapper">
-        {isPatientDashboard && <SidebarPatiënt />}
+        {isPatientDashboard && <Sidebar />}
 
         {/* Main content area */}
         <main className={`main-content ${isPatientDashboard ? 'dashboard-main-content' : ''}`}>
