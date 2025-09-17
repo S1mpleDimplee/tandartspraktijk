@@ -5,14 +5,9 @@
   font-family: 'Arial', sans-serif;
 }
 
-.dashboard-layout {
-  display: flex;
-  min-height: calc(100vh - 60px);
-}
 
 .dashboard-main {
   flex: 1;
-  padding: 2rem;
   overflow-y: auto;
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
 }

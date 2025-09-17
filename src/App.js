@@ -12,15 +12,16 @@ import NavbarHome from "./Navbars/Navbars/NavbarHome/NavbarHome";
 import Login from "./Registration/Login/Login";
 import NavbarDashboard from "./Navbars/Navbars/NavbarPanel/NavbarDashboard";
 import SidebarPatiënt from "./Navbars/Sidebars/SidebarPatient/SidebarPatient";
-import DashboardPatient from "./DashboardPatient/Dashboard/DashboardPatient";
+import DashboardPatient from "./Dashboards/DashboardPatient/Dashboard/DashboardPatient";
 import Home from "./MainPages/Home/Home";
 import Footer from "./Footer/Footer";
+import DashboardTandarts from "./Dashboards/DashboardTandarts/Dashboard/DashboardTandarts";
 
 // Inner component that uses useLocation
 function AppContent() {
   const location = useLocation();
   const [isPatientDashboard, setIsPatientDashboard] = useState(false);
-  const patientDashboardUrls = ["/dashboard"];
+  const patientDashboardUrls = ["/dashboard", "/dashboard-tandarts"];
 
   const nonLoggedInUrls = ["/", "/inloggen", "/registreren"];
   const isNonLoggedIn = nonLoggedInUrls.includes(location.pathname);
@@ -55,6 +56,7 @@ function AppContent() {
             <Route path="/registreren" element={<TandartsRegistratie />} />
             <Route path="/inloggen" element={<Login />} />
             <Route path="/dashboard" element={<DashboardPatient />} />
+            <Route path="/dashboard-tandarts" element={<DashboardTandarts />} />
           </Routes>
         </main>
 
