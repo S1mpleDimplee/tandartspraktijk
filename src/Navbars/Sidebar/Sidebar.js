@@ -10,13 +10,13 @@ const Sidebar = () => {
 
   const menuItemsPatient = [
     { id: "dashboard", label: "Dashboard", icon: "🏠", url: "/dashboard" },
-    { id: "afspraken", label: "Afspraken", icon: "📅" },
-    { id: "profiel", label: "Profiel", icon: "👤" },
+    { id: "afspraken", label: "Afspraken", icon: "📅", url: "/afspraken" },
+    { id: "profiel", label: "Profiel", icon: "👤", url: "/profiel" },
   ];
 
   const menuItemsTandarts = [
     { id: "dashboard", label: "Dashboard", icon: "🏠", url: "/dashboard" },
-    { id: "calender", label: "Calender", icon: "📅", url: "/rooster-tandarts" },
+    { id: "calender", label: "Rooster", icon: "📅", url: "/dashboard/rooster" },
     { id: "patiënten", label: "Patiënten", icon: "👥", url: "/patiënten-tandarts" },
   ];
 
@@ -39,11 +39,10 @@ const Sidebar = () => {
     setCurrentRole(parseInt(loggedInData.role));
   }, []);
 
-  const handleItemClick = (itemId) => {
+  const handleItemClick = (itemId, itemUrl) => {
     setActiveItem(itemId);
-    if (itemId === "uitloggen") {
-      console.log("Logging out...");
-    }
+
+    navigate(itemUrl);
   };
 
   const handleLogout = () => {
@@ -61,7 +60,7 @@ const Sidebar = () => {
           <button
             key={item.id}
             className={`sidebar-item ${activeItem === item.id ? "active" : ""}`}
-            onClick={() => handleItemClick(item.id)}
+            onClick={() => handleItemClick(item.id, item.url)}
           >
             <span className="sidebar-icon">{item.icon}</span>
             <span className="sidebar-label">{item.label}</span>

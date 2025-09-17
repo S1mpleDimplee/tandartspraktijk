@@ -22,7 +22,7 @@ import DentisTimetable from "./Dashboards/DashboardTandarts/Timetable/Timetable"
 function AppContent() {
   const location = useLocation();
   const [isPatientDashboard, setIsPatientDashboard] = useState(false);
-  const patientDashboardUrls = ["/dashboard", "/dashboard-tandarts", "/rooster-tandarts"];
+  const patientDashboardUrls = ["/dashboard", "/dashboard-tandarts", "/dashboard/rooster"];
 
   const [currentRole, setCurrentRole] = useState(null);
   const nonLoggedInUrls = ["/", "/inloggen", "/registreren"];
@@ -67,7 +67,7 @@ function AppContent() {
             <Route path="/inloggen" element={<Login />} />
             <Route path="/dashboard" element={currentRole === 0 ? <DashboardPatient /> : <DashboardTandarts />} />
             <Route path="/dashboard-tandarts" element={<DashboardTandarts />} />
-            <Route path="/rooster-tandarts" element={<DentisTimetable />} />
+            <Route path="/dashboard/rooster" element={<DentisTimetable />} />
             <Route path="*" element={<h1>404 - Pagina niet gevonden</h1>} />
           </Routes>
         </main>
