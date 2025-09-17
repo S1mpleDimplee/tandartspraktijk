@@ -1,7 +1,6 @@
 /* Enhanced Dark Theme Dashboard CSS for 1920px with Animations */
 .dashboard-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
   font-family: 'Arial', sans-serif;
 }
 
@@ -9,7 +8,6 @@
 .dashboard-main {
   flex: 1;
   overflow-y: auto;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
 }
 
 .dashboard-content {
@@ -21,7 +19,6 @@
 }
 
 .card {
-  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
   border-radius: 20px;
   padding: 2rem;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);

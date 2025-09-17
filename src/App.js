@@ -16,17 +16,27 @@ import DashboardPatient from "./Dashboards/DashboardPatient/Dashboard/DashboardP
 import Home from "./MainPages/Home/Home";
 import Footer from "./Footer/Footer";
 import DashboardTandarts from "./Dashboards/DashboardTandarts/Dashboard/DashboardTandarts";
+import DentisTimetable from "./Dashboards/DashboardTandarts/Timetable/Timetable";
 
 // Inner component that uses useLocation
 function AppContent() {
   const location = useLocation();
   const [isPatientDashboard, setIsPatientDashboard] = useState(false);
-  const patientDashboardUrls = ["/dashboard", "/dashboard-tandarts"];
+  const patientDashboardUrls = ["/dashboard", "/dashboard-tandarts", "/rooster-tandarts"];
 
+  const [currentRole, setCurrentRole] = useState(null);
   const nonLoggedInUrls = ["/", "/inloggen", "/registreren"];
   const isNonLoggedIn = nonLoggedInUrls.includes(location.pathname);
 
   const navigate = useNavigate();
+
+
+  useEffect(() => {
+    const loggedInData = JSON.parse(localStorage.getItem("loggedInData"));
+    if (loggedInData) {
+      setCurrentRole(parseInt(loggedInData.role));
+    }
+  }, []);
 
   useEffect(() => {
     setIsPatientDashboard(patientDashboardUrls.includes(location.pathname));
@@ -50,13 +60,15 @@ function AppContent() {
         {isPatientDashboard && <SidebarPatiënt />}
 
         {/* Main content area */}
-        <main className="main-content">
+        <main className={`main-content ${isPatientDashboard ? 'dashboard-main-content' : ''}`}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/registreren" element={<TandartsRegistratie />} />
             <Route path="/inloggen" element={<Login />} />
-            <Route path="/dashboard" element={<DashboardPatient />} />
+            <Route path="/dashboard" element={currentRole === 0 ? <DashboardPatient /> : <DashboardTandarts />} />
             <Route path="/dashboard-tandarts" element={<DashboardTandarts />} />
+            <Route path="/rooster-tandarts" element={<DentisTimetable />} />
+            <Route path="*" element={<h1>404 - Pagina niet gevonden</h1>} />
           </Routes>
         </main>
 

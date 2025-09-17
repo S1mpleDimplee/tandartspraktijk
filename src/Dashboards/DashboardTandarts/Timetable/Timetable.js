@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import './TandartsRooster.css';
+import './Timetable.css';
 
-const TandartsRooster = () => {
+const DentisTimetable = () => {
   const [currentWeek, setCurrentWeek] = useState(51);
-  
+
   const weekData = {
     days: ['Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag'],
     dates: ['27 Dec 2025', '28 Dec 2025', '29 Dec 2025', '30 Dec 2025', '31 Dec 2025'],
@@ -41,34 +41,11 @@ const TandartsRooster = () => {
 
   return (
     <div className="rooster-container">
-      {/* Header */}
-      <header className="rooster-header">
-        <h1>Tandarts Dashboard</h1>
-        <div className="doctor-info">
-          <div className="doctor-avatar">
-            <div className="avatar-placeholder">👨‍⚕️</div>
-          </div>
-          <span className="doctor-name">Dr. Naam</span>
-        </div>
-      </header>
+
 
       {/* Main Content */}
       <div className="rooster-main">
-        {/* Sidebar */}
-        <div className="rooster-sidebar">
-          <div className="sidebar-nav">
-            <div className="nav-item">Dashboard</div>
-            <div className="nav-item active">Mijn rooster</div>
-            <div className="nav-item patients">
-              <span className="patient-icon">👥</span>
-              Patiënten
-            </div>
-            <div className="nav-item">Blah blah</div>
-          </div>
-          <button className="logout-btn" onClick={handleLogout}>
-            Uitloggen
-          </button>
-        </div>
+
 
         {/* Schedule Content */}
         <div className="schedule-content">
@@ -77,13 +54,13 @@ const TandartsRooster = () => {
             <h2>Mijn rooster</h2>
             <div className="week-controls">
               <div className="week-display">Week: {currentWeek}</div>
-              <button 
+              <button
                 className="week-nav-btn"
                 onClick={() => navigateWeek('prev')}
               >
                 ←
               </button>
-              <button 
+              <button
                 className="week-nav-btn"
                 onClick={() => navigateWeek('next')}
               >
@@ -113,20 +90,14 @@ const TandartsRooster = () => {
                     return (
                       <div key={`${day}-${timeSlot}`} className="time-slot">
                         {appointment ? (
-                          appointment.patient ? (
-                            <div className="appointment-card">
-                              <div className="appointment-time">{appointment.time}</div>
-                              <div className="appointment-patient">Patiënt: {appointment.patient}</div>
-                              <div className="appointment-type">{appointment.type}</div>
-                              <div className="appointment-patient-name">Patiënt: {appointment.patient}</div>
-                            </div>
-                          ) : (
-                            <div className="no-appointment">
-                              <div className="appointment-time">{appointment.time}</div>
-                              <div className="no-appointment-text">{appointment.type}</div>
-                            </div>
-                          )
-                        ) : null}
+                          <div className="appointment-card">
+                            <div className="appointment-time">{appointment.time}</div>
+                            <div className="appointment-patient">Patiënt: {appointment.patient}</div>
+                            <div className="appointment-type">{appointment.type}</div>
+                          </div>
+                        ) :
+                          <div className="appointment-time">{timeSlot}</div>
+                        }
                       </div>
                     );
                   })}
@@ -136,8 +107,8 @@ const TandartsRooster = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
-export default TandartsRooster;
+export default DentisTimetable;

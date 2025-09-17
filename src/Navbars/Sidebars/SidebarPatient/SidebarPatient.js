@@ -1,5 +1,5 @@
 // DashboardSidebar.js
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./SidebarPatient.css";
 import { useNavigate } from "react-router-dom";
 
@@ -9,24 +9,36 @@ const SidebarPatiënt = () => {
   const navigate = useNavigate();
 
   const menuItemsPatient = [
-    { id: "dashboard", label: "Dashboard", icon: "🏠" },
+    { id: "dashboard", label: "Dashboard", icon: "🏠", url: "/dashboard" },
     { id: "afspraken", label: "Afspraken", icon: "📅" },
     { id: "profiel", label: "Profiel", icon: "👤" },
   ];
 
   const menuItemsTandarts = [
-    { id: "dashboard", label: "Dashboard", icon: "🏠" },
+    { id: "dashboard", label: "Dashboard", icon: "🏠", url: "/dashboard" },
+    { id: "calender", label: "Calender", icon: "📅", url: "/rooster-tandarts" },
+    { id: "patiënten", label: "Patiënten", icon: "👥", url: "/patiënten-tandarts" },
   ];
 
   const menuItemsTandartsAssistente = [
-    { id: "dashboard", label: "Dashboard", icon: "🏠" },
+    { id: "dashboard", label: "Dashboard", icon: "🏠", url: "/dashboard" },
+    { id: "patiënten", label: "Patiënten", icon: "👥", url: "/patiënten-assistente" },
+    { id: "afspraken", label: "Afspraken", icon: "📅", url: "/afspraken-assistente" },
   ];
 
   const menuItems = {
-    patient: menuItemsPatient,
-    tandarts: menuItemsTandarts,
-    tandartsAssistente: menuItemsTandartsAssistente,
+    0: menuItemsPatient,
+    1: menuItemsTandarts,
+    2: menuItemsTandartsAssistente,
+
   };
+
+  const [currentRole, setCurrentRole] = useState(null);
+
+  useEffect(() => {
+    const loggedInData = JSON.parse(localStorage.getItem("loggedInData"));
+    setCurrentRole(parseInt(loggedInData.role));
+  }, []);
 
   const handleItemClick = (itemId) => {
     setActiveItem(itemId);
@@ -48,7 +60,7 @@ const SidebarPatiënt = () => {
         <h2>{activeItem}</h2>
       </div>
       <nav className="sidebar-nav">
-        {menuItemsPatient.map((item) => (
+        {menuItems[currentRole]?.map((item) => (
           <button
             key={item.id}
             className={`sidebar-item ${activeItem === item.id ? "active" : ""}`}
