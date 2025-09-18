@@ -25,7 +25,8 @@ const Home = () => {
                         Registreer en maak snel en handig<br />
                         een afspraak blah blah blah
                     </p>
-                    <button className="hero-button" onClick={() => { navigate('/registreren') }}>Registreer nu</button>
+                    <button className="hero-button register-button" onClick={() => { navigate('/registreren') }}>Registreer nu</button>
+                    <button className="hero-button login-button" onClick={() => { navigate('/inloggen') }}>Login</button>
                 </div>
             </div>
 
