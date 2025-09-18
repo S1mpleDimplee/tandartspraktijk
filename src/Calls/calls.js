@@ -10,7 +10,7 @@ const postCall = async (usedFunction, dataSend) => {
                     data: dataSend,
                 }),
             });
-            
+
         const data = await response.json();
 
         if (data.success) {

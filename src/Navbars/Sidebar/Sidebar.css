@@ -6,6 +6,8 @@
   min-height: calc(100vh - 60px);
   border-right: 1px solid #494646;
   flex-shrink: 0;
+  position: sticky;
+  top: 0;
 }
 
 .sidebar-header {
