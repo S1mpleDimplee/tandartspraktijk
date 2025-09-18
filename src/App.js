@@ -18,12 +18,13 @@ import Footer from "./Footer/Footer";
 import DashboardTandarts from "./Dashboards/DashboardTandarts/Dashboard/DashboardTandarts";
 import DentisTimetable from "./Dashboards/DashboardTandarts/Timetable/Timetable";
 import NotFound from "./404/404";
+import PatientProfile from "./Dashboards/DashboardPatient/Profile/PatientProfile";
 
 // Inner component that uses useLocation
 function AppContent() {
   const location = useLocation();
   const [isPatientDashboard, setIsPatientDashboard] = useState(false);
-  const patientDashboardUrls = ["/dashboard", "/dashboard-tandarts", "/dashboard/rooster"];
+  const patientDashboardUrls = ["/dashboard", "/dashboard-tandarts", "/dashboard/rooster", "/dashboard/profile"];
 
   const [currentRole, setCurrentRole] = useState(null);
   const nonLoggedInUrls = ["/", "/inloggen", "/registreren"];
@@ -69,6 +70,7 @@ function AppContent() {
             <Route path="/dashboard" element={currentRole === 0 ? <DashboardPatient /> : <DashboardTandarts />} />
             <Route path="/dashboard-tandarts" element={<DashboardTandarts />} />
             <Route path="/dashboard/rooster" element={<DentisTimetable />} />
+            <Route path="/dashboard/profile" element={<PatientProfile />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
