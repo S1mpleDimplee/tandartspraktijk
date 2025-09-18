@@ -74,7 +74,7 @@
   position: relative;
 }
 
-.form-input {
+.form-input-regi {
   width: 100%;
   padding: 14px 20px;
   border: 3px solid #636262;
@@ -86,17 +86,17 @@
   color: #fff;
 }
 
-.form-input:hover {
+.form-input-regi:hover {
   border-color: #838383;
 }
 
-.form-input:focus {
+.form-input-regi:focus {
   outline: none;
   background-color: rgb(78, 77, 77);
   box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.1);
 }
 
-.form-input::placeholder {
+.form-input-regi::placeholder {
   color: #999;
   font-size: 14px;
 }

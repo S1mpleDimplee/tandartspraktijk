@@ -37,22 +37,19 @@ const PatientProfile = () => {
     const userid = JSON.parse(userinfo).userid;
 
     const result = await postCall("fetchUserData", userid);
+    console.log("Data succesvol opgehaald", result);
 
-    if (result.isSuccess) {
-
-      alert("Data succesvol opgehaald");
-      setFormData({
-        voornaam: result.data.firstname || "",
-        achternaam: result.data.lastname || "",
-        email: result.data.email || "",
-        telefoon: result.data.phonenumber || "",
-        woonplaats: "",
-        postcode: "",
-        straatnaam: "",
-        toevoeging: "",
-        huisnummer: "",
-      });
-    }
+    setFormData({
+      voornaam: result.data.firstname || "",
+      achternaam: result.data.lastname || "",
+      email: result.data.email || "",
+      telefoon: result.data.phonenumber || "",
+      woonplaats: "",
+      postcode: "",
+      straatnaam: "",
+      toevoeging: "",
+      huisnummer: "",
+    });
   };
 
   useEffect(() => {
