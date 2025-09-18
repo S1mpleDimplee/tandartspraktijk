@@ -11,7 +11,7 @@ const Sidebar = () => {
   const menuItemsPatient = [
     { id: "dashboard", label: "Dashboard", icon: "🏠", url: "/dashboard" },
     { id: "afspraken", label: "Afspraken", icon: "📅", url: "/afspraken" },
-    { id: "profiel", label: "Profiel", icon: "👤", url: "/profiel" },
+    { id: "profiel", label: "Profiel", icon: "👤", url: "/dashboard/profile" },
   ];
 
   const menuItemsTandarts = [
