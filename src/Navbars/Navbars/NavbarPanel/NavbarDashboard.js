@@ -6,18 +6,24 @@ import './NavbarDashboard.css';
 const NavbarDashboard = () => {
 
 
+  const loggedInData = JSON.parse(localStorage.getItem("loggedInData"));
   const [userName, setUserName] = useState("Klant naam");
 
   useEffect(() => {
-    // Fetch user data from localStorage
-    const loggedInData = JSON.parse(localStorage.getItem("loggedInData"));
-    setUserName(loggedInData ? loggedInData.firstName + " " + loggedInData.lastName : "Klant naam");
+    if (loggedInData.role == 0 ) {
+      setUserName(loggedInData ? loggedInData.firstName + " " + loggedInData.lastName : "Klant naam");
+    }
+   else if (loggedInData.role == 1) {
+      setUserName("DR. " + (loggedInData ? loggedInData.firstName + " " + loggedInData.lastName : "Klant naam"));
+    }
+
   }, []);
 
   return (
     <nav className="dashboard-navbar">
       <div className="navbar-content">
-        <h1 className="navbar-title">Klanten Dashboard</h1>
+        {loggedInData.role == 0 ? <h1 className="navbar-title">Klant Dashboard</h1> : null}
+        {loggedInData.role == 1 ? <h1 className="navbar-title">Tandarts Dashboard</h1> : null}
 
         <div className="navbar-user">
           <div className="user-icon">

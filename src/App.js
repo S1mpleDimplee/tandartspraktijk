@@ -30,6 +30,8 @@ function AppContent() {
   const nonLoggedInUrls = ["/", "/inloggen", "/registreren"];
   const isNonLoggedIn = nonLoggedInUrls.includes(location.pathname);
 
+  const usedUrls = [...patientDashboardUrls, ...nonLoggedInUrls];
+
   const navigate = useNavigate();
 
 
@@ -47,7 +49,7 @@ function AppContent() {
 
   const checkIfUserIsLoggedIn = () => {
     const loggedInData = JSON.parse(localStorage.getItem("loggedInData"));
-    if (!loggedInData && !isNonLoggedIn) {
+    if (!loggedInData && !isNonLoggedIn && usedUrls.includes(location.pathname)) {
       navigate("/inloggen");
     }
   };

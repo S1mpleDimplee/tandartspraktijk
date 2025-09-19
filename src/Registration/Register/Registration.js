@@ -32,7 +32,7 @@ const TandartsRegistratie = () => {
     setLoading(true);
     const response = await postCall("addUser", formData);
 
-    if (response.isSuccess  ) {
+    if (response.isSuccess) {
       setMessage("Registratie succesvol!");
       setTimeout(() => {
         navigate("/inloggen");
@@ -77,7 +77,7 @@ const TandartsRegistratie = () => {
                     <input
                       type="text"
                       name="name"
-                      className="form-input"
+                      className="form-input-regi"
                       placeholder="Voornaam"
                       value={formData.firstName}
                       onChange={(e) => handleInputChange(e.target.value, "firstName")}
@@ -87,7 +87,7 @@ const TandartsRegistratie = () => {
                     <input
                       type="text"
                       name="lastName"
-                      className="form-input"
+                      className="form-input-regi"
                       placeholder="Achternaam"
                       value={formData.lastName}
                       onChange={(e) => handleInputChange(e.target.value, "lastName")}
@@ -103,7 +103,7 @@ const TandartsRegistratie = () => {
                   <input
                     type="email"
                     name="email"
-                    className="form-input"
+                    className="form-input-regi"
                     placeholder="mijnemailadress@gmail.com"
                     value={formData.email}
                     onChange={(e) => handleInputChange(e.target.value, "email")}
@@ -118,7 +118,7 @@ const TandartsRegistratie = () => {
                   <input
                     type="password"
                     name="password"
-                    className="form-input"
+                    className="form-input-regi"
                     placeholder="EenSterkWachtwoord123"
                     value={formData.password}
                     onChange={(e) => handleInputChange(e.target.value, "password")}
@@ -135,7 +135,7 @@ const TandartsRegistratie = () => {
                   <input
                     type="password"
                     name="confirmPassword"
-                    className="form-input"
+                    className="form-input-regi"
                     placeholder="EenSterkWachtwoord123"
                     value={formData.confirmPassword}
                     onChange={(e) => handleInputChange(e.target.value, "confirmPassword")}
@@ -163,7 +163,7 @@ const TandartsRegistratie = () => {
                   Ik heb al een account
                 </p>
               </div>
-                </div>
+            </div>
           </div>
         </div>
       </main>

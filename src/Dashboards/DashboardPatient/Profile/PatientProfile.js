@@ -5,15 +5,16 @@ import InfoCard from "../Dashboard/InfoCard/InfoCard";
 
 const PatientProfile = () => {
   const [formData, setFormData] = useState({
-    voornaam: "",
-    achternaam: "",
+    userid: "",
+    firstname: "",
+    lastname: "",
     email: "",
-    telefoon: "",
-    woonplaats: "",
-    postcode: "",
-    straatnaam: "",
-    toevoeging: "",
-    huisnummer: "",
+    // phonenumber: "",
+    city: "",
+    postalcode: "",
+    streetname: "",
+    addition: "",
+    housenumber: "",
   });
 
   const [patientInfo] = useState({
@@ -37,30 +38,32 @@ const PatientProfile = () => {
     const userid = JSON.parse(userinfo).userid;
 
     const result = await postCall("fetchUserData", userid);
+    console.log("Data succesvol opgehaald", result);
 
-    if (result.isSuccess) {
 
-      alert("Data succesvol opgehaald");
-      setFormData({
-        voornaam: result.data.firstname || "",
-        achternaam: result.data.lastname || "",
-        email: result.data.email || "",
-        telefoon: result.data.phonenumber || "",
-        woonplaats: "",
-        postcode: "",
-        straatnaam: "",
-        toevoeging: "",
-        huisnummer: "",
-      });
-    }
+    setFormData({
+      userid: userid,
+      firstname: result.data.firstname || "",
+      lastname: result.data.lastname || "",
+      email: result.data.email || "",
+      phonenumber: result.data.phonenumber || "",
+      city: "",
+      postalcode: "",
+      streetname: "",
+      addition: "",
+      housenumber: "",
+    });
   };
 
   useEffect(() => {
     fetchUserData();
   }, []);
 
-  const handleBewerken = () => {
-    alert("Profiel bewerken functionaliteit");
+  const handleBewerken = async () => {
+    const result = await postCall("updateUserData", formData);
+
+      alert("Succes", result.message);
+    
   };
 
   return (
@@ -71,31 +74,31 @@ const PatientProfile = () => {
 
           <div className="form-grid">
             <div className="form-group">
-              <label htmlFor="voornaam">Voornaam</label>
+              <label>Voornaam</label>
               <input
                 type="text"
                 id="voornaam"
-                name="voornaam"
-                value={formData.voornaam}
+                name="firstname"
+                value={formData.firstname}
                 onChange={handleInputChange}
                 className="form-input"
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="achternaam">Achternaam</label>
+              <label>Achternaam</label>
               <input
                 type="text"
                 id="achternaam"
-                name="achternaam"
-                value={formData.achternaam}
+                name="lastname"
+                value={formData.lastname}
                 onChange={handleInputChange}
                 className="form-input"
               />
             </div>
 
             <div className="form-group full-width">
-              <label htmlFor="email">Email adress</label>
+              <label>Email adress</label>
               <input
                 type="email"
                 id="email"
@@ -107,14 +110,14 @@ const PatientProfile = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="telefoon">Telefoonnummer</label>
+              <label>Telefoonnummer</label>
               <div className="phone-input">
                 <span className="country-code">31+</span>
                 <input
                   type="tel"
                   id="telefoon"
-                  name="telefoon"
-                  value={formData.telefoon}
+                  name="phonenumber"
+                  value={formData.phonenumber}
                   onChange={handleInputChange}
                   className="form-input"
                 />
@@ -122,49 +125,49 @@ const PatientProfile = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="woonplaats">Woonplaats</label>
+              <label>Woonplaats</label>
               <input
                 type="text"
-                id="woonplaats"
-                name="woonplaats"
-                value={formData.woonplaats}
+                id="city"
+                name="city"
+                value={formData.city}
                 onChange={handleInputChange}
                 className="form-input"
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="postcode">Postcode</label>
+              <label>Postcode</label>
               <input
                 type="text"
                 id="postcode"
-                name="postcode"
-                value={formData.postcode}
+                name="postalcode"
+                value={formData.postalcode}
                 onChange={handleInputChange}
                 className="form-input"
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="straatnaam">Straatnaam</label>
+              <label>Straatnaam</label>
               <input
                 type="text"
                 id="straatnaam"
-                name="straatnaam"
-                value={formData.straatnaam}
+                name="streetname"
+                value={formData.streetname}
                 onChange={handleInputChange}
                 className="form-input"
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="address-number">Toevoeging - Huisnummer</label>
+              <label>Toevoeging - Huisnummer</label>
               <div className="address-number-group">
                 <input
                   type="text"
                   id="toevoeging"
-                  name="toevoeging"
-                  value={formData.toevoeging}
+                  name="addition"
+                  value={formData.addition}
                   onChange={handleInputChange}
                   className="form-input address-input"
                 />
@@ -172,8 +175,8 @@ const PatientProfile = () => {
                 <input
                   type="text"
                   id="huisnummer"
-                  name="huisnummer"
-                  value={formData.huisnummer}
+                  name="housenumber"
+                  value={formData.housenumber}
                   onChange={handleInputChange}
                   className="form-input address-input"
                 />
