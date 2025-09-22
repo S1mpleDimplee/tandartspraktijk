@@ -1,92 +1,86 @@
 import React, { useState } from 'react';
 import './Timetable.css';
-
-function GetCurrentWeek() {
-  const now = new Date();
-  const startOfYear = new Date(now.getFullYear(), 0, 1);
-  const dayOfYear = Math.floor((now - startOfYear) / (1000 * 60 * 60 * 24)) + 1;
-  return Math.ceil(dayOfYear / 7);
-}
+import { getISOWeek, startOfISOWeek, setISOWeek, addDays } from 'date-fns';
 
 const DentisTimetable = () => {
-  const [currentWeek, setCurrentWeek] = useState(GetCurrentWeek());
+  const [currentWeek, setCurrentWeek] = useState(getISOWeek(new Date()));
+  const year = new Date().getFullYear();
+
+  // Get Monday-Friday dates for the current ISO week using date-fns
+  const weekDates = Array.from({ length: 5 }, (_, i) => {
+    const monday = startOfISOWeek(setISOWeek(new Date(year, 0, 1), currentWeek));
+    const date = addDays(monday, i);
+    return date.toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+    });
+  });
 
   const weekData = {
     days: ['Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag'],
-    dates: ['27 Dec 2025', '28 Dec 2025', '29 Dec 2025', '30 Dec 2025', '31 Dec 2025'],
-    timeSlots: ['8:00 - 8:30', '8:30 - 9:00', '9:00 - 9:30', '9:30 - 10:00', '10:00 - 10:30', '10:30 - 11:00']
+    dates: weekDates,
+    timeSlots: [
+      '8:00 - 8:30',
+      '8:30 - 9:00',
+      '9:00 - 9:30',
+      '9:30 - 10:00',
+      '10:00 - 10:30',
+      '10:30 - 11:00',
+    ],
   };
 
   const appointments = {
-    'Maandag': [
+    Maandag: [
       { time: '8:00 - 8:30', patient: 'Dr. Jannes', type: 'Checkup' },
-      { time: '8:30 - 9:00', patient: null, type: 'Geen afspraak' }
+      { time: '8:30 - 9:00', patient: null, type: 'Geen afspraak' },
     ],
-    'Dinsdag': [
-      { time: '8:00 - 8:30', patient: 'Dr. Jannes', type: 'Checkup' }
-    ],
-    'Woensdag': [],
-    'Donderdag': [],
-    'Vrijdag': [
+    Dinsdag: [{ time: '8:00 - 8:30', patient: 'Dr. Jannes', type: 'Checkup' }],
+    Woensdag: [],
+    Donderdag: [],
+    Vrijdag: [
       { time: '8:00 - 8:30', patient: 'Dr. Jannes', type: 'Checkup' },
-      { time: '8:30 - 9:00', patient: 'Dr. Jannes', type: 'Checkup' }
-    ]
+      { time: '8:30 - 9:00', patient: 'Dr. Jannes', type: 'Checkup' },
+    ],
   };
 
   const navigateWeek = (direction) => {
     const TOTAL_WEEKS = 52;
 
-    setCurrentWeek(prev => {
-      if (direction === 'next') {
-        return prev === TOTAL_WEEKS ? 1 : prev + 1;
-      } else {
-      return prev === 1 ? TOTAL_WEEKS : prev - 1;
-      }
-    });
-   };
+    setCurrentWeek((prev) =>
+      direction === 'next'
+        ? prev === TOTAL_WEEKS
+          ? 1
+          : prev + 1
+        : prev === 1
+        ? TOTAL_WEEKS
+        : prev - 1
+    );
+  };
 
   const getAppointmentForSlot = (day, timeSlot) => {
     const dayApps = appointments[day] || [];
-    return dayApps.find(app => app.time === timeSlot);
-  };
-
-  const handleLogout = () => {
-    alert('Uitgelogd');
+    return dayApps.find((app) => app.time === timeSlot);
   };
 
   return (
     <div className="rooster-container">
-
-
-      {/* Main Content */}
       <div className="rooster-main">
-
-
-        {/* Schedule Content */}
         <div className="schedule-content">
-          {/* Week Header */}
           <div className="week-header">
             <h2>Mijn rooster</h2>
             <div className="week-controls">
               <div className="week-display">Week: {currentWeek}</div>
-              <button
-                className="week-nav-btn"
-                onClick={() => navigateWeek('prev')}
-              >
+              <button className="week-nav-btn" onClick={() => navigateWeek('prev')}>
                 ←
               </button>
-              <button
-                className="week-nav-btn"
-                onClick={() => navigateWeek('next')}
-              >
+              <button className="week-nav-btn" onClick={() => navigateWeek('next')}>
                 →
               </button>
             </div>
           </div>
 
-          {/* Calendar Grid */}
           <div className="calendar-grid">
-            {/* Days Header */}
             <div className="calendar-header">
               {weekData.days.map((day, index) => (
                 <div key={day} className="day-header">
@@ -96,7 +90,6 @@ const DentisTimetable = () => {
               ))}
             </div>
 
-            {/* Time Slots Grid */}
             <div className="time-slots-grid">
               {weekData.timeSlots.map((timeSlot) => (
                 <div key={timeSlot} className="time-row">
@@ -107,12 +100,14 @@ const DentisTimetable = () => {
                         {appointment ? (
                           <div className="appointment-card">
                             <div className="appointment-time">{appointment.time}</div>
-                            <div className="appointment-patient">Patiënt: {appointment.patient}</div>
+                            <div className="appointment-patient">
+                              Patiënt: {appointment.patient}
+                            </div>
                             <div className="appointment-type">{appointment.type}</div>
                           </div>
-                        ) :
+                        ) : (
                           <div className="appointment-time">{timeSlot}</div>
-                        }
+                        )}
                       </div>
                     );
                   })}
@@ -122,7 +117,7 @@ const DentisTimetable = () => {
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 
