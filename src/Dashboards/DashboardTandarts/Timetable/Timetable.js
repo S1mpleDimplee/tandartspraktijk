@@ -3,12 +3,12 @@ import './Timetable.css';
 import { getISOWeek, startOfISOWeek, setISOWeek, addDays } from 'date-fns';
 
 const DentisTimetable = () => {
-  const [currentWeek, setCurrentWeek] = useState(getISOWeek(new Date()));
-  const year = new Date().getFullYear();
+  const today = new Date();
+  const [currentWeek, setCurrentWeek] = useState(getISOWeek(today));
+  const [currentYear, setCurrentYear] = useState(today.getFullYear());
 
-  // Get Monday-Friday dates for the current ISO week using date-fns
   const weekDates = Array.from({ length: 5 }, (_, i) => {
-    const monday = startOfISOWeek(setISOWeek(new Date(year, 0, 1), currentWeek));
+    const monday = startOfISOWeek(setISOWeek(new Date(currentYear, 0, 1), currentWeek));
     const date = addDays(monday, i);
     return date.toLocaleDateString('en-GB', {
       day: '2-digit',
@@ -31,10 +31,7 @@ const DentisTimetable = () => {
   };
 
   const appointments = {
-    Maandag: [
-      { time: '8:00 - 8:30', patient: 'Dr. Jannes', type: 'Checkup' },
-      { time: '8:30 - 9:00', patient: null, type: 'Geen afspraak' },
-    ],
+    Maandag: [{ time: '8:00 - 8:30', patient: 'Dr. Jannes', type: 'Checkup' }],
     Dinsdag: [{ time: '8:00 - 8:30', patient: 'Dr. Jannes', type: 'Checkup' }],
     Woensdag: [],
     Donderdag: [],
@@ -45,17 +42,19 @@ const DentisTimetable = () => {
   };
 
   const navigateWeek = (direction) => {
-    const TOTAL_WEEKS = 52;
+    let newWeek = direction === 'next' ? currentWeek + 1 : currentWeek - 1;
+    let newYear = currentYear;
 
-    setCurrentWeek((prev) =>
-      direction === 'next'
-        ? prev === TOTAL_WEEKS
-          ? 1
-          : prev + 1
-        : prev === 1
-        ? TOTAL_WEEKS
-        : prev - 1
-    );
+    if (newWeek > 52) {
+      newWeek = 1;
+      newYear += 1;
+    } else if (newWeek < 1) {
+      newWeek = 52;
+      newYear -= 1;
+    }
+
+    setCurrentWeek(newWeek);
+    setCurrentYear(newYear);
   };
 
   const getAppointmentForSlot = (day, timeSlot) => {
@@ -70,7 +69,9 @@ const DentisTimetable = () => {
           <div className="week-header">
             <h2>Mijn rooster</h2>
             <div className="week-controls">
-              <div className="week-display">Week: {currentWeek}</div>
+              <div className="week-display">
+                Week: {currentWeek}, {currentYear}
+              </div>
               <button className="week-nav-btn" onClick={() => navigateWeek('prev')}>
                 ←
               </button>
