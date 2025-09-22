@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './UserInfo.css';
+import { useNavigate } from 'react-router-dom';
 
 const UserInfo = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -44,6 +45,8 @@ const UserInfo = () => {
     }
   ]);
 
+  const navigate = useNavigate();
+
   const filteredUsers = users.filter(user => {
     const matchesSearch = user.naam.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          user.gebruikerId.toLowerCase().includes(searchTerm.toLowerCase());
@@ -60,7 +63,7 @@ const UserInfo = () => {
   };
 
   const handleOpenUser = (userId) => {
-    alert(`Opening user profile for: ${userId}`);
+   navigate(`/dashboard/gebruikers`);
   };
 
   const getRoleColor = (roll) => {
@@ -75,15 +78,7 @@ const UserInfo = () => {
   return (
     <div className="manager-container">
       {/* Header */}
-      <header className="manager-header">
-        <h1>Manager dashboard</h1>
-        <div className="doctor-info">
-          <div className="doctor-avatar">
-            <div className="avatar-placeholder">👨‍⚕️</div>
-          </div>
-          <span className="doctor-name">Dr. Naam</span>
-        </div>
-      </header>
+      
 
       {/* Main Content */}
       <div className="manager-main">

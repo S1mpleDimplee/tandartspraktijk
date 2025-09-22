@@ -21,6 +21,7 @@ import PatientProfile from "./Dashboards/DashboardPatient/Profile/PatientProfile
 import UserInfo from "./Dashboards/DashboardManager/UserInfo/UserInfo";
 import DentistUsers from "./Dashboards/DashboardTandarts/Users/DentistUser";
 import DashboardTandarts from "./Dashboards/DashboardTandarts/Dashboard/DashboardTandarts";
+import UserPage from "./Dashboards/DashboardManager/UserInfo/UserPage/UserPage";
 
 // Inner component that uses useLocation
 function AppContent() {
@@ -72,8 +73,14 @@ function AppContent() {
             <Route path="/" element={<Home />} />
             <Route path="/registreren" element={<TandartsRegistratie />} />
             <Route path="/inloggen" element={<Login />} />
-            <Route path="/dashboard" element={<DashboardPatient /> } />
 
+          {/* Patient Dashboard routes */}
+            {currentRole === 0 && (
+              <>
+                <Route path="/dashboard" element={<DashboardPatient />} />
+                <Route path="/dashboard/profile" element={<PatientProfile />} />
+              </>
+            )}
 
           {/* Dentist Dashboard routes */}
             {currentRole === 1 && (
@@ -84,11 +91,14 @@ function AppContent() {
               </>
             )}
 
-            <Route path="/dashboard/profile" element={<PatientProfile />} />
+            
 
             {/* Manager Dashboard route */}
             {currentRole === 3 && (
-              <Route path="/dashboard" element={<UserInfo />} />
+              <>
+                <Route path="/dashboard" element={<UserInfo />} />
+                <Route path="/dashboard/gebruikers" element={<UserPage />} />
+              </>
              )} 
             <Route path="*" element={<NotFound />} />
           </Routes>
