@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import './Timetable.css';
 
+function GetCurrentWeek() {
+  const now = new Date();
+  const startOfYear = new Date(now.getFullYear(), 0, 1);
+  const dayOfYear = Math.floor((now - startOfYear) / (1000 * 60 * 60 * 24)) + 1;
+  return Math.ceil(dayOfYear / 7);
+}
+
 const DentisTimetable = () => {
-  const [currentWeek, setCurrentWeek] = useState(51);
+  const [currentWeek, setCurrentWeek] = useState(GetCurrentWeek());
 
   const weekData = {
     days: ['Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag'],
