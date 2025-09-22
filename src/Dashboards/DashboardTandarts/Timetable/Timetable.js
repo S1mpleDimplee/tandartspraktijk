@@ -27,8 +27,16 @@ const DentisTimetable = () => {
   };
 
   const navigateWeek = (direction) => {
-    setCurrentWeek(prev => direction === 'next' ? prev + 1 : prev - 1);
-  };
+    const TOTAL_WEEKS = 52;
+
+    setCurrentWeek(prev => {
+      if (direction === 'next') {
+        return prev === TOTAL_WEEKS ? 1 : prev + 1;
+      } else {
+      return prev === 1 ? TOTAL_WEEKS : prev - 1;
+      }
+    });
+   };
 
   const getAppointmentForSlot = (day, timeSlot) => {
     const dayApps = appointments[day] || [];
