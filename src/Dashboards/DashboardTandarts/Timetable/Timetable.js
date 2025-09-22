@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import './Timetable.css';
-import { getISOWeek, startOfISOWeek, setISOWeek, addDays } from 'date-fns';
+import { getISOWeek, startOfISOWeek, setISOWeek, addDays, lastDayOfISOWeek, getISOWeeksInYear } from 'date-fns';
 
 const DentisTimetable = () => {
   const today = new Date();
   const [currentWeek, setCurrentWeek] = useState(getISOWeek(today));
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
 
+  // Get Monday-Friday dates for the current ISO week
   const weekDates = Array.from({ length: 5 }, (_, i) => {
     const monday = startOfISOWeek(setISOWeek(new Date(currentYear, 0, 1), currentWeek));
     const date = addDays(monday, i);
@@ -44,13 +45,14 @@ const DentisTimetable = () => {
   const navigateWeek = (direction) => {
     let newWeek = direction === 'next' ? currentWeek + 1 : currentWeek - 1;
     let newYear = currentYear;
+    const totalWeeks = getISOWeeksInYear(new Date(currentYear, 0, 1));
 
-    if (newWeek > 52) {
+    if (newWeek > totalWeeks) {
       newWeek = 1;
       newYear += 1;
     } else if (newWeek < 1) {
-      newWeek = 52;
       newYear -= 1;
+      newWeek = getISOWeeksInYear(new Date(newYear, 0, 1));
     }
 
     setCurrentWeek(newWeek);
