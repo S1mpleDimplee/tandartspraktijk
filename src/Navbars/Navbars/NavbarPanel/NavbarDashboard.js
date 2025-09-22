@@ -10,10 +10,10 @@ const NavbarDashboard = () => {
   const [userName, setUserName] = useState("Klant naam");
 
   useEffect(() => {
-    if (loggedInData.role == 0 ) {
+    if (loggedInData && loggedInData.role == 0 ) {
       setUserName(loggedInData ? loggedInData.firstName + " " + loggedInData.lastName : "Klant naam");
     }
-   else if (loggedInData.role == 1) {
+   else if (loggedInData && loggedInData.role == 1) {
       setUserName("DR. " + (loggedInData ? loggedInData.firstName + " " + loggedInData.lastName : "Klant naam"));
     }
 
@@ -22,8 +22,8 @@ const NavbarDashboard = () => {
   return (
     <nav className="dashboard-navbar">
       <div className="navbar-content">
-        {loggedInData.role == 0 ? <h1 className="navbar-title">Klant Dashboard</h1> : null}
-        {loggedInData.role == 1 ? <h1 className="navbar-title">Tandarts Dashboard</h1> : null}
+        {loggedInData && loggedInData.role == 0 ? <h1 className="navbar-title">Klant Dashboard</h1> : null}
+        {loggedInData && loggedInData.role == 1 ? <h1 className="navbar-title">Tandarts Dashboard</h1> : null}
 
         <div className="navbar-user">
           <div className="user-icon">
