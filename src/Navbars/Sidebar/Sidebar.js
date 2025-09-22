@@ -17,7 +17,7 @@ const Sidebar = () => {
   const menuItemsTandarts = [
     { id: "dashboard", label: "Dashboard", icon: "🏠", url: "/dashboard" },
     { id: "calender", label: "Rooster", icon: "📅", url: "/dashboard/rooster" },
-    { id: "patiënten", label: "Patiënten", icon: "👥", url: "/patiënten-tandarts" },
+    { id: "patiënten", label: "Patiënten", icon: "👥", url: "/dashboard/patienten" },
   ];
 
   const menuItemsTandartsAssistente = [
