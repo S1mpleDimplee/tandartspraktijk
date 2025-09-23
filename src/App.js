@@ -15,16 +15,20 @@ import Sidebar from "./Navbars/Sidebar/Sidebar";
 import DashboardPatient from "./Dashboards/DashboardPatient/Dashboard/DashboardPatient";
 import Home from "./MainPages/Home/Home";
 import Footer from "./Footer/Footer";
-import DashboardTandarts from "./Dashboards/DashboardTandarts/Dashboard/DashboardTandarts";
 import DentisTimetable from "./Dashboards/DashboardTandarts/Timetable/Timetable";
 import NotFound from "./404/404";
 import PatientProfile from "./Dashboards/DashboardPatient/Profile/PatientProfile";
+import UserInfo from "./Dashboards/DashboardManager/UserInfo/UserInfo";
+import DentistUsers from "./Dashboards/DashboardTandarts/Users/DentistUser";
+import DashboardTandarts from "./Dashboards/DashboardTandarts/Dashboard/DashboardTandarts";
+import UserPage from "./Dashboards/DashboardManager/UserInfo/UserPage/UserPage";
 
 // Inner component that uses useLocation
 function AppContent() {
   const location = useLocation();
   const [isPatientDashboard, setIsPatientDashboard] = useState(false);
-  const patientDashboardUrls = ["/dashboard", "/dashboard-tandarts", "/dashboard/rooster", "/dashboard/profile"];
+  const patientDashboardUrls = ["/dashboard", "/dashboard-tandarts", "/dashboard/rooster", "/dashboard/profile", 
+    "/dashboard/gebruikers", ];
 
   const [currentRole, setCurrentRole] = useState(null);
   const nonLoggedInUrls = ["/", "/inloggen", "/registreren"];
@@ -69,10 +73,33 @@ function AppContent() {
             <Route path="/" element={<Home />} />
             <Route path="/registreren" element={<TandartsRegistratie />} />
             <Route path="/inloggen" element={<Login />} />
-            <Route path="/dashboard" element={currentRole === 0 ? <DashboardPatient /> : <DashboardTandarts />} />
-            <Route path="/dashboard-tandarts" element={<DashboardTandarts />} />
-            <Route path="/dashboard/rooster" element={<DentisTimetable />} />
-            <Route path="/dashboard/profile" element={<PatientProfile />} />
+
+          {/* Patient Dashboard routes */}
+            {currentRole === 0 && (
+              <>
+                <Route path="/dashboard" element={<DashboardPatient />} />
+                <Route path="/dashboard/profile" element={<PatientProfile />} />
+              </>
+            )}
+
+          {/* Dentist Dashboard routes */}
+            {currentRole === 1 && (
+              <>
+                <Route path="/dashboard/patienten" element={<DentistUsers />} />
+                <Route path="/dashboard/rooster" element={<DentisTimetable />} />
+                <Route path="/dashboard" element={<DashboardTandarts />} />
+              </>
+            )}
+
+            
+
+            {/* Manager Dashboard route */}
+            {currentRole === 3 && (
+              <>
+                <Route path="/dashboard" element={<UserInfo />} />
+                <Route path="/dashboard/gebruikers" element={<UserPage />} />
+              </>
+             )} 
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
