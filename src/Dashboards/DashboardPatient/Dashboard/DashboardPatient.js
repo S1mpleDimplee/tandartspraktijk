@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./DashboardPatient.css";
 import InfoCard from "./InfoCard/InfoCard";
+import CreateAppointmentModal from "../modals/CreateAppointment";
 
 const DashboardPatient = () => {
   const [recentTreatments, setRecentTreatments] = useState([
@@ -23,9 +24,10 @@ const DashboardPatient = () => {
     totalAppointments: "-",
   });
 
+  const [showCreateAppointmentModal, setShowCreateAppointmentModal] = useState(false);
+
   const handleAppointmentClick = () => {
-    // Handle appointment booking logic
-    console.log("Navigating to appointment booking...");
+    setShowCreateAppointmentModal(true);
   };
 
   const handleMoreInfoClick = () => {
@@ -124,7 +126,13 @@ const DashboardPatient = () => {
             </button>
           </div>
         </div>
+
       </div>
+      {showCreateAppointmentModal && (
+        <CreateAppointmentModal
+          onClose={() => setShowCreateAppointmentModal(false)}
+        />
+      )}
     </main>
   );
 };

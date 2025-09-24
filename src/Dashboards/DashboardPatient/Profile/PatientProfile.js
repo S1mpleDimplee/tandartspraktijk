@@ -63,8 +63,8 @@ const PatientProfile = () => {
   const handleBewerken = async () => {
     const result = await postCall("updateUserData", formData);
 
-      alert("Succes", result.message);
-    
+    alert("Succes", result.message);
+
   };
 
   return (
