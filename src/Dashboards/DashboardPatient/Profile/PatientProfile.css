@@ -20,19 +20,16 @@
   border-radius: 20px;
   padding: 2rem;
    background: linear-gradient(135deg, #1e293b 0%, #2d3748 100%);
-  width: 45vw;
+  width: 44vw;
   border: 1px solid rgba(100, 116, 139, 0.2);
   transition: all 0.4s ease;
   position: relative;
   overflow: hidden;
 }
 
-
-
 .form-section:hover::before {
   left: 100%;
 }
-
 
 .form-section h2 {
   font-size: 1.8rem;
@@ -163,14 +160,6 @@
   transition: left 0.5s ease;
 }
 
-
-
-
-
-
-
-
-
 .tandarts-info {
   background: linear-gradient(135deg, #00b4a6 0%, #00d4c4 100%);
   color: white;
@@ -240,15 +229,7 @@
   text-align: center;
 }
 
-/* Animations */
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+
 
 /* Responsive Design */
 @media (max-width: 1200px) {
