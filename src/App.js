@@ -27,8 +27,8 @@ import UserPage from "./Dashboards/DashboardManager/UserInfo/UserPage/UserPage";
 function AppContent() {
   const location = useLocation();
   const [isPatientDashboard, setIsPatientDashboard] = useState(false);
-  const patientDashboardUrls = ["/dashboard", "/dashboard-tandarts", "/dashboard/rooster", "/dashboard/profile", 
-    "/dashboard/gebruikers", ];
+  const patientDashboardUrls = ["/dashboard", "/dashboard-tandarts", "/dashboard/rooster", "/dashboard/profile", "/dashboard/patienten",
+    "/dashboard/gebruikers",];
 
   const [currentRole, setCurrentRole] = useState(null);
   const nonLoggedInUrls = ["/", "/inloggen", "/registreren"];
@@ -70,11 +70,14 @@ function AppContent() {
         {/* Main content area */}
         <main className={`main-content ${isPatientDashboard ? 'dashboard-main-content' : ''}`}>
           <Routes>
+
+            {/* Public routes */}
             <Route path="/" element={<Home />} />
             <Route path="/registreren" element={<TandartsRegistratie />} />
             <Route path="/inloggen" element={<Login />} />
+            <Route path="*" element={<NotFound />} />
 
-          {/* Patient Dashboard routes */}
+            {/* Patient Dashboard routes */}
             {currentRole === 0 && (
               <>
                 <Route path="/dashboard" element={<DashboardPatient />} />
@@ -82,16 +85,14 @@ function AppContent() {
               </>
             )}
 
-          {/* Dentist Dashboard routes */}
+            {/* Dentist Dashboard routes */}
             {currentRole === 1 && (
               <>
+                <Route path="/dashboard" element={<DashboardTandarts />} />
                 <Route path="/dashboard/patienten" element={<DentistUsers />} />
                 <Route path="/dashboard/rooster" element={<DentisTimetable />} />
-                <Route path="/dashboard" element={<DashboardTandarts />} />
               </>
             )}
-
-            
 
             {/* Manager Dashboard route */}
             {currentRole === 3 && (
@@ -99,8 +100,8 @@ function AppContent() {
                 <Route path="/dashboard" element={<UserInfo />} />
                 <Route path="/dashboard/gebruikers" element={<UserPage />} />
               </>
-             )} 
-            <Route path="*" element={<NotFound />} />
+            )}
+
           </Routes>
         </main>
 

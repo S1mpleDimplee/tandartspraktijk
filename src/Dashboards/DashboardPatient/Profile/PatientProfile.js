@@ -41,6 +41,7 @@ const PatientProfile = () => {
     console.log("Data succesvol opgehaald", result);
 
 
+
     setFormData({
       userid: userid,
       firstname: result.data.firstname || "",
@@ -189,7 +190,7 @@ const PatientProfile = () => {
           </button>
         </div>
 
-        <InfoCard patientInfo={patientInfo} />
+        <InfoCard patientInfo={patientInfo} edit={true} />
       </div>
     </div>
   );

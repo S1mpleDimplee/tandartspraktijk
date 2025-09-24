@@ -68,6 +68,7 @@
 .status-card {
   background: linear-gradient(135deg, #1e293b 0%, #2d3748 100%);
   min-height: 500px;
+  width: 44vw;
   position: relative;
 }
 
