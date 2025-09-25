@@ -8,9 +8,9 @@ const CreateAppointmentModal = ({ isOpen, onClose }) => {
     dentistid: '',
     userid: '',
     date: '',
+    duration: 30,
     time: { hours: '10', minutes: '30' },
     treatments: [
-
     ],
     note: ''
   });
@@ -83,10 +83,6 @@ const CreateAppointmentModal = ({ isOpen, onClose }) => {
     setShowDentistsDropdown(false);
   };
 
-  const handleDateSelect = (date) => {
-    handleInputChange('date', date);
-    setShowDateDropdown(false);
-  };
 
   const addTreatment = (treatment) => {
     setShowTreatmentsDropdown(false);
@@ -226,30 +222,23 @@ const CreateAppointmentModal = ({ isOpen, onClose }) => {
 
           {/* Right Column */}
           <div className="right-column">
-            {/* Datum Selection */}
             <div className="form-group">
               <label>Datum</label>
               <div className="dropdown-container">
-                <button
-                  className="dropdown-btn"
-                  onClick={() => setShowDateDropdown(!showDateDropdown)}
-                >
-                  {formData.date || 'Vrijdag 10 september'}
-                  <span className="dropdown-arrow">∨</span>
-                </button>
-                {showDateDropdown && (
-                  <div className="dropdown-menu">
-                    {datums.map((datum, index) => (
-                      <div
-                        key={index}
-                        className="dropdown-item"
-                        onClick={() => handleDateSelect(datum)}
-                      >
-                        {datum}
-                      </div>
-                    ))}
-                  </div>
-                )}
+                <input
+                  type="date"
+                  value={formData.date}
+                  onChange={(e) => {
+                    const selectedDate = new Date(e.target.value);
+                    const day = selectedDate.getDay();
+                    if (day === 0 || day === 6) {
+                      alert('Kies een datum tussen maandag en vrijdag.');
+                      return;
+                    }
+                    handleInputChange('date', e.target.value);
+                  }}
+                  className="date-input"
+                />
               </div>
             </div>
 
