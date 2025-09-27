@@ -1,35 +1,13 @@
-import React, { use, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import './DentistUsers.css';
+import postCall from '../../../Calls/calls';
 
 const DentistUsers = () => {
 
   const [currentWeek, setCurrentWeek] = useState(51);
   const [searchTerm, setSearchTerm] = useState('');
-  const [patients] = useState([
-    {
-      id: 1,
-      name: 'Sjonnie van der Boer',
-      address: 'Baksteenstraat 8\n1234XJ, Hengelo',
-      status: 'Iets'
-    },
-    {
-      id: 2,
-      name: 'Coen Bekhuis',
-      address: 'Reutummerweg 20\n7651KL, Tubbergen',
-      status: 'Iets'
-    },
-    {
-      id: 3,
-      name: 'Pieter Post',
-      address: 'Pieter post straat 12\n3412MV, Almelo',
-      status: 'Iets'
-    },
-    {
-      id: 4,
-      name: 'Jan biggel',
-      address: 'Jan biggel straat 17\n9412ML, Assenstraat',
-      status: 'Iets'
-    }
+  const [patients, setPatients] = useState([
+
   ]);
 
   const [selectedPatient] = useState({
@@ -51,9 +29,30 @@ const DentistUsers = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // Search functionality already handled by filteredPatients
   };
 
+  useEffect(() => {
+    fetchPatients();
+  }, []);
+
+  const fetchPatients = async () => {
+    try {
+      const response = await postCall('getAllPatients', {});
+      if (response.isSuccess && response.data) {
+        setPatients(response.data.map(patient => ({
+          userid: patient.userid, name: patient.firstname + ' ' + patient.lastname,
+          address: patient.streetname + ' ' + patient.housenumber + ', ' + patient.postalcode + ' ' + patient.city,
+          status: patient.status
+        })));
+      } else {
+        console.error('Fout bij het ophalen van patiënten:', response.message);
+        alert('Er is een fout opgetreden bij het ophalen van patiënten.');
+      }
+
+    } catch (error) {
+      console.error('Error fetching patients:', error);
+    }
+  };
 
   const handleLogout = () => {
     alert('Uitgelogd');
@@ -69,8 +68,7 @@ const DentistUsers = () => {
 
   return (
     <div className="dashboard-tandarts-container">
-      {/* Header */}
-     
+
 
       {/* Main Content */}
       <div className="dashboard-tandarts-main">
