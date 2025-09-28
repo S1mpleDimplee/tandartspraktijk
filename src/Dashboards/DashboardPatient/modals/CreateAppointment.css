@@ -85,11 +85,11 @@
     margin-bottom: 2rem;
 }
 
-.form-group {
+.form-group-appointments {
     margin-bottom: 1.5rem;
 }
 
-.form-group label {
+.form-group-appointments label {
     display: block;
     color: #cbd5e1;
     font-weight: 600;
@@ -355,7 +355,7 @@
         max-height: 95vh;
     }
 
-    .form-group {
+    .form-group-appointments {
         margin-bottom: 1rem;
     }
 

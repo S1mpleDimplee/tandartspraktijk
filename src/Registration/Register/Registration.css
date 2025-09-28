@@ -101,12 +101,10 @@
   font-size: 14px;
 }
 
-.form-label {
+.form-label-registration {
   display: block;
-  margin-left: 15px;
-  font-size: 12px;
-  color: #ffffff;
-  line-height: 1.4;
+  color: #fffefe;
+  font-size: 12px !important;
 }
 
 .submit-button {

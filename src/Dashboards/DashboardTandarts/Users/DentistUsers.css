@@ -315,7 +315,7 @@
   margin-bottom: 1.5rem;
 }
 
-.treatment-item {
+.treatment-item-dentist {
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -326,7 +326,7 @@
   transition: all 0.3s ease;
 }
 
-.treatment-item:hover {
+.treatment-item-dentist:hover {
   background: rgba(0, 188, 212, 0.2);
   transform: translateX(5px);
 }

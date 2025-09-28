@@ -151,7 +151,7 @@ const CreateAppointmentModal = ({ isOpen, onClose }) => {
           {/* Left Column */}
           <div className="left-column">
             {/* Tandarts Selection */}
-            <div className="form-group">
+            <div className="form-group-appointments">
               <label>Tandarts</label>
               <div className="dropdown-container">
                 <button
@@ -180,7 +180,7 @@ const CreateAppointmentModal = ({ isOpen, onClose }) => {
               </div>
             </div>
 
-            <div className="form-group">
+            <div className="form-group-appointments">
               <label>Behandeling(en)</label>
               <div className="behandeling-container">
                 <button
@@ -222,7 +222,7 @@ const CreateAppointmentModal = ({ isOpen, onClose }) => {
 
           {/* Right Column */}
           <div className="right-column">
-            <div className="form-group">
+            <div className="form-group-appointments">
               <label>Datum</label>
               <div className="dropdown-container">
                 <input
@@ -243,7 +243,7 @@ const CreateAppointmentModal = ({ isOpen, onClose }) => {
             </div>
 
             {/* Tijdstip Selection */}
-            <div className="form-group">
+            <div className="form-group-appointments">
               <label>Tijdstip</label>
               <div className="tijd-container">
                 <input
@@ -267,7 +267,7 @@ const CreateAppointmentModal = ({ isOpen, onClose }) => {
             </div>
 
             {/* Notitie */}
-            <div className="form-group">
+            <div className="form-group-appointments">
               <label>Notitie (Optioneel)</label>
               <textarea
                 value={formData.note}

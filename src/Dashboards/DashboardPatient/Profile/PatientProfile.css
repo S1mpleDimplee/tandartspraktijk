@@ -49,23 +49,23 @@
   margin-bottom: 2rem;
 }
 
-.form-group {
+.form-group-patientprofile {
   display: flex;
   flex-direction: column;
 }
 
-.form-group.full-width {
-  grid-column: 1 / -1;
+.form-group-patientprofile.full-width {
+  grid-column: 1;
 }
 
-.form-group label {
+.form-group-patientprofile label {
   color: #cbd5e1;
   font-weight: 600;
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
 }
 
-.form-input {
+.form-input-patientprofile {
   padding: 0.75rem 1rem;
   background: rgba(15, 23, 42, 0.6);
   border: 2px solid rgba(100, 116, 139, 0.3);
@@ -77,14 +77,14 @@
   backdrop-filter: blur(10px);
 }
 
-.form-input:focus {
+.form-input-patientprofile:focus {
   outline: none;
   border-color: #00b4a6;
   box-shadow: 0 0 0 3px rgba(0, 180, 166, 0.2);
   background: rgba(15, 23, 42, 0.8);
 }
 
-.form-input:hover {
+.form-input-patientprofile:hover {
   border-color: rgba(0, 180, 166, 0.4);
 }
 
@@ -105,7 +105,7 @@
   backdrop-filter: blur(10px);
 }
 
-.phone-input .form-input {
+.phone-input .form-input-patientprofile {
   flex: 1;
 }
 

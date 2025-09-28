@@ -131,7 +131,7 @@ const DentistUsers = () => {
             <h3>Recente behandelingen</h3>
             <div className="treatments-list">
               {treatments.map((treatment) => (
-                <div key={treatment.id} className="treatment-item">
+                <div key={treatment.id} className="treatment-item-dentist">
                   <span className="checkmark">✓</span>
                   <span>{treatment.name}</span>
                 </div>

@@ -74,7 +74,7 @@ const PatientProfile = () => {
           <h2>Persoonlijke gegevens</h2>
 
           <div className="form-grid">
-            <div className="form-group">
+            <div className="form-group-patientprofile">
               <label>Voornaam</label>
               <input
                 type="text"
@@ -82,11 +82,11 @@ const PatientProfile = () => {
                 name="firstname"
                 value={formData.firstname}
                 onChange={handleInputChange}
-                className="form-input"
+                className="form-input-patientprofile"
               />
             </div>
 
-            <div className="form-group">
+            <div className="form-group-patientprofile">
               <label>Achternaam</label>
               <input
                 type="text"
@@ -94,11 +94,11 @@ const PatientProfile = () => {
                 name="lastname"
                 value={formData.lastname}
                 onChange={handleInputChange}
-                className="form-input"
+                className="form-input-patientprofile"
               />
             </div>
 
-            <div className="form-group full-width">
+            <div className="form-group-patientprofile full-width">
               <label>Email adress</label>
               <input
                 type="email"
@@ -106,11 +106,11 @@ const PatientProfile = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                className="form-input"
+                className="form-input-patientprofile"
               />
             </div>
 
-            <div className="form-group">
+            <div className="form-group-patientprofile">
               <label>Telefoonnummer</label>
               <div className="phone-input">
                 <span className="country-code">31+</span>
@@ -120,12 +120,12 @@ const PatientProfile = () => {
                   name="phonenumber"
                   value={formData.phonenumber}
                   onChange={handleInputChange}
-                  className="form-input"
+                  className="form-input-patientprofile"
                 />
               </div>
             </div>
 
-            <div className="form-group">
+            <div className="form-group-patientprofile">
               <label>Woonplaats</label>
               <input
                 type="text"
@@ -133,11 +133,11 @@ const PatientProfile = () => {
                 name="city"
                 value={formData.city}
                 onChange={handleInputChange}
-                className="form-input"
+                className="form-input-patientprofile"
               />
             </div>
 
-            <div className="form-group">
+            <div className="form-group-patientprofile">
               <label>Postcode</label>
               <input
                 type="text"
@@ -145,11 +145,11 @@ const PatientProfile = () => {
                 name="postalcode"
                 value={formData.postalcode}
                 onChange={handleInputChange}
-                className="form-input"
+                className="form-input-patientprofile"
               />
             </div>
 
-            <div className="form-group">
+            <div className="form-group-patientprofile">
               <label>Straatnaam</label>
               <input
                 type="text"
@@ -157,11 +157,11 @@ const PatientProfile = () => {
                 name="streetname"
                 value={formData.streetname}
                 onChange={handleInputChange}
-                className="form-input"
+                className="form-input-patientprofile"
               />
             </div>
 
-            <div className="form-group">
+            <div className="form-group-patientprofile">
               <label>Toevoeging - Huisnummer</label>
               <div className="address-number-group">
                 <input
@@ -170,7 +170,7 @@ const PatientProfile = () => {
                   name="addition"
                   value={formData.addition}
                   onChange={handleInputChange}
-                  className="form-input address-input"
+                  className="form-input-patientprofile address-input"
                 />
                 <span className="address-separator">—</span>
                 <input
@@ -179,7 +179,7 @@ const PatientProfile = () => {
                   name="housenumber"
                   value={formData.housenumber}
                   onChange={handleInputChange}
-                  className="form-input address-input"
+                  className="form-input-patientprofile address-input"
                 />
               </div>
             </div>
