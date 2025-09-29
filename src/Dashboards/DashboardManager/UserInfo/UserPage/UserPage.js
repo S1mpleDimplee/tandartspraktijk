@@ -52,41 +52,39 @@ const UserPage = () => {
     <div className="user-profile-manager-container">
       {/* Main Content */}
       <div className="profile-manager-main">
-        {/* Header Section */}
-        <div className="profile-header-section">
-          <div className="user-id-display">{formData.userId}</div>
-          
-          <div className="action-tabs">
-            <button 
-              className={`tab-btn ${activeTab === 'Enquetes' ? 'active' : ''}`}
-              onClick={() => handleTabChange('Enquetes')}
-            >
-              Enquetes
-            </button>
-            <button 
-              className={`tab-btn ${activeTab === 'Afspraken' ? 'active' : ''}`}
-              onClick={() => handleTabChange('Afspraken')}
-            >
-              Afspraken
-            </button>
-          </div>
-
-          <div className="profile-actions">
-            <button className="action-btn bijwerken-btn" onClick={handleBijwerken}>
-              Bijwerken
-            </button>
-            <button className="action-btn verwijderen-btn" onClick={handleVerwijderen}>
-              Verwijderen
-            </button>
-          </div>
-        </div>
-
         {/* Content Sections */}
         <div className="profile-content-grid">
           {/* Left Section - Personal Data */}
           <div className="personal-data-section">
+            <div className="section-header">
+              <div className="user-id-display">{formData.userId}</div>
+
+              <div className="action-tabs">
+                <button
+                  className={`tab-btn ${activeTab === 'Enquetes' ? 'active' : ''}`}
+                  onClick={() => handleTabChange('Enquetes')}
+                >
+                  Enquetes
+                </button>
+                <button
+                  className={`tab-btn ${activeTab === 'Afspraken' ? 'active' : ''}`}
+                  onClick={() => handleTabChange('Afspraken')}
+                >
+                  Afspraken
+                </button>
+              </div>
+
+              <div className="profile-actions">
+                <button className="action-btn bijwerken-btn" onClick={handleBijwerken}>
+                  Bijwerken
+                </button>
+                <button className="action-btn verwijderen-btn" onClick={handleVerwijderen}>
+                  Verwijderen
+                </button>
+              </div>
+            </div>
             <h2>Persoonlijke gegevens</h2>
-            
+
             <div className="form-grid">
               <div className="form-group">
                 <label htmlFor="voornaam">Voornaam</label>
@@ -203,7 +201,7 @@ const UserPage = () => {
           {/* Right Section - System Data */}
           <div className="system-data-section">
             <h2>Systeem gegevens</h2>
-            
+
             <div className="system-grid">
               <div className="system-group">
                 <label htmlFor="role">Role</label>

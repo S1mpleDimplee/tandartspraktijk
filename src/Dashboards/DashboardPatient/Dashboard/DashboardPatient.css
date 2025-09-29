@@ -20,32 +20,13 @@
 .card {
   border-radius: 20px;
   padding: 2rem;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
   transition: all 0.4s ease;
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(100, 116, 139, 0.2);
 }
 
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  transition: left 0.6s ease;
-  pointer-events: none;
-}
 
-.card:hover::before {
-  left: 100%;
-}
-
-.card:hover {
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-  border-color: rgba(0, 180, 166, 0.3);
-}
 
 .card h3 {
   margin: 0 0 1.5rem 0;
@@ -56,8 +37,6 @@
 }
 
 
-
-
 /* Left Column Cards */
 .content-left {
   display: flex;
@@ -66,9 +45,8 @@
 }
 
 .status-card {
-  background: linear-gradient(135deg, #1e293b 0%, #2d3748 100%);
-  min-height: 500px;
-  width: 44vw;
+  background: #1E293B;
+  width: 47.1vw;
   position: relative;
 }
 
@@ -223,7 +201,7 @@
 
 /* Health Card */
 .health-card {
-  background: linear-gradient(135deg, #00B4A6 0%, #00D4C4 100%);
+  background: #1E293B;
   color: white;
   overflow: hidden;
   position: relative;
@@ -231,17 +209,7 @@
   box-shadow: 0 15px 40px rgba(0, 180, 166, 0.2);
 }
 
-.health-card::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-  animation: rotate 20s linear infinite;
-  pointer-events: none;
-}
+
 
 .health-content {
   display: flex;
@@ -334,7 +302,7 @@
 }
 
 .info-card {
-  background: linear-gradient(135deg, #1e293b 0%, #2d3748 100%);
+  background: #1E293B;
   height: 43vh;
 }
 
@@ -389,7 +357,7 @@
 
 /* Appointments Card */
 .appointments-card {
-  background: linear-gradient(135deg, #1e293b 0%, #2d3748 100%);
+  background: #1E293B;
   position: relative;
 }
 
