@@ -1,0 +1,375 @@
+/* AppointmentModal.css */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(8px);
+    width: 100%;
+    height: 100%;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal-container {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+
+    border-radius: 20px;
+    padding: 4rem;
+    border: 1px solid rgba(100, 116, 139, 0.3);
+    width: 80%;
+    height: 70%;
+    max-width: 70vw;
+    max-height: 90vh;
+    font-family: 'Arial', sans-serif;
+    position: relative;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.date-input {
+    width: 50%;
+    padding: 0.8rem;
+    background: rgba(15, 23, 42, 0.6);
+    border: 2px solid rgba(100, 116, 139, 0.3);
+    border-radius: 12px;
+    color: #f1f5f9;
+    font-size: 1.2rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    margin-bottom: 2rem;
+}
+
+/* Header */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+}
+
+.modal-header h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #f1f5f9;
+    margin: 0;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #cbd5e1;
+    font-size: 6rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+/* Content Grid */
+.modal-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.form-group-appointments {
+    margin-bottom: 1.5rem;
+}
+
+.form-group-appointments label {
+    display: block;
+    color: #cbd5e1;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 1.4rem !important;
+}
+
+.dropdown-container {
+    position: relative;
+}
+
+.dropdown-btn {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: #0F7979;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.dropdown-treatments-btn {
+    justify-self: end;
+    width: 10%;
+    background: #2c2e2e00;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.dropdown-btn:hover {
+    background: #088a8a;
+}
+
+.dropdown-arrow {
+    font-size: 1.3rem;
+    transform: rotate(0deg);
+    transition: transform 0.3s ease;
+}
+
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #0F7979;
+    border: 2px solid rgba(0, 180, 166, 0.3);
+    border-radius: 12px;
+    margin-top: 0.5rem;
+    z-index: 100;
+    color: white;
+    animation: slideDown 0.2s ease-out;
+    backdrop-filter: blur(10px);
+}
+
+.dropdown-item {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(100, 116, 139, 0.1);
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.dropdown-item:hover {
+    background: rgba(0, 180, 166, 0.2);
+    color: #f1f5f9;
+    transform: translateX(5px);
+}
+
+/* Behandeling Container */
+.behandeling-container {
+    background: rgba(15, 23, 42, 0.6);
+    border: 2px solid rgba(100, 116, 139, 0.3);
+    border-radius: 12px;
+    padding: 1rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.behandeling-container:hover {
+    border-color: rgba(0, 180, 166, 0.4);
+}
+
+.behandeling-item {
+    background: linear-gradient(135deg, #00B4A6 0%, #00D4C4 100%);
+    color: white;
+    padding: 0.7rem 1rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 4px 15px rgba(0, 180, 166, 0.3);
+}
+
+.remove-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: rgb(245, 97, 97);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    transition: all 0.3s ease;
+}
+
+
+.behandeling-duration {
+    color: #cbd5e1;
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+/* Tijd Container */
+.tijd-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tijd-input {
+    width: 70px;
+    padding: 0.75rem;
+    background: rgba(15, 23, 42, 0.6);
+    border: 2px solid rgba(100, 116, 139, 0.3);
+    border-radius: 12px;
+    color: #f1f5f9;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.tijd-input:focus {
+    outline: none;
+    border-color: #00B4A6;
+    background: rgba(15, 23, 42, 0.8);
+}
+
+.tijd-input:hover {
+    border-color: rgba(0, 180, 166, 0.4);
+}
+
+.tijd-separator {
+    color: #00B4A6;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+/* Notitie Textarea */
+.notitie-textarea {
+    width: 90%;
+    min-height: 100px;
+    padding: 0.75rem 1rem;
+    background: rgba(15, 23, 42, 0.6);
+    border: 2px solid rgba(100, 116, 139, 0.3);
+    border-radius: 12px;
+    color: #f1f5f9;
+    font-size: 1.2rem;
+    resize: vertical;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    font-family: inherit;
+}
+
+.notitie-textarea::placeholder {
+    color: #94a3b8;
+}
+
+.notitie-textarea:focus {
+    outline: none;
+    border-color: #00B4A6;
+    background: rgba(15, 23, 42, 0.8);
+}
+
+.notitie-textarea:hover {
+    border-color: rgba(0, 180, 166, 0.4);
+}
+
+/* Modal Footer */
+.modal-footer {
+    display: flex;
+    justify-content: end;
+    padding-top: 1rem;
+}
+
+.submit-btn {
+    padding: 1rem 3rem;
+    background: linear-gradient(135deg, #00B4A6 0%, #00D4C4 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.submit-btn:hover {
+    transform: translateY(-3px);
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .modal-container {
+        width: 95%;
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    .modal-content {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .modal-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .tijd-container {
+        justify-content: flex-start;
+    }
+
+    .submit-btn {
+        padding: 0.8rem 2rem;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-container {
+        width: 98%;
+        padding: 1rem;
+        max-height: 95vh;
+    }
+
+    .form-group-appointments {
+        margin-bottom: 1rem;
+    }
+
+    .dropdown-btn {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .tijd-input {
+        width: 50px;
+        padding: 0.6rem;
+    }
+
+    .notitie-textarea {
+        min-height: 80px;
+    }
+}

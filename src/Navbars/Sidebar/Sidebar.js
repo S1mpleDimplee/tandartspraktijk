@@ -26,10 +26,17 @@ const Sidebar = () => {
     { id: "afspraken", label: "Afspraken", icon: "📅", url: "/afspraken-assistente" },
   ];
 
+  const menuItemsManager = [
+    { id: "dashboard", label: "Dashboard", icon: "🏠", url: "/dashboard" },
+    { id: "medewerkers", label: "Medewerkers", icon: "👥", url: "/dashboard/medewerkers" },
+    { id: "accounts", label: "Accounts", icon: "📊", url: "/dashboard/accounts" },
+  ];
+
   const menuItems = {
     0: menuItemsPatient,
     1: menuItemsTandarts,
     2: menuItemsTandartsAssistente,
+    3: menuItemsManager,
   };
 
   const [currentRole, setCurrentRole] = useState(null);

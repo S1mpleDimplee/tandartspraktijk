@@ -94,7 +94,7 @@ const TandartsRegistratie = () => {
                       required
                     />
                   </div>
-                  <label className="form-label">
+                  <label className="form-label-registration">
                     Voer hier uw voor en achternaam is inclusief tussenvoegsel
                   </label>
                 </div>
@@ -109,7 +109,7 @@ const TandartsRegistratie = () => {
                     onChange={(e) => handleInputChange(e.target.value, "email")}
                     required
                   />
-                  <label className="form-label">
+                  <label className="form-label-registration">
                     Voer hier uw e-mail adress in
                   </label>
                 </div>
@@ -124,7 +124,7 @@ const TandartsRegistratie = () => {
                     onChange={(e) => handleInputChange(e.target.value, "password")}
                     required
                   />
-                  <label className="form-label">
+                  <label className="form-label-registration">
                     Voer hier een sterk wachtwoord
                     <br />
                     (Minimaal 8 karakters waarvan 1 hoofdletter en 1 cijfer)
@@ -141,7 +141,7 @@ const TandartsRegistratie = () => {
                     onChange={(e) => handleInputChange(e.target.value, "confirmPassword")}
                     required
                   />
-                  <label className="form-label">
+                  <label className="form-label-registration">
                     Herhaal hier uw wachtwoord
                   </label>
                 </div>

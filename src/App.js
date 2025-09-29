@@ -44,7 +44,7 @@ function AppContent() {
     if (loggedInData) {
       setCurrentRole(parseInt(loggedInData.role));
     }
-  }, []);
+  }, [location.pathname]);
 
   useEffect(() => {
     setIsPatientDashboard(patientDashboardUrls.includes(location.pathname));
