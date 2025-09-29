@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Timetable.css';
 import { getISOWeek, startOfISOWeek, setISOWeek, addDays, lastDayOfISOWeek, getISOWeeksInYear } from 'date-fns';
+import postCall from '../../../Calls/calls';
 
 const DentisTimetable = () => {
   const today = new Date();
@@ -31,16 +32,41 @@ const DentisTimetable = () => {
     ],
   };
 
-  const appointments = {
-    Maandag: [{ time: '8:00 - 8:30', patient: 'Dr. Jannes', type: 'Checkup' }],
-    Dinsdag: [{ time: '8:00 - 8:30', patient: 'Dr. Jannes', type: 'Checkup' }],
-    Woensdag: [],
-    Donderdag: [],
-    Vrijdag: [
-      { time: '8:00 - 8:30', patient: 'Dr. Jannes', type: 'Checkup' },
-      { time: '8:30 - 9:00', patient: 'Dr. Jannes', type: 'Checkup' },
-    ],
+  const [appointments, setAppointments] = useState({});
+
+  // Helper function to add 30 minutes to a time string
+  const addThirtyMinutes = (timeString) => {
+    const [hours, minutes] = timeString.split(':').map(Number);
+    const date = new Date();
+    date.setHours(hours, minutes + 30, 0, 0);
+    return date.toTimeString().substring(0, 5);
   };
+
+  // Helper function to normalize time format (handle both "9:00" and "09:00")
+  const normalizeTime = (timeString) => {
+    const [hours, minutes] = timeString.split(':').map(Number);
+    return `${hours}:${minutes.toString().padStart(2, '0')}`;
+  };
+
+  // Helper function to get day name with proper capitalization
+  const getDayName = (dateString) => {
+    const date = new Date(dateString);
+    const dayNames = {
+      0: 'Zondag',
+      1: 'Maandag',
+      2: 'Dinsdag',
+      3: 'Woensdag',
+      4: 'Donderdag',
+      5: 'Vrijdag',
+      6: 'Zaterdag'
+    };
+    return dayNames[date.getDay()];
+  };
+
+  // Load appointments on component mount
+  useEffect(() => {
+    fetchAppointmentsForWeek(currentWeek, currentYear);
+  }, []);
 
   const navigateWeek = (direction) => {
     let newWeek = direction === 'next' ? currentWeek + 1 : currentWeek - 1;
@@ -57,6 +83,69 @@ const DentisTimetable = () => {
 
     setCurrentWeek(newWeek);
     setCurrentYear(newYear);
+    fetchAppointmentsForWeek(newWeek, newYear);
+  };
+
+  const fetchAppointmentsForWeek = async (week, year) => {
+    try {
+      const loggedInData = JSON.parse(localStorage.getItem('loggedInData'));
+      const userid = loggedInData.userid;
+      const response = await postCall('getAppointmentsForWeek', { week, year, userid });
+
+      console.log('=== DEBUG INFO ===');
+      console.log('API Response:', response);
+      console.log('Week Data Days:', weekData.days);
+
+      // Transform response data into the appointments structure
+      const fetchedAppointments = {};
+
+      if (response.isSuccess && response.data) {
+        response.data.forEach((appointment, index) => {
+          console.log(`Processing appointment ${index}:`, appointment);
+
+          const appointmentDate = new Date(appointment.date);
+          console.log('Appointment Date object:', appointmentDate);
+
+          const dayName = getDayName(appointment.date);
+          console.log('Generated day name:', dayName);
+          console.log('Is day in weekData.days?', weekData.days.includes(dayName));
+
+          // Only process weekdays that are in our schedule
+          if (weekData.days.includes(dayName)) {
+            if (!fetchedAppointments[dayName]) {
+              fetchedAppointments[dayName] = [];
+            }
+
+            const startTime = normalizeTime(appointment.time.substring(0, 5));
+            const endTime = normalizeTime(addThirtyMinutes(startTime));
+            const timeRange = `${startTime} - ${endTime}`;
+
+            console.log('Original time:', appointment.time);
+            console.log('Start time:', startTime);
+            console.log('End time:', endTime);
+            console.log('Time range:', timeRange);
+            console.log('Available time slots:', weekData.timeSlots);
+            console.log('Does time slot exist?', weekData.timeSlots.includes(timeRange));
+
+            fetchedAppointments[dayName].push({
+              time: timeRange,
+              patient: appointment.userid,
+              type: appointment.treatment,
+              id: appointment.id,
+              note: appointment.note
+            });
+          }
+        });
+      }
+
+      console.log('Final Processed Appointments:', fetchedAppointments);
+      console.log('=== END DEBUG ===');
+      setAppointments(fetchedAppointments);
+
+    } catch (error) {
+      console.error('Error fetching appointments:', error);
+      setAppointments({}); // Reset to empty state on error
+    }
   };
 
   const getAppointmentForSlot = (day, timeSlot) => {
@@ -107,6 +196,9 @@ const DentisTimetable = () => {
                               Patiënt: {appointment.patient}
                             </div>
                             <div className="appointment-type">{appointment.type}</div>
+                            {appointment.note && (
+                              <div className="appointment-note">Note: {appointment.note}</div>
+                            )}
                           </div>
                         ) : (
                           <div className="appointment-time">{timeSlot}</div>

@@ -1,6 +1,5 @@
 /* UserProfileManager.css */
 .user-profile-manager-container {
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
   min-height: 100vh;
   font-family: 'Arial', sans-serif;
   color: white;
@@ -32,11 +31,18 @@
   border-color: rgba(0, 180, 166, 0.3);
 }
 
+.section-header {
+  font-size: 2rem;
+  display: flex;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+
 /* User ID Display */
 .user-id-display {
-  background: rgba(0, 180, 166, 0.2);
-  color: #00B4A6;
+  color: #ffffff;
   padding: 0.8rem 1.5rem;
+  width: 10%;
   border-radius: 12px;
   font-weight: 700;
   font-size: 1.2rem;
@@ -70,10 +76,10 @@
 }
 
 .tab-btn.active {
-  background: linear-gradient(135deg, #00B4A6 0%, #00D4C4 100%);
+  background: #008B8B;
   color: white;
-  border-color: #00B4A6;
-  box-shadow: 0 6px 20px rgba(0, 180, 166, 0.3);
+
+
 }
 
 /* Profile Actions */
@@ -141,7 +147,7 @@
 
 /* Personal Data Section */
 .personal-data-section {
-  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  background: #1E293B;
   border-radius: 20px;
   padding: 2rem;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
@@ -207,11 +213,11 @@
 
 .form-input {
   padding: 0.75rem 1rem;
-  background: rgba(15, 23, 42, 0.6);
+  background: #14353D;
   border: 2px solid rgba(100, 116, 139, 0.3);
   border-radius: 12px;
   color: #f1f5f9;
-  font-size: 1rem;
+  font-size: 1.4rem;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
 }
@@ -223,9 +229,6 @@
   background: rgba(15, 23, 42, 0.8);
 }
 
-.form-input:hover {
-  border-color: rgba(0, 180, 166, 0.4);
-}
 
 /* Phone Input */
 .phone-input {
@@ -267,7 +270,7 @@
 
 /* System Data Section */
 .system-data-section {
-  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  background: #1E293B;
   border-radius: 20px;
   padding: 2rem;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
@@ -375,7 +378,7 @@
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   .user-profile-manager-container {
     padding: 15px;
   }
@@ -387,41 +390,41 @@
     gap: 1.5rem;
     padding: 1rem;
   }
-  
+
   .action-tabs {
     order: 1;
   }
-  
+
   .user-id-display {
     order: 2;
     font-size: 1rem;
   }
-  
+
   .profile-actions {
     order: 3;
     justify-content: center;
   }
-  
+
   .form-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-  
+
   .personal-data-section,
   .system-data-section {
     padding: 1.5rem;
   }
-  
+
   .phone-input {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .address-number-group {
     flex-direction: column;
     gap: 0.5rem;
   }
-  
+
   .address-separator {
     display: none;
   }
@@ -431,35 +434,35 @@
   .user-profile-manager-container {
     padding: 10px;
   }
-  
+
   .profile-header-section {
     padding: 1rem;
   }
-  
+
   .personal-data-section,
   .system-data-section {
     padding: 1rem;
   }
-  
+
   .personal-data-section h2,
   .system-data-section h2 {
     font-size: 1.5rem;
   }
-  
+
   .action-tabs {
     flex-direction: column;
     width: 100%;
   }
-  
+
   .tab-btn {
     text-align: center;
   }
-  
+
   .profile-actions {
     flex-direction: column;
     width: 100%;
   }
-  
+
   .action-btn {
     width: 100%;
     text-align: center;
