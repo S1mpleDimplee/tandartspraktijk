@@ -41,7 +41,7 @@ const DentistUsers = () => {
       if (response.isSuccess && response.data) {
         setPatients(response.data.map(patient => ({
           userid: patient.userid, name: patient.firstname + ' ' + patient.lastname,
-          address: patient.streetname + ' ' + patient.housenumber + ', ' + patient.postalcode + ' ' + patient.city,
+          address: patient.streetname ? patient.streetname + ' ' + patient.housenumber + ', ' + patient.postalcode + ' ' + patient.city : "-",
           status: patient.status
         })));
       } else {
@@ -101,7 +101,7 @@ const DentistUsers = () => {
               {filteredPatients.map((patient) => (
                 <div key={patient.id} className="table-row">
                   <span className="patient-name">{patient.name}</span>
-                  <span className="patient-address">{patient.address}</span>
+                  <span className="patient-address">{patient.address ? patient.address : "-"}</span>
                   <span className="patient-status">{patient.status}</span>
                 </div>
               ))}

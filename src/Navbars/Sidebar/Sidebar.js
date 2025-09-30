@@ -2,6 +2,10 @@
 import React, { useEffect, useState } from "react";
 import "./Sidebar.css";
 import { useNavigate } from "react-router-dom";
+import profile from "./icons/profile.svg"
+import appointments from "./icons/appointments.svg"
+import dashboard from "./icons/dashboard.svg"
+import employees from "./icons/employees.svg"
 
 const Sidebar = () => {
   const [activeItem, setActiveItem] = useState("dashboard");
@@ -9,27 +13,27 @@ const Sidebar = () => {
   const navigate = useNavigate();
 
   const menuItemsPatient = [
-    { id: "dashboard", label: "Dashboard", icon: "🏠", url: "/dashboard" },
-    { id: "afspraken", label: "Afspraken", icon: "📅", url: "/afspraken" },
-    { id: "profiel", label: "Profiel", icon: "👤", url: "/dashboard/profile" },
+    { id: "dashboard", label: "Dashboard", icon: dashboard, url: "/dashboard" },
+    // { id: "afspraken", label: "Afspraken", icon: appointments, url: "/afspraken" },
+    { id: "profiel", label: "Profiel", icon: profile, url: "/dashboard/profile" },
   ];
 
   const menuItemsTandarts = [
-    { id: "dashboard", label: "Dashboard", icon: "🏠", url: "/dashboard" },
-    { id: "calender", label: "Rooster", icon: "📅", url: "/dashboard/rooster" },
-    { id: "patiënten", label: "Patiënten", icon: "👥", url: "/dashboard/patienten" },
+    { id: "dashboard", label: "Dashboard", icon: dashboard, url: "/dashboard" },
+    { id: "calender", label: "Rooster", icon: appointments, url: "/dashboard/rooster" },
+    { id: "patiënten", label: "Patiënten", icon: profile, url: "/dashboard/patienten" },
   ];
 
   const menuItemsTandartsAssistente = [
-    { id: "dashboard", label: "Dashboard", icon: "🏠", url: "/dashboard" },
-    { id: "patiënten", label: "Patiënten", icon: "👥", url: "/patiënten-assistente" },
-    { id: "afspraken", label: "Afspraken", icon: "📅", url: "/afspraken-assistente" },
+    { id: "dashboard", label: "Dashboard", icon: dashboard, url: "/dashboard" },
+    { id: "patiënten", label: "Patiënten", icon: profile, url: "/patiënten-assistente" },
+    { id: "afspraken", label: "Afspraken", icon: appointments, url: "/afspraken-assistente" },
   ];
 
   const menuItemsManager = [
-    { id: "dashboard", label: "Dashboard", icon: "🏠", url: "/dashboard" },
-    { id: "medewerkers", label: "Medewerkers", icon: "👥", url: "/dashboard/medewerkers" },
-    { id: "accounts", label: "Accounts", icon: "📊", url: "/dashboard/accounts" },
+    { id: "dashboard", label: "Dashboard", icon: dashboard, url: "/dashboard" },
+    { id: "medewerkers", label: "Medewerkers", icon: employees, url: "/dashboard/medewerkers" },
+    { id: "accounts", label: "Accounts", icon: profile, url: "/dashboard/accounts" },
   ];
 
   const menuItems = {
@@ -69,7 +73,7 @@ const Sidebar = () => {
             className={`sidebar-item ${activeItem === item.id ? "active" : ""}`}
             onClick={() => handleItemClick(item.id, item.url)}
           >
-            <span className="sidebar-icon">{item.icon}</span>
+            <img src={item.icon} alt={item.label} className="sidebar-icon" />
             <span className="sidebar-label">{item.label}</span>
           </button>
         ))}

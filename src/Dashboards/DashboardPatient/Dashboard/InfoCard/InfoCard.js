@@ -15,7 +15,18 @@ const InfoCard = ({ patientInfo, edit = false }) => {
   useEffect(() => {
     getAllDentists();
     setSelectedDentist(patientInfo.dentist || "");
+    getAppointmentsDataPatient();
   }, []);
+
+  const getAppointmentsDataPatient = async () => {
+    const userid = JSON.parse(localStorage.getItem("loggedInData")).userid;
+    const response = await postCall("getAppointmentsDataPatient", { userid });
+    if (response.isSuccess) {
+      console.log("getAppointmentsDataPatient fetched:", response.data);
+    } else {
+      console.log(response.message);
+    }
+  };
 
   const getAllDentists = async () => {
     const response = await postCall("getAllDentists", {});
