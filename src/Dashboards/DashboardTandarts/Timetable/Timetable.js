@@ -29,6 +29,16 @@ const DentisTimetable = () => {
       '9:30 - 10:00',
       '10:00 - 10:30',
       '10:30 - 11:00',
+      '11:00 - 11:30',
+      '11:30 - 12:00',
+      '12:00 - 12:30',
+      '12:30 - 13:00',
+      '13:00 - 13:30',
+      '13:30 - 14:00',
+      '14:00 - 14:30',
+      '14:30 - 15:00',
+      '15:00 - 15:30',
+      
     ],
   };
 
@@ -92,9 +102,6 @@ const DentisTimetable = () => {
       const userid = loggedInData.userid;
       const response = await postCall('getAppointmentsForWeek', { week, year, userid });
 
-      console.log('=== DEBUG INFO ===');
-      console.log('API Response:', response);
-      console.log('Week Data Days:', weekData.days);
 
       // Transform response data into the appointments structure
       const fetchedAppointments = {};
@@ -138,13 +145,11 @@ const DentisTimetable = () => {
         });
       }
 
-      console.log('Final Processed Appointments:', fetchedAppointments);
-      console.log('=== END DEBUG ===');
       setAppointments(fetchedAppointments);
 
     } catch (error) {
       console.error('Error fetching appointments:', error);
-      setAppointments({}); // Reset to empty state on error
+      setAppointments({}); 
     }
   };
 
