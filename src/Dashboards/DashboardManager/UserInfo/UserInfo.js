@@ -77,9 +77,6 @@ const UserInfo = () => {
 
   return (
     <div className="manager-container">
-      {/* Header */}
-      
-
       {/* Main Content */}
       <div className="manager-main">
         {/* Search and Filter Section */}
