@@ -109,38 +109,29 @@ const UserInfo = () => {
         <div className="users-table-container">
           <div className="users-table">
             {/* Table Header */}
-            <div className="table-header">
-              <div className="header-cell">Naam</div>
-              <div className="header-cell">Account datum</div>
-              <div className="header-cell">Gebruiker ID</div>
-            </div>
-            <div className="table-subheader">
-              <div className="subheader-cell">Roll</div>
-              <div className="subheader-cell">Actie</div>
-              <div className="subheader-cell"></div>
+            <div className="table-header-userinfo">
+              <div className="header-cell-userinfo">Naam</div>
+              <div className="header-cell-userinfo">Account datum</div>
+              <div className="header-cell-userinfo">ID</div>
+              <div className="header-cell-userinfo">Roll</div>
+              <div className="header-cell-userinfo">Actie</div>
             </div>
 
             {/* Table Body */}
-            <div className="table-body">
+            <div className="table-body-userinfo">
               {filteredUsers.map((user) => (
-                <div key={user.id} className="table-row">
+                <div key={user.id} className="table-row-userinfo">
                   <div className="user-info-section">
-                    <div className="table-cell user-name">{user.naam}</div>
-                    <div className="user-details">
-                      <span
-                        className="role-badge"
-                        style={{ backgroundColor: getRoleColor(user.roll) }}
-                      >
-                        {user.roll}
-                      </span>
-                    </div>
+                    <div className="table-cell user-name">{user.firstname} {user.lastname}</div>
+
                   </div>
-                  <div className="table-cell">{user.accountDatum}</div>
-                  <div className="table-cell user-id">{user.gebruikerId}</div>
+                  <div className="table-cell">{user.created_at}</div>
+                  <div className="table-cell user-id">{user.userid}</div>
+                  <div className="table-cell user-role">{user.role}</div>
                   <div className="table-cell action-cell">
                     <button
                       className="open-btn"
-                      onClick={() => handleOpenUser(user.gebruikerId)}
+                      onClick={() => handleOpenUser(user.userid)}
                     >
                       Open
                     </button>
