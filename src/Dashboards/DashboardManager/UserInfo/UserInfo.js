@@ -1,61 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './UserInfo.css';
 import { useNavigate } from 'react-router-dom';
+import postCall from '../../../Calls/calls';
 
 const UserInfo = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [roleFilter1, setRoleFilter1] = useState('');
   const [roleFilter2, setRoleFilter2] = useState('');
 
-  const [users] = useState([
-    {
-      id: 1,
-      naam: 'Sjonnie van der Boer',
-      accountDatum: '19-11-2014',
-      gebruikerId: 'U-00123',
-      roll: 0
-    },
-    {
-      id: 2,
-      naam: 'Coen Bekhuis',
-      accountDatum: '19-11-2014',
-      gebruikerId: 'U-00021',
-      roll: 0
-    },
-    {
-      id: 3,
-      naam: 'DR. Pieter Post',
-      accountDatum: '19-11-2014',
-      gebruikerId: 'C-31278',
-      roll: 1
-    },
-    {
-      id: 4,
-      naam: 'Jan biggel',
-      accountDatum: '19-11-2014',
-      gebruikerId: 'C-21389',
-      roll: 0
-    },
-    {
-      id: 5,
-      naam: 'Jan biggel',
-      accountDatum: '19-11-2014',
-      gebruikerId: 'C-00212',
-      roll: 2
-    }
+  const [users, setUsers] = useState([
+
   ]);
 
   const navigate = useNavigate();
 
   const filteredUsers = users.filter(user => {
-    const matchesSearch = user.naam.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         user.gebruikerId.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesRole1 = roleFilter1 === '' || user.roll.toString() === roleFilter1;
-    const matchesRole2 = roleFilter2 === '' || user.roll.toString() === roleFilter2;
-    
+    const matchesSearch = user.firstname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.userid.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesRole1 = roleFilter1 === '' || user.role.toString() === roleFilter1;
+    const matchesRole2 = roleFilter2 === '' || user.role.toString() === roleFilter2;
+
     return matchesSearch && matchesRole1 && matchesRole2;
   });
+
+  useEffect(() => {
+    fetchAllDentists();
+  }, []);
+
+  const fetchAllDentists = async () => {
+    const response = await postCall("getallusers", {});
+
+    if (response.isSuccess) {
+      setUsers(response.data || []);
+    }
+  };
 
   const handleSearch = () => {
     // Search functionality is handled by filteredUsers automatically
@@ -63,7 +42,7 @@ const UserInfo = () => {
   };
 
   const handleOpenUser = (userId) => {
-   navigate(`/dashboard/gebruikers`);
+    navigate(`/dashboard/gebruikers`);
   };
 
   const getRoleColor = (roll) => {
@@ -89,11 +68,11 @@ const UserInfo = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
               className="search-input"
             />
-            
+
             <div className="filter-group">
               <label>Role</label>
-              <select 
-                value={roleFilter1} 
+              <select
+                value={roleFilter1}
                 onChange={(e) => setRoleFilter1(e.target.value)}
                 className="role-select"
               >
@@ -107,8 +86,8 @@ const UserInfo = () => {
 
             <div className="filter-group">
               <label>Role</label>
-              <select 
-                value={roleFilter2} 
+              <select
+                value={roleFilter2}
                 onChange={(e) => setRoleFilter2(e.target.value)}
                 className="role-select"
               >
@@ -148,7 +127,7 @@ const UserInfo = () => {
                   <div className="user-info-section">
                     <div className="table-cell user-name">{user.naam}</div>
                     <div className="user-details">
-                      <span 
+                      <span
                         className="role-badge"
                         style={{ backgroundColor: getRoleColor(user.roll) }}
                       >
@@ -159,7 +138,7 @@ const UserInfo = () => {
                   <div className="table-cell">{user.accountDatum}</div>
                   <div className="table-cell user-id">{user.gebruikerId}</div>
                   <div className="table-cell action-cell">
-                    <button 
+                    <button
                       className="open-btn"
                       onClick={() => handleOpenUser(user.gebruikerId)}
                     >

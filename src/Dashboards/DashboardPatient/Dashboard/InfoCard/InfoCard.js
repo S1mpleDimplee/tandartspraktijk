@@ -4,19 +4,39 @@ import "./InfoCard.css";
 import postCall from "../../../../Calls/calls";
 import { set } from "date-fns";
 
-const InfoCard = ({ patientInfo, edit = false }) => {
+const InfoCard = ({ userid, edit = false }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   const [selectedDentist, setSelectedDentist] = useState("");
   const [doctors, setDoctors] = useState([]);
+  const [patientInfo, setPatientInfo] = useState({
+    dentist: "",
+    lastAppointment: "",
+    scheduledAppointments: "",
+    totalAppointmentsHad: "",
+  });
 
   useEffect(() => {
     getAllDentists();
+    getCurrentDentist();
     setSelectedDentist(patientInfo.dentist || "");
     getAppointmentsDataPatient();
   }, []);
+
+  const getCurrentDentist = async () => {
+    const userid = JSON.parse(localStorage.getItem("loggedInData")).userid;
+    const response = await postCall("getCurrentDentist", { userid });
+    if (response.isSuccess) {
+      setPatientInfo((prev) => ({
+        ...prev,
+        dentist: response.data?.name || "",
+      }));
+      setSelectedDentist(response.data?.name || "");
+      console.log("getCurrentDentist fetched:", response.data);
+    }
+  };
 
   const getAppointmentsDataPatient = async () => {
     const userid = JSON.parse(localStorage.getItem("loggedInData")).userid;

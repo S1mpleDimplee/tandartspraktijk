@@ -1,9 +1,11 @@
 import React, { use, useEffect, useState } from "react";
 import "./DentistUsers.css";
 import postCall from "../../../Calls/calls";
+import PatientTreatment from "./Modal/PatientTreatments";
 
 const DentistUsers = () => {
   const [currentWeek, setCurrentWeek] = useState(51);
+  const [showModal, setShowModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [patients, setPatients] = useState([
     {
@@ -33,16 +35,11 @@ const DentistUsers = () => {
   ]);
 
   const [selectedPatient, setSelectedPatient] = useState({
-    name: "Jan biggel",
-    birthDate: "01/01/2000",
-    patientSince: "31/12/2021",
-    lastAppointment: "17/03/2025",
+
   });
 
-  const [treatments] = useState([
-    { id: 1, name: "Fluoride behandeling", completed: true },
-    { id: 2, name: "Nieuwe sok", completed: true },
-    { id: 3, name: "Gebit vulling", completed: true },
+  const [treatments, setTreatments] = useState([
+
   ]);
 
   const filteredPatients = patients.filter((patient) =>
@@ -53,12 +50,30 @@ const DentistUsers = () => {
     e.preventDefault();
   };
 
+  const fetchPatientInfo = async (userid) => {
+    try {
+      const response = await postCall("fetchAllUserData", userid);
+      if (response.isSuccess) {
+        setSelectedPatient(response.data);
+        setTreatments(response.data.treatments || []);
+
+        console.log("Patient info:", selectedPatient);
+      } else {
+        console.error("Fout bij het ophalen van patiënt info:", response.message);
+      }
+    } catch (error) {
+      console.error("Error fetching patient info:", error);
+    }
+  };
+
+
   const handlePatientClick = (patient) => {
-    // Update selected patient when clicking on a patient in the table
+    fetchPatientInfo(patient.userid);
+
     setSelectedPatient({
       name: patient.name,
-      birthDate: "01/01/2000", // You can make this dynamic from patient data
-      patientSince: "31/12/2021", // You can make this dynamic from patient data
+      birthDate: patient.birthdate, // You can make this dynamic from patient data
+      patientSince: patient.created_at, // You can make this dynamic from patient data
       lastAppointment: "17/03/2025", // You can make this dynamic from patient data
     });
   };
@@ -77,14 +92,15 @@ const DentistUsers = () => {
             name: patient.firstname + " " + patient.lastname,
             address: patient.streetname
               ? patient.streetname +
-                " " +
-                patient.housenumber +
-                ", " +
-                patient.postalcode +
-                " " +
-                patient.city
+              " " +
+              patient.housenumber +
+              ", " +
+              patient.postalcode +
+              " " +
+              patient.city
               : "-",
             status: patient.status,
+            created_at: patient.created_at,
           }))
         );
       } else {
@@ -99,12 +115,8 @@ const DentistUsers = () => {
     }
   };
 
-  const handleLogout = () => {
-    alert("Uitgelogd");
-  };
-
   const handleBewerken = () => {
-    alert("Bewerken functionaliteit");
+    setShowModal(true);
   };
 
   const handleAfspraakInplannen = () => {
@@ -117,17 +129,17 @@ const DentistUsers = () => {
       <div className="dashboard-tandarts-main">
         {/* Left Section - Patient Search and List */}
         <div className="left-section">
-            <div className="search-form">
-              <input
-                type="text"
-                placeholder="Klantzoeken"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="search-input"
-              />
-              <button onClick={handleSearch} className="search-btn">
-                Zoeken
-              </button>
+          <div className="search-form">
+            <input
+              type="text"
+              placeholder="Klantzoeken"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="search-input"
+            />
+            <button onClick={handleSearch} className="search-btn">
+              Zoeken
+            </button>
           </div>
 
           {/* Patient Table */}
@@ -135,22 +147,21 @@ const DentistUsers = () => {
             <div className="table-header">
               <span>Naam</span>
               <span>Adress</span>
-              <span>Iets</span>
+              <span>Account datum</span>
             </div>
             <div className="table-body">
               {filteredPatients.map((patient) => (
                 <div
                   key={patient.userid}
-                  className={`table-row ${
-                    selectedPatient.name === patient.name ? "selected" : ""
-                  }`}
+                  className={`table-row ${selectedPatient.name === patient.name ? "selected" : ""
+                    }`}
                   onClick={() => handlePatientClick(patient)}
                 >
                   <span className="patient-name">{patient.name}</span>
                   <span className="patient-address">
                     {patient.address ? patient.address : "-"}
                   </span>
-                  <span className="patient-status">{patient.status}</span>
+                  <span className="patient-status">{patient.created_at}</span>
                 </div>
               ))}
             </div>
@@ -164,15 +175,15 @@ const DentistUsers = () => {
             <h3>Patiënt info</h3>
             <div className="patient-details">
               <p>
-                <strong>Naam:</strong> <span>{selectedPatient.name}</span>
+                <strong>Naam:</strong> <span>{selectedPatient.firstname} {selectedPatient.lastname}</span>
               </p>
               <p>
                 <strong>Geboorte datum:</strong>{" "}
-                <span>{selectedPatient.birthDate}</span>
+                <span>{selectedPatient.birthdate}</span>
               </p>
               <p>
                 <strong>Patiënt sinds:</strong>{" "}
-                <span>{selectedPatient.patientSince}</span>
+                <span>{selectedPatient.created_at}</span>
               </p>
               <p>
                 <strong>Vorige afspraak:</strong>{" "}
@@ -188,7 +199,7 @@ const DentistUsers = () => {
               {treatments.map((treatment) => (
                 <div key={treatment.id} className="treatment-item-dentist">
                   <span className="checkmark">✓</span>
-                  <span>{treatment.name}</span>
+                  <span>{treatment.treatment}</span>
                 </div>
               ))}
             </div>
@@ -212,6 +223,7 @@ const DentistUsers = () => {
           </div>
         </div>
       </div>
+      {showModal && <PatientTreatment userid={selectedPatient.userid} />}
     </div>
   );
 };
