@@ -15,8 +15,6 @@ const Login = () => {
     password: "",
   });
 
-  const [message, setMessage] = useState("");
-
   const handleChange = (e, inputName) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -35,7 +33,6 @@ const Login = () => {
     const response = await postCall("loginUser", formData);
 
     if (response.isSuccess) {
-      setMessage("U bent succesvol ingelogd!");
       openToast("U bent succesvol ingelogd!");
 
       addLoginData(response.data);
@@ -44,7 +41,7 @@ const Login = () => {
         Navigate("/dashboard");
       }, 2000);
     } else {
-      setMessage("Inloggen mislukt: " + response.message);
+      openToast("Inloggen mislukt: " + response.message);
     }
   };
 
@@ -62,13 +59,6 @@ const Login = () => {
         <div className="form-section-login">
           <div className="form-container-login">
             <h2 className="form-title-login">Inloggen</h2>
-
-            {message && (
-              <div className={`login-message ${message.includes("succesvol") ? "login-success" : "login-error"}`}>
-                {message}
-              </div>
-            )}
-
             <div className="login-form" onSubmit={checkLogin}>
               <div className="form-group-login">
                 <input

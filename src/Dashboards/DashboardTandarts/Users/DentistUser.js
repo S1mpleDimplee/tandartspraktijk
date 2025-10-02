@@ -2,6 +2,7 @@ import React, { use, useEffect, useState } from "react";
 import "./DentistUsers.css";
 import postCall from "../../../Calls/calls";
 import PatientTreatment from "./Modal/PatientTreatments";
+import { useToast } from "../../../toastmessage/toastmessage";
 
 const DentistUsers = () => {
   const [currentWeek, setCurrentWeek] = useState(51);
@@ -45,6 +46,8 @@ const DentistUsers = () => {
   const filteredPatients = patients.filter((patient) =>
     patient.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const { openToast } = useToast();
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -116,6 +119,11 @@ const DentistUsers = () => {
   };
 
   const handleBewerken = () => {
+
+    if (!selectedPatient || !selectedPatient.userid) {
+      openToast("Selecteer eerst een patiënt om te bewerken.");
+      return;
+    }
     setShowModal(true);
   };
 
@@ -223,7 +231,7 @@ const DentistUsers = () => {
           </div>
         </div>
       </div>
-      {showModal && <PatientTreatment userid={selectedPatient.userid} />}
+      {showModal && <PatientTreatment userid={selectedPatient.userid} onclose={() => setShowModal(false)} />}
     </div>
   );
 };

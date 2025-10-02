@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './CreateAppointment.css';
 import postCall from '../../../Calls/calls';
 import { set } from 'date-fns';
+import { useToast } from '../../../toastmessage/toastmessage';
 
 const CreateAppointmentModal = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState({
@@ -36,6 +37,8 @@ const CreateAppointmentModal = ({ isOpen, onClose }) => {
   const [showTreatmentsDropdown, setShowTreatmentsDropdown] = useState(false);
 
   const [totalDuration, setTotalDuration] = useState(0);
+
+  const { openToast } = useToast();
 
   useEffect(() => {
     fetchAvailableDentists();
@@ -123,11 +126,11 @@ const CreateAppointmentModal = ({ isOpen, onClose }) => {
       note: formData.note || ''
     });
     if (response.isSuccess) {
-      alert('Afspraak succesvol gemaakt!');
+      openToast('Afspraak succesvol gemaakt!');
       onClose();
     }
     else {
-      alert('Fout bij het maken van de afspraak. Probeer het opnieuw.' + response.message);
+      openToast('Fout bij het maken van de afspraak. Probeer het opnieuw.' + response.message);
       return;
     }
 
@@ -137,19 +140,19 @@ const CreateAppointmentModal = ({ isOpen, onClose }) => {
 
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-container">
+    <div className="modal-createappointment-overlay">
+      <div className="modal-createappointment-container">
         {/* Header */}
-        <div className="modal-header">
+        <div className="modal-createappointment-header">
           <h2>Afspraak maken</h2>
           <button className="close-btn" onClick={onClose}>
             ×
           </button>
         </div>
 
-        <div className="modal-content">
+        <div className="modal-createappointment-content">
           {/* Left Column */}
-          <div className="left-column">
+          <div className="left-createappointment-column">
             {/* Tandarts Selection */}
             <div className="form-group-appointments">
               <label>Tandarts</label>
@@ -217,6 +220,15 @@ const CreateAppointmentModal = ({ isOpen, onClose }) => {
                   Verwachte tijdsduur: {totalDuration} minuten
                 </div>
               </div>
+            </div> {/* Notitie */}
+            <div className="form-group-appointments">
+              <label>Notitie (Optioneel)</label>
+              <textarea
+                value={formData.note}
+                onChange={(e) => handleInputChange('note', e.target.value)}
+                className="notitie-textarea"
+                placeholder="Voeg een notitie toe..."
+              />
             </div>
           </div>
 
@@ -266,25 +278,16 @@ const CreateAppointmentModal = ({ isOpen, onClose }) => {
               </div>
             </div>
 
-            {/* Notitie */}
-            <div className="form-group-appointments">
-              <label>Notitie (Optioneel)</label>
-              <textarea
-                value={formData.note}
-                onChange={(e) => handleInputChange('note', e.target.value)}
-                className="notitie-textarea"
-                placeholder="Voeg een notitie toe..."
-              />
+            {/* Submit Button */}
+            <div className="modal-createappointment-footer">
+              <button className="submit-createappointment-btn" onClick={handleSubmit}>
+                Afspraak maken
+              </button>
             </div>
           </div>
         </div>
 
-        {/* Submit Button */}
-        <div className="modal-footer">
-          <button className="submit-btn" onClick={handleSubmit}>
-            Afspraak maken
-          </button>
-        </div>
+
       </div>
     </div>
   );

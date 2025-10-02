@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./PatientProfile.css";
 import postCall from "../../../Calls/calls";
 import InfoCard from "../Dashboard/InfoCard/InfoCard";
+import { useToast } from "../../../toastmessage/toastmessage";
 
 const PatientProfile = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +17,8 @@ const PatientProfile = () => {
     addition: "",
     housenumber: "",
   });
+
+  const { openToast } = useToast();
 
   const [patientInfo] = useState({
     tandarts: "Dr Janzen",
@@ -62,7 +65,7 @@ const PatientProfile = () => {
 
   const handleBewerken = async () => {
     const result = await postCall("updateUserData", formData);
-    alert("Succes", result.message);
+    openToast(result.message);
   };
 
   return (

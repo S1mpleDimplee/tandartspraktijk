@@ -3,6 +3,7 @@ import "./Registration.css";
 import image from "../register.png";
 import { useNavigate } from "react-router-dom";
 import postCall from "../../Calls/calls";
+import { useToast } from "../../toastmessage/toastmessage";
 
 const TandartsRegistratie = () => {
   const navigate = useNavigate();
@@ -15,7 +16,8 @@ const TandartsRegistratie = () => {
     confirmPassword: "",
   });
 
-  const [message, setMessage] = useState("");
+  const { openToast } = useToast();
+
   const [loading, setLoading] = useState(false);
 
   const handleInputChange = (value, name) => {
@@ -25,7 +27,7 @@ const TandartsRegistratie = () => {
   const handleSubmit = async () => {
     // Simple password confirmation check
     if (formData.password !== formData.confirmPassword) {
-      setMessage("Wachtwoorden komen niet overeen");
+      openToast("Wachtwoorden komen niet overeen");
       return;
     }
 
@@ -33,13 +35,13 @@ const TandartsRegistratie = () => {
     const response = await postCall("addUser", formData);
 
     if (response.isSuccess) {
-      setMessage("Registratie succesvol!");
+      openToast("Registratie succesvol!");
       setTimeout(() => {
         navigate("/inloggen");
       }, 2000);
     } else {
       setLoading(false);
-      setMessage("Registratie mislukt: " + response.message);
+      openToast("Registratie mislukt: " + response.message);
     }
   };
 
@@ -58,19 +60,6 @@ const TandartsRegistratie = () => {
           <div className="form-section-registration">
             <div className="form-container">
               <h2 className="form-title">Maak een account aan</h2>
-
-              {message && (
-                <div
-                  style={{
-                    color: message.includes("succesvol") ? "green" : "red",
-                    marginBottom: "15px",
-                    textAlign: "center",
-                  }}
-                >
-                  {message}
-                </div>
-              )}
-
               <div className="registration-form">
                 <div className="form-group ">
                   <div className="name-group">

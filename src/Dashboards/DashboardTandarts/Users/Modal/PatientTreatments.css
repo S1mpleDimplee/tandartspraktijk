@@ -15,9 +15,9 @@
 }
 
 .modal-container {
-    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    background: #1e293b;
     border-radius: 24px;
-    width: 100%;
+    width: 70%;
     padding: 40px;
     position: relative;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -80,15 +80,31 @@
 
 .behandelingen-grid {
     display: grid;
-    gap: 16px;
+    gap: 10px;
+    max-height: 210px;
+    overflow-y: auto;
 }
 
-.behandeling-item {
+.behandelingen-grid::-webkit-scrollbar {
+    width: 0px;
+}
+
+.behandeling-item-patient {
+    background: #005e75;
+    color: white;
+    padding: 0.7rem 1rem;
+    border-radius: 8px;
+    font-size: 1rem;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 12px;
-    color: #ffffff;
-    font-size: 16px;
+    margin-bottom: 0.5rem;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
 }
 
 .checkbox-icon {
@@ -103,19 +119,19 @@
     flex-shrink: 0;
 }
 
-.form-section {
+.form-section-treatments {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.form-group {
+.form-group-treatments {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.form-group label {
+.form-group-treatments label {
     color: #ffffff;
     font-size: 16px;
     font-weight: 500;
