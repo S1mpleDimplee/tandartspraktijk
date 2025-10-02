@@ -21,7 +21,7 @@ const PatientProfile = () => {
   const { openToast } = useToast();
 
   const [patientInfo] = useState({
-    tandarts: "Dr Janzen",
+    tandarts: "",
     laatsteAfspraak: "-",
     geplandeAfspraken: 0,
     totaleAfsprakenGehad: 0,
@@ -43,8 +43,6 @@ const PatientProfile = () => {
     const result = await postCall("fetchUserData", userid);
     console.log("Data succesvol opgehaald", result);
 
-
-
     setFormData({
       userid: userid,
       firstname: result.data.firstname || "",
@@ -57,6 +55,7 @@ const PatientProfile = () => {
       addition: "",
       housenumber: "",
     });
+
   };
 
   useEffect(() => {
@@ -64,8 +63,27 @@ const PatientProfile = () => {
   }, []);
 
   const handleBewerken = async () => {
-    const result = await postCall("updateUserData", formData);
-    openToast(result.message);
+    const response = await postCall("updateUserData", formData);
+
+    if (response.isSuccess) {
+      openToast(response.message);
+      // Update de localstorage zodat de check in app.js klopt om te checken of local storage is aangepast
+      const userinfo = localStorage.getItem("loggedInData");
+      localStorage.setItem("loggedInData", JSON.stringify({
+        id: JSON.parse(userinfo).id,
+        email: formData.email,
+        firstName: formData.firstname,
+        lastName: formData.lastname,
+        role: JSON.parse(userinfo).role,
+        userid: JSON.parse(userinfo).userid
+
+
+      }));
+
+    }
+    else {
+      openToast(response.message);
+    }
   };
 
   return (
