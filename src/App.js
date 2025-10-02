@@ -22,7 +22,8 @@ import UserInfo from "./Dashboards/DashboardManager/UserInfo/UserInfo";
 import DentistUsers from "./Dashboards/DashboardTandarts/Users/DentistUser";
 import DashboardTandarts from "./Dashboards/DashboardTandarts/Dashboard/DashboardTandarts";
 import UserPage from "./Dashboards/DashboardManager/UserInfo/UserPage/UserPage";
-import { ToastProvider } from "./toastmessage/toastmessage";
+import { ToastProvider, useToast } from "./toastmessage/toastmessage";
+import postCall from "./Calls/calls";
 
 // Inner component that uses useLocation
 function AppContent() {
@@ -39,13 +40,29 @@ function AppContent() {
 
   const navigate = useNavigate();
 
+  const { openToast } = useToast();
+
 
   useEffect(() => {
+
     const loggedInData = JSON.parse(localStorage.getItem("loggedInData"));
     if (loggedInData) {
       setCurrentRole(parseInt(loggedInData.role));
     }
+    checkIfLoginDataChangedFromDatabase();
   }, [location.pathname]);
+
+  const checkIfLoginDataChangedFromDatabase = async () => {
+    const loggedInData = JSON.parse(localStorage.getItem("loggedInData"));
+    if (loggedInData) {
+      const response = await postCall("fetchuserdata", loggedInData.userid);
+      if (response.data.role !== loggedInData.role) {
+        localStorage.removeItem("loggedInData");
+        navigate("/inloggen");
+        openToast("WAARSCHUWING! U heeft een waarde aangepast in uw locale data. Log opnieuw in.");
+      }
+    }
+  };
 
   useEffect(() => {
     setIsPatientDashboard(patientDashboardUrls.includes(location.pathname));
