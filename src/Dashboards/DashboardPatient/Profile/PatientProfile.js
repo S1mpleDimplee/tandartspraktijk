@@ -76,8 +76,6 @@ const PatientProfile = () => {
         lastName: formData.lastname,
         role: JSON.parse(userinfo).role,
         userid: JSON.parse(userinfo).userid
-
-
       }));
 
     }
