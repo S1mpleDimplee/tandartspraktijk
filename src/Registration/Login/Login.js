@@ -4,9 +4,11 @@ import "./Login.css";
 import image from "../register.png";
 import { data, Navigate, useNavigate } from "react-router-dom";
 import postCall from "../../Calls/calls";
+import { useToast } from "../../toastmessage/toastmessage";
 
 const Login = () => {
   const Navigate = useNavigate();
+  const { openToast } = useToast();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -34,6 +36,7 @@ const Login = () => {
 
     if (response.isSuccess) {
       setMessage("U bent succesvol ingelogd!");
+      openToast("U bent succesvol ingelogd!");
 
       addLoginData(response.data);
 

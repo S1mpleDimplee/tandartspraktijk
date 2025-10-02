@@ -22,6 +22,7 @@ import UserInfo from "./Dashboards/DashboardManager/UserInfo/UserInfo";
 import DentistUsers from "./Dashboards/DashboardTandarts/Users/DentistUser";
 import DashboardTandarts from "./Dashboards/DashboardTandarts/Dashboard/DashboardTandarts";
 import UserPage from "./Dashboards/DashboardManager/UserInfo/UserPage/UserPage";
+import { ToastProvider } from "./toastmessage/toastmessage";
 
 // Inner component that uses useLocation
 function AppContent() {
@@ -117,9 +118,11 @@ function AppContent() {
 // Main App component that provides the Router
 function App() {
   return (
-    <Router>
-      <AppContent />
-    </Router>
+    <ToastProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </ToastProvider>
   );
 }
 
