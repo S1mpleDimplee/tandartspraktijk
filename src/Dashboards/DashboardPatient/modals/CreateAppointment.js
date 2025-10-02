@@ -4,7 +4,7 @@ import postCall from '../../../Calls/calls';
 import { set } from 'date-fns';
 import { useToast } from '../../../toastmessage/toastmessage';
 
-const CreateAppointmentModal = ({ isOpen, onClose }) => {
+const CreateAppointmentModal = ({ isOpen, onClose, appointmentId }) => {
   const [formData, setFormData] = useState({
     dentistid: '',
     userid: '',
@@ -43,7 +43,40 @@ const CreateAppointmentModal = ({ isOpen, onClose }) => {
   useEffect(() => {
     fetchAvailableDentists();
     fetchAvailableTreatments();
+
+    fetchAppointmentDetails();
   }, []);
+
+  const fetchAppointmentDetails = async () => {
+    try {
+      const response = await postCall('getAppointmentData', { appointmentId });
+
+      if (!response?.isSuccess || !response.data?.length) {
+        console.error("No appointment found");
+        return;
+      }
+
+      const appointment = response.data[0];
+
+      if (!appointment.time) {
+        console.error("Appointment time is missing:", appointment);
+        return;
+      }
+
+      const timeParts = appointment.time.split(':');
+      if (timeParts.length < 2) {
+        console.error("Invalid time format:", appointment.time);
+        return;
+      }
+
+      const [hours, minutes] = timeParts.map(Number);
+      console.log("Parsed time:", hours, minutes);
+
+      // Do something with the time or appointment data here
+    } catch (err) {
+      console.error("Failed to fetch appointment details:", err);
+    }
+  };
 
   const fetchAvailableTreatments = async () => {
     const response = await postCall('getAllTreatments');
@@ -138,6 +171,28 @@ const CreateAppointmentModal = ({ isOpen, onClose }) => {
     onClose();
   };
 
+  const handleUpdate = async () => {
+    const loggedInData = JSON.parse(localStorage.getItem('loggedInData'));
+    const response = await postCall('updateAppointment', {
+      appointmentId: appointmentId,
+      userid: loggedInData.userid,
+      dentistid: formData.dentistid,
+      date: formData.date,
+      time: `${formData.time.hours}:${formData.time.minutes}`,
+      treatments: formData.treatments.map(t => t.name).join(', '),
+      note: formData.note || ''
+    });
+    if (response.isSuccess) {
+      openToast('Afspraak succesvol bijgewerkt!');
+      onClose();
+    }
+    else {
+      openToast('Fout bij het bijwerken van de afspraak. Probeer het opnieuw.' + response.message);
+      return;
+    }
+    console.log(`Afspraak bijgewerkt!\nTandarts: ${dentistName}\nDatum: ${formData.date}\nTijd: ${formData.time.hours}:${formData.time.minutes}\nBehandeling: ${formData.treatments}`);
+    onClose();
+  };
 
   return (
     <div className="modal-createappointment-overlay">
@@ -280,8 +335,8 @@ const CreateAppointmentModal = ({ isOpen, onClose }) => {
 
             {/* Submit Button */}
             <div className="modal-createappointment-footer">
-              <button className="submit-createappointment-btn" onClick={handleSubmit}>
-                Afspraak maken
+              <button className="submit-createappointment-btn" onClick={() => appointmentId ? handleUpdate() : handleSubmit()}>
+                {appointmentId ? 'Afspraak bijwerken' : 'Afspraak maken'}
               </button>
             </div>
           </div>

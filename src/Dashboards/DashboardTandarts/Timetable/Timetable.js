@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import './Timetable.css';
 import { getISOWeek, startOfISOWeek, setISOWeek, addDays, lastDayOfISOWeek, getISOWeeksInYear } from 'date-fns';
 import postCall from '../../../Calls/calls';
+import { useToast } from '../../../toastmessage/toastmessage';
+import CreateAppointmentModal from '../../DashboardPatient/modals/CreateAppointment';
 
 const DentisTimetable = () => {
   const today = new Date();
@@ -18,6 +20,8 @@ const DentisTimetable = () => {
       year: 'numeric',
     });
   });
+
+  const { openToast } = useToast();
 
   const weekData = {
     days: ['Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag'],
@@ -38,11 +42,12 @@ const DentisTimetable = () => {
       '14:00 - 14:30',
       '14:30 - 15:00',
       '15:00 - 15:30',
-      
+
     ],
   };
 
   const [appointments, setAppointments] = useState({});
+  const [showAppointmentModal, setShowAppointmentModal] = useState(false);
 
   // Helper function to add 30 minutes to a time string
   const addThirtyMinutes = (timeString) => {
@@ -51,6 +56,8 @@ const DentisTimetable = () => {
     date.setHours(hours, minutes + 30, 0, 0);
     return date.toTimeString().substring(0, 5);
   };
+
+  const [selectedAppointmentID, setSelectedAppointmentID] = useState(null);
 
   // Helper function to normalize time format (handle both "9:00" and "09:00")
   const normalizeTime = (timeString) => {
@@ -149,7 +156,7 @@ const DentisTimetable = () => {
 
     } catch (error) {
       console.error('Error fetching appointments:', error);
-      setAppointments({}); 
+      setAppointments({});
     }
   };
 
@@ -193,7 +200,16 @@ const DentisTimetable = () => {
                   {weekData.days.map((day) => {
                     const appointment = getAppointmentForSlot(day, timeSlot);
                     return (
-                      <div key={`${day}-${timeSlot}`} className="time-slot">
+                      <div key={`${day}-${timeSlot}`} className="time-slot" onClick={() => {
+                        if (appointment) {
+                          setShowAppointmentModal(true);
+                          setSelectedAppointmentID(appointment.id);
+                          openToast(appointment.id);
+                        }
+                        else {
+                          openToast(`Geen afspraak gepland op ${day} om ${timeSlot}.`);
+                        }
+                      }}>
                         {appointment ? (
                           <div className="appointment-card">
                             <div className="appointment-time">{appointment.time}</div>
@@ -216,6 +232,9 @@ const DentisTimetable = () => {
             </div>
           </div>
         </div>
+        {showAppointmentModal && (
+          <CreateAppointmentModal isOpen={showAppointmentModal} onClose={() => setShowAppointmentModal(false)} appointmentId={selectedAppointmentID} />
+        )}
       </div>
     </div>
   );
