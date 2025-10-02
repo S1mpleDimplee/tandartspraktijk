@@ -1,21 +1,56 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './UserPage.css';
+import postCall from '../../../../Calls/calls';
+import { useToast } from '../../../../toastmessage/toastmessage';
 
 const UserPage = () => {
   const [activeTab, setActiveTab] = useState('Enquetes');
   const [userRole, setUserRole] = useState(1);
   const [formData, setFormData] = useState({
-    userId: 'C-00021',
-    voornaam: 'Jannes',
-    achternaam: 'van der Hoop',
-    email: 'Jannes',
-    telefoon: '0622074762',
-    woonplaats: 'van der Hoop',
-    postcode: '7613XX',
-    straatnaam: 'Pieterpoststraat',
-    toevoeging: '100',
-    huisnummer: '100'
+    userId: '',
+    voornaam: '',
+    achternaam: '',
+    email: '',
+    telefoon: '',
+    woonplaats: '',
+    postcode: '',
+    straatnaam: '',
+    toevoeging: '',
+    huisnummer: ''
   });
+
+  const { openToast } = useToast();
+
+  useEffect(() => {
+    // Fetch user data from API
+    fetchUserData();
+  }, []);
+
+  const fetchUserData = async () => {
+
+    const userid = localStorage.getItem('selectedUserId') || null;
+
+    const response = await postCall('fetchalluserdata', userid);
+    if (response.isSuccess) {
+      setFormData({
+        userId: response.data.userid,
+        voornaam: response.data.firstname,
+        achternaam: response.data.lastname,
+        email: response.data.email,
+        telefoon: response.data.phonenumber,
+        woonplaats: response.data.city,
+        postcode: response.data.postalcode,
+        straatnaam: response.data.streetname,
+        toevoeging: response.data.addition,
+        huisnummer: response.data.housenumber
+      });
+      setUserRole(response.data.role);
+    }
+
+    else {
+      openToast(response.message);
+    };
+  }
 
   const [systemData] = useState({
     afsprakenGehad: 0
@@ -33,18 +68,29 @@ const UserPage = () => {
     setActiveTab(tab);
   };
 
-  const handleRoleChange = (e) => {
+  const handleRoleChange = async (e) => {
     setUserRole(parseInt(e.target.value));
+
+    const response = await postCall('updateuserrole', {
+      userid: formData.userId,
+      role: e.target.value
+    });
+
+    if (response.isSuccess) {
+      openToast(response.message)
+    } else {
+      openToast(response.message, true);
+    }
   };
 
   const handleBijwerken = () => {
-    alert('Profiel bijwerken functionaliteit');
+    openToast('Profiel bijwerken functionaliteit');
   };
 
   const handleVerwijderen = () => {
     const confirmed = window.confirm('Weet je zeker dat je dit profiel wilt verwijderen?');
     if (confirmed) {
-      alert('Profiel verwijderen functionaliteit');
+      openToast('Profiel verwijderen functionaliteit');
     }
   };
 

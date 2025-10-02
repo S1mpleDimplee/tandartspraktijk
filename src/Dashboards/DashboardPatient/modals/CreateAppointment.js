@@ -299,7 +299,7 @@ const CreateAppointmentModal = ({ isOpen, onClose, appointmentId }) => {
                     const selectedDate = new Date(e.target.value);
                     const day = selectedDate.getDay();
                     if (day === 0 || day === 6) {
-                      alert('Kies een datum tussen maandag en vrijdag.');
+                      openToast('Kies een datum tussen maandag en vrijdag.');
                       return;
                     }
                     handleInputChange('date', e.target.value);

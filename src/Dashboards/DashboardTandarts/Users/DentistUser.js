@@ -128,7 +128,7 @@ const DentistUsers = () => {
   };
 
   const handleAfspraakInplannen = () => {
-    alert("Afspraak inplannen functionaliteit");
+    openToast("Afspraak inplannen functionaliteit");
   };
 
   return (

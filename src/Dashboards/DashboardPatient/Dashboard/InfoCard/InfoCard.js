@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./InfoCard.css";
 import postCall from "../../../../Calls/calls";
 import { set } from "date-fns";
+import { useToast } from "../../../../toastmessage/toastmessage";
 
 const InfoCard = ({ userid, edit = false }) => {
   useEffect(() => {
@@ -17,6 +18,8 @@ const InfoCard = ({ userid, edit = false }) => {
     scheduledAppointments: "",
     totalAppointmentsHad: "",
   });
+
+  const { openToast } = useToast();
 
   useEffect(() => {
     getAllDentists();
@@ -72,9 +75,9 @@ const InfoCard = ({ userid, edit = false }) => {
     });
 
     if (response.isSuccess) {
-      alert("Tandarts succesvol bijgewerkt");
+      openToast(response.message);
     } else {
-      alert("Fout bij het bijwerken van de tandarts: " + response.message);
+      openToast(response.message);
     }
   };
 

@@ -42,6 +42,7 @@ const UserInfo = () => {
   };
 
   const handleOpenUser = (userId) => {
+    localStorage.setItem('selectedUserId', userId);
     navigate(`/dashboard/gebruikers`);
   };
 
@@ -50,6 +51,7 @@ const UserInfo = () => {
       case 0: return '#6b7280'; // Gray for role 0
       case 1: return '#f59e0b'; // Amber for role 1
       case 2: return '#10b981'; // Emerald for role 2
+      case 3: return '#3b82f6'; // Blue for role 3
       default: return '#6b7280';
     }
   };

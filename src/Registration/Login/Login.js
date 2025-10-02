@@ -41,7 +41,7 @@ const Login = () => {
         Navigate("/dashboard");
       }, 2000);
     } else {
-      openToast("Inloggen mislukt: " + response.message);
+      openToast(response.message);
     }
   };
 

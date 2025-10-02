@@ -116,7 +116,7 @@ const TandartsRegistratie = () => {
                   <label className="form-label-registration">
                     Voer hier een sterk wachtwoord
                     <br />
-                    (Minimaal 8 karakters waarvan 1 hoofdletter en 1 cijfer)
+                    (Minimaal 8 karakters waarvan 1 hoofdletter en 1 cijfer en 1 speciaal teken)
                   </label>
                 </div>
 
