@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./DashboardPatient.css";
 import InfoCard from "./InfoCard/InfoCard";
 import CreateAppointmentModal from "../modals/CreateAppointment";
+import postCall from "../../../Calls/calls";
 
 const DashboardPatient = () => {
   const [recentTreatments, setRecentTreatments] = useState([
-    "Fluoride behandeling",
-    "Gebit vulling",
   ]);
 
   const [currentServices] = useState([
@@ -28,6 +27,20 @@ const DashboardPatient = () => {
 
   const handleAppointmentClick = () => {
     setShowCreateAppointmentModal(true);
+  };
+
+  useEffect(() => {
+    getAllUserData();
+  }, []);
+
+  const getAllUserData = async () => {
+    const userid = JSON.parse(localStorage.getItem("loggedInData")).userid;
+    const response = await postCall("fetchAllUserData", userid);
+
+    if (response.isSuccess) {
+      console.log("User data:", response.data);
+      setRecentTreatments(response.data.treatments?.map(treatment => treatment));
+    }
   };
 
   const handleMoreInfoClick = () => {
@@ -66,7 +79,7 @@ const DashboardPatient = () => {
                   {recentTreatments.map((treatment, index) => (
                     <div className="treatment-item completed" key={index}>
                       <span className="check-icon">✓</span>
-                      <span>{treatment}</span>
+                      <span>{treatment.treatment || "Er is een fout opgetreden"}</span>
                     </div>
                   ))}
                 </div>

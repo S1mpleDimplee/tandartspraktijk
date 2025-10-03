@@ -204,9 +204,9 @@
 }
 
 /* Table Header */
-.table-header {
+.table-header-userinfo {
   display: grid;
-  grid-template-columns: 2fr 1.5fr 1.5fr;
+  grid-template-columns: 2.5fr 2fr 1fr 1.5fr 1.5fr;
   gap: 1rem;
   padding: 1rem;
   background: rgba(0, 180, 166, 0.2);
@@ -214,14 +214,6 @@
   border-bottom: 1px solid rgba(100, 116, 139, 0.2);
 }
 
-.table-subheader {
-  display: grid;
-  grid-template-columns: 2fr 1.5fr 1.5fr;
-  gap: 1rem;
-  padding: 1rem;
-  background: rgba(0, 180, 166, 0.2);
-  border-bottom: 2px solid #00b4a6;
-}
 
 .header-cell,
 .subheader-cell {
@@ -231,15 +223,15 @@
 }
 
 /* Table Body */
-.table-body {
+.table-body-userinfo {
   background: rgba(15, 23, 42, 0.4);
   border-radius: 0 0 12px 12px;
   backdrop-filter: blur(10px);
 }
 
-.table-row {
+.table-row-userinfo {
   display: grid;
-  grid-template-columns: 2fr 1.5fr 1.5fr;
+  grid-template-columns: 2.5fr 2fr 1fr 1.5fr 1.5fr;
   gap: 1rem;
   padding: 1rem;
   border-bottom: 1px solid rgba(100, 116, 139, 0.2);
@@ -248,7 +240,7 @@
   position: relative;
 }
 
-.table-row::before {
+.table-row-userinfo::before {
   content: "";
   position: absolute;
   left: 0;
@@ -260,17 +252,17 @@
   transition: transform 0.3s ease;
 }
 
-.table-row:hover::before {
+.table-row-userinfo:hover::before {
   transform: scaleY(1);
 }
 
-.table-row:hover {
+.table-row-userinfo:hover {
   background: rgba(0, 180, 166, 0.1);
   transform: translateX(8px);
   border-color: rgba(0, 180, 166, 0.4);
 }
 
-.table-row:last-child {
+.table-row-userinfo:last-child {
   border-bottom: none;
 }
 

@@ -1,0 +1,227 @@
+/* PatientModal.css */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.modal-container {
+    background: #1e293b;
+    border-radius: 24px;
+    width: 70%;
+    padding: 40px;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.close-btn {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 32px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.close-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.modal-title {
+    color: #ffffff;
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 40px 0;
+    text-align: center;
+}
+
+.modal-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.recente-behandelingen-box {
+    background-color: rgba(44, 62, 80, 0.5);
+    border: 2px solid #3498db;
+    border-radius: 16px;
+    padding: 30px;
+}
+
+.section-title {
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0 0 24px 0;
+    text-align: center;
+}
+
+.behandelingen-grid {
+    display: grid;
+    gap: 10px;
+    max-height: 210px;
+    overflow-y: auto;
+}
+
+.behandelingen-grid::-webkit-scrollbar {
+    width: 0px;
+}
+
+.behandeling-item-patient {
+    background: #005e75;
+    color: white;
+    padding: 0.7rem 1rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.checkbox-icon {
+    width: 28px;
+    height: 28px;
+    background-color: #16a085;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    flex-shrink: 0;
+}
+
+.form-section-treatments {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group-treatments {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group-treatments label {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.form-input,
+.form-textarea {
+    background-color: rgba(52, 73, 94, 0.8);
+    border: 1px solid #3498db;
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: #ffffff;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    border-color: #5dade2;
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.btn-toevoegen {
+    background-color: #16a085;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: auto;
+}
+
+.btn-toevoegen:hover {
+    background-color: #1abc9c;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.btn-secondary,
+.btn-primary {
+    border: none;
+    border-radius: 8px;
+    padding: 14px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-secondary {
+    background-color: #16a085;
+    color: #ffffff;
+}
+
+.btn-secondary:hover {
+    background-color: #1abc9c;
+}
+
+.btn-primary {
+    background-color: #16a085;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #1abc9c;
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-container {
+        padding: 30px 20px;
+    }
+
+    .modal-title {
+        font-size: 24px;
+    }
+}
