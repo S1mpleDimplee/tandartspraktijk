@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import './Timetable.css';
 import { getISOWeek, startOfISOWeek, setISOWeek, addDays, lastDayOfISOWeek, getISOWeeksInYear } from 'date-fns';
 import postCall from '../../../Calls/calls';
+import { useToast } from '../../../toastmessage/toastmessage';
+import CreateAppointmentModal from '../../DashboardPatient/modals/CreateAppointment';
 
 const DentisTimetable = () => {
   const today = new Date();
@@ -19,6 +21,8 @@ const DentisTimetable = () => {
     });
   });
 
+  const { openToast } = useToast();
+
   const weekData = {
     days: ['Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag'],
     dates: weekDates,
@@ -29,10 +33,21 @@ const DentisTimetable = () => {
       '9:30 - 10:00',
       '10:00 - 10:30',
       '10:30 - 11:00',
+      '11:00 - 11:30',
+      '11:30 - 12:00',
+      '12:00 - 12:30',
+      '12:30 - 13:00',
+      '13:00 - 13:30',
+      '13:30 - 14:00',
+      '14:00 - 14:30',
+      '14:30 - 15:00',
+      '15:00 - 15:30',
+
     ],
   };
 
   const [appointments, setAppointments] = useState({});
+  const [showAppointmentModal, setShowAppointmentModal] = useState(false);
 
   // Helper function to add 30 minutes to a time string
   const addThirtyMinutes = (timeString) => {
@@ -41,6 +56,8 @@ const DentisTimetable = () => {
     date.setHours(hours, minutes + 30, 0, 0);
     return date.toTimeString().substring(0, 5);
   };
+
+  const [selectedAppointmentID, setSelectedAppointmentID] = useState(null);
 
   // Helper function to normalize time format (handle both "9:00" and "09:00")
   const normalizeTime = (timeString) => {
@@ -92,9 +109,6 @@ const DentisTimetable = () => {
       const userid = loggedInData.userid;
       const response = await postCall('getAppointmentsForWeek', { week, year, userid });
 
-      console.log('=== DEBUG INFO ===');
-      console.log('API Response:', response);
-      console.log('Week Data Days:', weekData.days);
 
       // Transform response data into the appointments structure
       const fetchedAppointments = {};
@@ -138,13 +152,11 @@ const DentisTimetable = () => {
         });
       }
 
-      console.log('Final Processed Appointments:', fetchedAppointments);
-      console.log('=== END DEBUG ===');
       setAppointments(fetchedAppointments);
 
     } catch (error) {
       console.error('Error fetching appointments:', error);
-      setAppointments({}); // Reset to empty state on error
+      setAppointments({});
     }
   };
 
@@ -188,7 +200,16 @@ const DentisTimetable = () => {
                   {weekData.days.map((day) => {
                     const appointment = getAppointmentForSlot(day, timeSlot);
                     return (
-                      <div key={`${day}-${timeSlot}`} className="time-slot">
+                      <div key={`${day}-${timeSlot}`} className="time-slot" onClick={() => {
+                        if (appointment) {
+                          setShowAppointmentModal(true);
+                          setSelectedAppointmentID(appointment.id);
+                          openToast(appointment.id);
+                        }
+                        else {
+                          openToast(`Geen afspraak gepland op ${day} om ${timeSlot}.`);
+                        }
+                      }}>
                         {appointment ? (
                           <div className="appointment-card">
                             <div className="appointment-time">{appointment.time}</div>
@@ -211,6 +232,9 @@ const DentisTimetable = () => {
             </div>
           </div>
         </div>
+        {showAppointmentModal && (
+          <CreateAppointmentModal isOpen={showAppointmentModal} onClose={() => setShowAppointmentModal(false)} appointmentId={selectedAppointmentID} />
+        )}
       </div>
     </div>
   );

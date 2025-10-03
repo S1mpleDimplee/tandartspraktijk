@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import './CreateAppointment.css';
 import postCall from '../../../Calls/calls';
 import { set } from 'date-fns';
+import { useToast } from '../../../toastmessage/toastmessage';
 
-const CreateAppointmentModal = ({ isOpen, onClose }) => {
+const CreateAppointmentModal = ({ isOpen, onClose, appointmentId }) => {
   const [formData, setFormData] = useState({
     dentistid: '',
     userid: '',
@@ -37,10 +38,45 @@ const CreateAppointmentModal = ({ isOpen, onClose }) => {
 
   const [totalDuration, setTotalDuration] = useState(0);
 
+  const { openToast } = useToast();
+
   useEffect(() => {
     fetchAvailableDentists();
     fetchAvailableTreatments();
+
+    fetchAppointmentDetails();
   }, []);
+
+  const fetchAppointmentDetails = async () => {
+    try {
+      const response = await postCall('getAppointmentData', { appointmentId });
+
+      if (!response?.isSuccess || !response.data?.length) {
+        console.error("No appointment found");
+        return;
+      }
+
+      const appointment = response.data[0];
+
+      if (!appointment.time) {
+        console.error("Appointment time is missing:", appointment);
+        return;
+      }
+
+      const timeParts = appointment.time.split(':');
+      if (timeParts.length < 2) {
+        console.error("Invalid time format:", appointment.time);
+        return;
+      }
+
+      const [hours, minutes] = timeParts.map(Number);
+      console.log("Parsed time:", hours, minutes);
+
+      // Do something with the time or appointment data here
+    } catch (err) {
+      console.error("Failed to fetch appointment details:", err);
+    }
+  };
 
   const fetchAvailableTreatments = async () => {
     const response = await postCall('getAllTreatments');
@@ -123,11 +159,11 @@ const CreateAppointmentModal = ({ isOpen, onClose }) => {
       note: formData.note || ''
     });
     if (response.isSuccess) {
-      alert('Afspraak succesvol gemaakt!');
+      openToast('Afspraak succesvol gemaakt!');
       onClose();
     }
     else {
-      alert('Fout bij het maken van de afspraak. Probeer het opnieuw.' + response.message);
+      openToast('Fout bij het maken van de afspraak. Probeer het opnieuw.' + response.message);
       return;
     }
 
@@ -135,21 +171,43 @@ const CreateAppointmentModal = ({ isOpen, onClose }) => {
     onClose();
   };
 
+  const handleUpdate = async () => {
+    const loggedInData = JSON.parse(localStorage.getItem('loggedInData'));
+    const response = await postCall('updateAppointment', {
+      appointmentId: appointmentId,
+      userid: loggedInData.userid,
+      dentistid: formData.dentistid,
+      date: formData.date,
+      time: `${formData.time.hours}:${formData.time.minutes}`,
+      treatments: formData.treatments.map(t => t.name).join(', '),
+      note: formData.note || ''
+    });
+    if (response.isSuccess) {
+      openToast('Afspraak succesvol bijgewerkt!');
+      onClose();
+    }
+    else {
+      openToast('Fout bij het bijwerken van de afspraak. Probeer het opnieuw.' + response.message);
+      return;
+    }
+    console.log(`Afspraak bijgewerkt!\nTandarts: ${dentistName}\nDatum: ${formData.date}\nTijd: ${formData.time.hours}:${formData.time.minutes}\nBehandeling: ${formData.treatments}`);
+    onClose();
+  };
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-container">
+    <div className="modal-createappointment-overlay">
+      <div className="modal-createappointment-container">
         {/* Header */}
-        <div className="modal-header">
+        <div className="modal-createappointment-header">
           <h2>Afspraak maken</h2>
           <button className="close-btn" onClick={onClose}>
             ×
           </button>
         </div>
 
-        <div className="modal-content">
+        <div className="modal-createappointment-content">
           {/* Left Column */}
-          <div className="left-column">
+          <div className="left-createappointment-column">
             {/* Tandarts Selection */}
             <div className="form-group-appointments">
               <label>Tandarts</label>
@@ -217,6 +275,15 @@ const CreateAppointmentModal = ({ isOpen, onClose }) => {
                   Verwachte tijdsduur: {totalDuration} minuten
                 </div>
               </div>
+            </div> {/* Notitie */}
+            <div className="form-group-appointments">
+              <label>Notitie (Optioneel)</label>
+              <textarea
+                value={formData.note}
+                onChange={(e) => handleInputChange('note', e.target.value)}
+                className="notitie-textarea"
+                placeholder="Voeg een notitie toe..."
+              />
             </div>
           </div>
 
@@ -232,7 +299,7 @@ const CreateAppointmentModal = ({ isOpen, onClose }) => {
                     const selectedDate = new Date(e.target.value);
                     const day = selectedDate.getDay();
                     if (day === 0 || day === 6) {
-                      alert('Kies een datum tussen maandag en vrijdag.');
+                      openToast('Kies een datum tussen maandag en vrijdag.');
                       return;
                     }
                     handleInputChange('date', e.target.value);
@@ -266,25 +333,16 @@ const CreateAppointmentModal = ({ isOpen, onClose }) => {
               </div>
             </div>
 
-            {/* Notitie */}
-            <div className="form-group-appointments">
-              <label>Notitie (Optioneel)</label>
-              <textarea
-                value={formData.note}
-                onChange={(e) => handleInputChange('note', e.target.value)}
-                className="notitie-textarea"
-                placeholder="Voeg een notitie toe..."
-              />
+            {/* Submit Button */}
+            <div className="modal-createappointment-footer">
+              <button className="submit-createappointment-btn" onClick={() => appointmentId ? handleUpdate() : handleSubmit()}>
+                {appointmentId ? 'Afspraak bijwerken' : 'Afspraak maken'}
+              </button>
             </div>
           </div>
         </div>
 
-        {/* Submit Button */}
-        <div className="modal-footer">
-          <button className="submit-btn" onClick={handleSubmit}>
-            Afspraak maken
-          </button>
-        </div>
+
       </div>
     </div>
   );
