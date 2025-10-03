@@ -4,15 +4,25 @@ import postCall from '../../../Calls/calls';
 
 const DashboardTandarts = () => {
   const [currentWeek, setCurrentWeek] = useState(51);
-  const [selectedDate] = useState('27/12/2025');
 
-  //appointment counts for today and tomorrow
+  // format today’s date as dd/MM/yyyy
+  const getTodayFormatted = () => {
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // months are 0-indexed
+    const year = today.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
+  const [selectedDate] = useState(getTodayFormatted());
+
+  // appointment counts for today and tomorrow
   const [appointmentStats, setAppointmentStats] = useState({
     afsprakenTegaanVandaag: 0,
     afsprakenTegaanMorgen: 0
   });
 
-  //fetch appointment counts from backend
+  // fetch appointment counts from backend
   useEffect(() => {
     const fetchAppointments = async () => {
       const response = await postCall("checkAppointments", {});
@@ -100,4 +110,5 @@ const DashboardTandarts = () => {
     </div>
   );
 };
+
 export default DashboardTandarts;
