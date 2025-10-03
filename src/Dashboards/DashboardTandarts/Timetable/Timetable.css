@@ -5,63 +5,7 @@
   color: white;
 }
 
-/* Header */
-.rooster-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem 2rem;
-  border-radius: 20px;
-  margin-bottom: 2rem;
-  border: 1px solid rgba(100, 116, 139, 0.2);
-  transition: all 0.4s ease;
-}
 
-.rooster-header:hover {
-  border-color: rgba(0, 180, 166, 0.3);
-}
-
-.rooster-header h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 0;
-  color: #f1f5f9;
-}
-
-.doctor-info {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.doctor-avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #00B4A6 0%, #00D4C4 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 3px solid #00B4A6;
-}
-
-.avatar-placeholder {
-  font-size: 1.5rem;
-}
-
-.doctor-name {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #f1f5f9;
-}
-
-/* Main Layout */
-.rooster-main {
-  display: flex;
-  gap: 2rem;
-  max-width: 1600px;
-  margin: 0 auto;
-}
 
 
 /* Schedule Content */
@@ -120,25 +64,13 @@
 }
 
 .week-display {
-  background: linear-gradient(135deg, #00B4A6 0%, #00D4C4 100%);
+  background: linear-gradient(135deg, #08504a 0%, #00D4C4 100%);
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 12px;
   font-weight: 700;
   position: relative;
   overflow: hidden;
-}
-
-.week-display::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-  animation: rotate 10s linear infinite;
-  pointer-events: none;
 }
 
 .week-nav-btn {
@@ -183,7 +115,7 @@
 }
 
 .day-header {
-  background-color: #00B4A6;
+  background-color: #016863 !important;
   padding: 1rem;
   border-radius: 12px;
   text-align: center;
