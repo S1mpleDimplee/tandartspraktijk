@@ -23,6 +23,8 @@ const DentisTimetable = () => {
 
   const { openToast } = useToast();
 
+  const [loadPatients, setLoadPatients] = useState(false);
+
   const weekData = {
     days: ['Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag'],
     dates: weekDates,
@@ -42,7 +44,6 @@ const DentisTimetable = () => {
       '14:00 - 14:30',
       '14:30 - 15:00',
       '15:00 - 15:30',
-
     ],
   };
 
@@ -203,11 +204,14 @@ const DentisTimetable = () => {
                       <div key={`${day}-${timeSlot}`} className="time-slot" onClick={() => {
                         if (appointment) {
                           setShowAppointmentModal(true);
+                          setLoadPatients(false);
                           setSelectedAppointmentID(appointment.id);
-                          openToast(appointment.id);
                         }
                         else {
                           openToast(`Geen afspraak gepland op ${day} om ${timeSlot}.`);
+                          setSelectedAppointmentID(null);
+                          setLoadPatients(true);
+                          setShowAppointmentModal(true);
                         }
                       }}>
                         {appointment ? (
@@ -233,7 +237,13 @@ const DentisTimetable = () => {
           </div>
         </div>
         {showAppointmentModal && (
-          <CreateAppointmentModal isOpen={showAppointmentModal} onClose={() => setShowAppointmentModal(false)} appointmentId={selectedAppointmentID} />
+          <CreateAppointmentModal isOpen={showAppointmentModal} onClose={() => {
+            setShowAppointmentModal(false);
+            fetchAppointmentsForWeek(currentWeek, currentYear);
+          }}
+            loadPatients={loadPatients}
+            appointmentId={selectedAppointmentID}
+          />
         )}
       </div>
     </div>

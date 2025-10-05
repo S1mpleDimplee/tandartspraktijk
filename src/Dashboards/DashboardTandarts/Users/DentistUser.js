@@ -216,19 +216,7 @@ const DentistUsers = () => {
             </button>
           </div>
 
-          {/* Next Appointment */}
-          <div className="appointment-card">
-            <h3>Volgende afspraak</h3>
-            <p className="appointment-text">
-              Deze patiënt heeft momenteel geen toekomstige afspraken
-            </p>
-            <button
-              onClick={handleAfspraakInplannen}
-              className="appointment-btn"
-            >
-              Afspraak inplannen
-            </button>
-          </div>
+
         </div>
       </div>
       {showModal && <PatientTreatment userid={selectedPatient.userid} onclose={() => setShowModal(false)} />}
