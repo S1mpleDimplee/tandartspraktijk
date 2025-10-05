@@ -23,6 +23,12 @@ const DentisTimetable = () => {
 
   const { openToast } = useToast();
 
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedStart, setSelectedStart] = useState({
+    minute: '00',
+    hour: '08'
+  });
+
   const [loadPatients, setLoadPatients] = useState(false);
 
   const weekData = {
@@ -209,6 +215,14 @@ const DentisTimetable = () => {
                         }
                         else {
                           openToast(`Geen afspraak gepland op ${day} om ${timeSlot}.`);
+
+                          setSelectedDate(weekDates[weekData.days.indexOf(day)].replace(/Oct/g, '10'));
+                          setSelectedStart({
+                            minute: timeSlot.substring(3, 5),
+                            hour: timeSlot.substring(0, timeSlot.indexOf(':')).padStart(2, '0')
+                          });
+
+                          openToast(`Nieuwe afspraak maken op ${selectedDate} om ${selectedStart}.`);
                           setSelectedAppointmentID(null);
                           setLoadPatients(true);
                           setShowAppointmentModal(true);
@@ -243,6 +257,8 @@ const DentisTimetable = () => {
           }}
             loadPatients={loadPatients}
             appointmentId={selectedAppointmentID}
+            date={selectedDate ? selectedDate : null}
+            selectedStartDate={selectedStart ? selectedStart : null}
           />
         )}
       </div>

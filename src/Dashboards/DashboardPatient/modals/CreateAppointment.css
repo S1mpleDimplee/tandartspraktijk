@@ -248,10 +248,14 @@
     backdrop-filter: blur(10px);
 }
 
-.tijd-input::-webkit-inner-spin-button,
-.tijd-input::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+.tijd-select {
+    width: 100px;
+}
+
+.tijd-select option {
+    background: #1e293b;
+    color: #f1f5f9;
+    padding: 0.5rem;
 }
 
 .tijd-input:focus {

@@ -4,24 +4,16 @@ import postCall from '../../../Calls/calls';
 import { set } from 'date-fns';
 import { useToast } from '../../../toastmessage/toastmessage';
 
-const CreateAppointmentModal = ({ isOpen, loadPatients, onClose, appointmentId }) => {
+const CreateAppointmentModal = ({ isOpen, loadPatients, onClose, appointmentId, date, selectedStartDate }) => {
   const [formData, setFormData] = useState({
     dentistid: '',
     userid: '',
-    date: '',
+    date: date || '',
     duration: 30,
-    time: { hours: '10', minutes: '30' },
+    time: selectedStartDate ? { hours: selectedStartDate.hour, minutes: selectedStartDate.minute } : { hours: 8, minutes: 0 },
     treatments: [],
     note: ''
   });
-
-  const [datums, setDatums] = useState([
-    'Vrijdag 10 september',
-    'Maandag 13 september',
-    'Dinsdag 14 september',
-    'Woensdag 15 september'
-  ]);
-
   const [loadedUsers, setLoadedUsers] = useState([]);
   const [selectedUserName, setSelectedUserName] = useState('');
 
@@ -125,6 +117,16 @@ const CreateAppointmentModal = ({ isOpen, loadPatients, onClose, appointmentId }
         userid: patient.userid,
         name: patient.firstname + ' ' + patient.lastname
       })));
+    } else {
+      openToast(response.message);
+    }
+  };
+
+  const DeleteAppointment = async (appointmentId) => {
+    const response = await postCall('deleteAppointment', { appointmentId });
+    if (response.isSuccess) {
+      openToast(response.message);
+      onClose();
     } else {
       openToast(response.message);
     }
@@ -358,14 +360,14 @@ const CreateAppointmentModal = ({ isOpen, loadPatients, onClose, appointmentId }
                   className="tijd-input"
                 />
                 <span className="tijd-separator">:</span>
-                <input
-                  type="number"
-                  min="0"
-                  max="59"
+                <select
                   value={formData.time.minutes}
                   onChange={(e) => handleTimeSelect('minutes', e.target.value)}
-                  className="tijd-input"
-                />
+                  className="tijd-input tijd-select"
+                >
+                  <option value="00">00</option>
+                  <option value="30">30</option>
+                </select>
               </div>
             </div>
 
@@ -374,6 +376,11 @@ const CreateAppointmentModal = ({ isOpen, loadPatients, onClose, appointmentId }
               <button className="submit-createappointment-btn" onClick={() => appointmentId ? handleUpdate() : handleSubmit()}>
                 {appointmentId ? 'Afspraak bijwerken' : 'Afspraak maken'}
               </button>
+              {appointmentId && (
+                <button className="submit-createappointment-btn" onClick={() => DeleteAppointment(appointmentId)}>
+                  Afspraak afzeggen
+                </button>
+              )}
             </div>
           </div>
         </div>
