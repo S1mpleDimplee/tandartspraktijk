@@ -203,10 +203,10 @@ const CreateAppointmentModal = ({ isOpen, loadPatients, onClose, appointmentId, 
     const response = await postCall('createAppointment', submitData);
 
     if (response.isSuccess) {
-      openToast('Afspraak succesvol gemaakt!');
+      openToast(response.message);
       onClose();
     } else {
-      openToast('Fout bij het maken van de afspraak. Probeer het opnieuw. ' + response.message);
+      openToast(response.message);
     }
   };
 
@@ -223,13 +223,13 @@ const CreateAppointmentModal = ({ isOpen, loadPatients, onClose, appointmentId, 
       note: formData.note || ''
     };
 
-    const response = await postCall('updateAppointment', updateData);
+    const response = await postCall('editappointment', updateData);
 
     if (response.isSuccess) {
-      openToast('Afspraak succesvol bijgewerkt!');
+      openToast(response.message);
       onClose();
     } else {
-      openToast('Fout bij het bijwerken van de afspraak. Probeer het opnieuw. ' + response.message);
+      openToast(response.message);
     }
   };
 

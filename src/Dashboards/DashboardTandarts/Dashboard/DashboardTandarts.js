@@ -78,17 +78,17 @@ const DashboardTandarts = () => {
 
           <div className="calendar-grid">
             {/* Days Header */}
-            <div className="calendar-header">
+            {/* <div className="calendar-header">
               {weekData.days.map((day, index) => (
                 <div key={day} className="day-header">
                   <div className="day-name">{day}</div>
                   <div className="day-date">{weekData.dates[index]}</div>
                 </div>
               ))}
-            </div>
+            </div> */}
 
             {/* Time Slots Grid (static for now) */}
-            <div className="time-slots-grid">
+            {/* <div className="time-slots-grid">
               {weekData.timeSlots.map((timeSlot) => (
                 <div key={timeSlot} className="time-row">
                   {weekData.days.map((day) => (
@@ -101,7 +101,7 @@ const DashboardTandarts = () => {
                   ))}
                 </div>
               ))}
-            </div>
+            </div> */}
 
           </div>
         </div>

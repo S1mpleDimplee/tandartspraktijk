@@ -210,7 +210,7 @@ const DentisTimetable = () => {
                       <div key={`${day}-${timeSlot}`} className="time-slot" onClick={() => {
                         if (appointment) {
                           setShowAppointmentModal(true);
-                          setLoadPatients(false);
+                          setLoadPatients(true);
                           setSelectedAppointmentID(appointment.id);
                         }
                         else {

@@ -44,8 +44,10 @@ const DashboardPatient = () => {
   };
 
   const handleMoreInfoClick = () => {
-    // Handle more info navigation
-    console.log("Navigating to health information...");
+    window.open(
+      "https://www.zorgvoorbeter.nl/thema-s/lichamelijke-verzorging/mondzorg/mondgezondheid-en-algemene-gezondheid/",
+      "_blank"
+    );
   };
 
   return (
@@ -64,24 +66,30 @@ const DashboardPatient = () => {
                   tandheelkundige gezondheid is uitstekend en alle behandelingen
                   verlopen volgens planning.
                 </p>
-                <h4>Huidige diensten</h4>
+                {/* <h4>Huidige diensten</h4>
                 <ul className="services-list">
                   {currentServices.map((service, index) => (
                     <li key={index}>{service}</li>
                   ))}
-                </ul>
+                </ul> */}
               </div>
 
               {/* Recent Treatments */}
               <div className="treatments-section">
                 <h3 className="treatment-title">Recente behandelingen</h3>
                 <div className="treatment-list">
-                  {recentTreatments.map((treatment, index) => (
-                    <div className="treatment-item completed" key={index}>
-                      <span className="check-icon">✓</span>
-                      <span>{treatment.treatment || "Er is een fout opgetreden"}</span>
+                  {recentTreatments.length === 0 ? (
+                    <div className="treatment-item">
+                      <span>Geen recente behandelingen gevonden.</span>
                     </div>
-                  ))}
+                  ) : (
+                    recentTreatments.map((treatment, index) => (
+                      <div className="treatment-item completed" key={index}>
+                        <span className="check-icon">✓</span>
+                        <span>{treatment.treatment || "Er is een fout opgetreden"}</span>
+                      </div>
+                    )
+                    ))}
                 </div>
               </div>
             </div>

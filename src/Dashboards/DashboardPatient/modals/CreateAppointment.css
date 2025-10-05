@@ -88,6 +88,7 @@
 
 .form-group-appointments {
     margin-bottom: 1.5rem;
+    z-index: 1;
 }
 
 .form-group-appointments label {
@@ -149,22 +150,38 @@
 
 .dropdown-menu {
     position: absolute;
-    top: 100%;
+    top: -140%;
     left: 0;
     right: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
     background: #0F7979;
     border: 2px solid rgba(0, 180, 166, 0.3);
     border-radius: 12px;
     margin-top: 0.5rem;
-    z-index: 100;
+    z-index: 1001;
     color: white;
     animation: slideDown 0.2s ease-out;
     backdrop-filter: blur(10px);
 }
 
+.dropdown-menu::-webkit-scrollbar {
+    width: 8px;
+    background: rgba(15, 23, 42, 0.6);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb {
+    background: rgba(0, 180, 166, 0.4);
+    border-radius: 10px;
+}
+
 .dropdown-item {
     padding: 0.75rem 1rem;
     cursor: pointer;
+    z-index: 1001 !important;
     transition: all 0.3s ease;
     border-bottom: 1px solid rgba(100, 116, 139, 0.1);
 }
@@ -196,6 +213,7 @@
 .behandeling-item {
     background: linear-gradient(135deg, #00B4A6 0%, #00D4C4 100%);
     color: white;
+    z-index: 10;
     padding: 0.7rem 1rem;
     border-radius: 8px;
     font-size: 1rem;
@@ -278,6 +296,7 @@
 .notitie-textarea {
     width: 90%;
     min-height: 100px;
+    z-index: 1 ! important;
     padding: 0.75rem 1rem;
     background: rgba(15, 23, 42, 0.6);
     border: 2px solid rgba(100, 116, 139, 0.3);

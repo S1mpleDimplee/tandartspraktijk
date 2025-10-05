@@ -79,31 +79,11 @@ const UserInfo = () => {
                 className="role-select"
               >
                 <option value="">-</option>
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
+                <option value="0">Patient</option>
+                <option value="1">Tandarts</option>
+                <option value="3">Manager</option>
               </select>
             </div>
-
-            <div className="filter-group">
-              <label>Role</label>
-              <select
-                value={roleFilter2}
-                onChange={(e) => setRoleFilter2(e.target.value)}
-                className="role-select"
-              >
-                <option value="">-</option>
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-              </select>
-            </div>
-
-            <button onClick={handleSearch} className="search-btn">
-              Zoeken
-            </button>
           </div>
         </div>
 
@@ -129,7 +109,7 @@ const UserInfo = () => {
                   </div>
                   <div className="table-cell">{user.created_at}</div>
                   <div className="table-cell user-id">{user.userid}</div>
-                  <div className="table-cell user-role">{user.role}</div>
+                  <div className="table-cell user-role">{user.role === "0" ? "Patient" : user.role === "1" ? "Tandarts" : "Manager"}</div>
                   <div className="table-cell action-cell">
                     <button
                       className="open-btn"
