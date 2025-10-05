@@ -1,6 +1,6 @@
 // NavbarHome.jsx
-import React, { useState } from 'react';
-import './NavbarHome.css';
+import React, { useState } from "react";
+import "./NavbarHome.css";
 
 const NavbarHome = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,9 +13,11 @@ const NavbarHome = () => {
         </div>
 
         <ul className="nav-menu">
-          <li><a href="/" className="nav-link">Home</a></li>
-          <li><a href="/over-ons" className="nav-link">Over ons</a></li>
-          <li><a href="/blah" className="nav-link">Blah</a></li>
+          <li>
+            <a href="/" className="nav-link">
+              Home
+            </a>
+          </li>
         </ul>
       </div>
     </nav>

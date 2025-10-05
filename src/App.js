@@ -56,15 +56,24 @@ function AppContent() {
     const loggedInData = JSON.parse(localStorage.getItem("loggedInData"));
     if (loggedInData) {
       const response = await postCall("fetchuserdata", loggedInData.userid);
-      if (response.data.role !== loggedInData.role ||
+      if (response.isSuccess) {
+      if (response.data.role !== loggedInData.role.toString() ||
         response.data.email !== loggedInData.email ||
         response.data.userid !== loggedInData.userid ||
         response.data.firstname !== loggedInData.firstName ||
         response.data.lastname !== loggedInData.lastName) {
         localStorage.removeItem("loggedInData");
         navigate("/inloggen");
-        openToast("WAARSCHUWING! U heeft een waarde aangepast in uw locale data. Log opnieuw in.");
-      }
+       
+        openToast(`WAARSCHUWING! U heeft uw informatie aangepast in uw locale data. Log opnieuw in.`);
+      } 
+    }
+    else {
+      openToast("Er is iets misgegaan bij het ophalen van uw gegevens. Log opnieuw in.");
+      console.log("Database info:", response.data, "LocalStorage info:", loggedInData);
+      localStorage.removeItem("loggedInData");
+      navigate("/inloggen");
+    }
     }
   };
 

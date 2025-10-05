@@ -32,8 +32,8 @@ const Sidebar = () => {
 
   const menuItemsManager = [
     { id: "dashboard", label: "Dashboard", icon: dashboard, url: "/dashboard" },
-    { id: "medewerkers", label: "Medewerkers", icon: employees, url: "/dashboard/medewerkers" },
-    { id: "accounts", label: "Accounts", icon: profile, url: "/dashboard/accounts" },
+    // { id: "medewerkers", label: "Medewerkers", icon: employees, url: "/dashboard/medewerkers" },
+    // { id: "accounts", label: "Accounts", icon: profile, url: "/dashboard/accounts" },
   ];
 
   const menuItems = {

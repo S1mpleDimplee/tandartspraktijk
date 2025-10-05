@@ -211,8 +211,9 @@
   font-size: 0.9rem;
 }
 
-.form-input {
+.form-input-userpage {
   padding: 0.75rem 1rem;
+  width: 90%;
   background: #14353D;
   border: 2px solid rgba(100, 116, 139, 0.3);
   border-radius: 12px;
@@ -222,7 +223,7 @@
   backdrop-filter: blur(10px);
 }
 
-.form-input:focus {
+.form-input-userpage:focus {
   outline: none;
   border-color: #00B4A6;
   box-shadow: 0 0 0 3px rgba(0, 180, 166, 0.2);
@@ -247,7 +248,7 @@
   backdrop-filter: blur(10px);
 }
 
-.phone-input .form-input {
+.phone-input .form-input-userpage {
   flex: 1;
 }
 

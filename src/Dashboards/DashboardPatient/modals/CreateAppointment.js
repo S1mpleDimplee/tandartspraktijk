@@ -51,6 +51,33 @@ const CreateAppointmentModal = ({ isOpen, onClose, appointmentId }) => {
     try {
       const response = await postCall('getAppointmentData', { appointmentId });
 
+      if (response.isSuccess) {
+        const appointment = response.data[0];
+        // Parse time to { hours, minutes }
+        let hours = '10', minutes = '30';
+        if (appointment.time) {
+          const timeParts = appointment.time.split(':');
+          if (timeParts.length >= 2) {
+        hours = timeParts[0];
+        minutes = timeParts[1];
+          }
+        }
+        setFormData(prev => ({
+          ...prev,
+          dentistid: appointment.dentistid || '',
+          userid: appointment.userid || '',
+          date: appointment.date || '',
+          time: { hours, minutes },
+          treatments: appointment.treatment
+        ? [{ id: 1, name: appointment.treatment, duration: appointment.duration }]
+        : [],
+          note: appointment.note || ''
+        }));
+        setDentistName(
+          availableDentists.find(d => d.userid === appointment.dentistid)?.name || ''
+        );
+      }
+
       if (!response?.isSuccess || !response.data?.length) {
         console.error("No appointment found");
         return;

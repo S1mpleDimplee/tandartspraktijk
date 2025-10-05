@@ -106,12 +106,12 @@ const UserPage = () => {
               <div className="user-id-display">{formData.userId}</div>
 
               <div className="action-tabs">
-                <button
+                {/* <button
                   className={`tab-btn ${activeTab === 'Enquetes' ? 'active' : ''}`}
                   onClick={() => handleTabChange('Enquetes')}
                 >
                   Enquetes
-                </button>
+                </button> */}
                 <button
                   className={`tab-btn ${activeTab === 'Afspraken' ? 'active' : ''}`}
                   onClick={() => handleTabChange('Afspraken')}
@@ -140,7 +140,7 @@ const UserPage = () => {
                   name="voornaam"
                   value={formData.voornaam}
                   onChange={handleInputChange}
-                  className="form-input"
+                  className="form-input-userpage"
                 />
               </div>
 
@@ -152,7 +152,7 @@ const UserPage = () => {
                   name="achternaam"
                   value={formData.achternaam}
                   onChange={handleInputChange}
-                  className="form-input"
+                  className="form-input-userpage"
                 />
               </div>
 
@@ -164,7 +164,7 @@ const UserPage = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="form-input"
+                  className="form-input-userpage"
                 />
               </div>
 
@@ -178,7 +178,7 @@ const UserPage = () => {
                     name="telefoon"
                     value={formData.telefoon}
                     onChange={handleInputChange}
-                    className="form-input"
+                    className="form-input-userpage"
                   />
                 </div>
               </div>
@@ -191,7 +191,7 @@ const UserPage = () => {
                   name="woonplaats"
                   value={formData.woonplaats}
                   onChange={handleInputChange}
-                  className="form-input"
+                  className="form-input-userpage"
                 />
               </div>
 
@@ -203,7 +203,7 @@ const UserPage = () => {
                   name="postcode"
                   value={formData.postcode}
                   onChange={handleInputChange}
-                  className="form-input"
+                  className="form-input-userpage"
                 />
               </div>
 
@@ -215,7 +215,7 @@ const UserPage = () => {
                   name="straatnaam"
                   value={formData.straatnaam}
                   onChange={handleInputChange}
-                  className="form-input"
+                  className="form-input-userpage"
                 />
               </div>
 
@@ -228,7 +228,7 @@ const UserPage = () => {
                     name="toevoeging"
                     value={formData.toevoeging}
                     onChange={handleInputChange}
-                    className="form-input address-input"
+                    className="form-input-userpage address-input"
                   />
                   <span className="address-separator">—</span>
                   <input
@@ -237,7 +237,7 @@ const UserPage = () => {
                     name="huisnummer"
                     value={formData.huisnummer}
                     onChange={handleInputChange}
-                    className="form-input address-input"
+                    className="form-input-userpage address-input"
                   />
                 </div>
               </div>
@@ -257,10 +257,9 @@ const UserPage = () => {
                   onChange={handleRoleChange}
                   className="system-select"
                 >
-                  <option value={0}>0</option>
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
+                  <option value={0}>Patient</option>
+                  <option value={1}>Tandarts</option>
+                  <option value={3}>Manager</option>
                 </select>
               </div>
 
