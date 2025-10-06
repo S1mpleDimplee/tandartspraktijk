@@ -129,16 +129,14 @@ const DashboardPatient = () => {
 
         {/* Right Column */}
         <div className="content-right">
-          <InfoCard patientInfo={patientInfo} />
+          {/* <InfoCard patientInfo={patientInfo} /> */}
 
           {/* Appointments Card */}
           <div className="card appointments-card">
             <h3>Aankomende afspraken</h3>
             <p className="no-appointments">
-              U heeft op dit moment geen aankomende afspraken. Plan gemakkelijk
-              een afspraak in met de knop hier onder om uw tandheelkundige
-              gezondheid optimaal te houden.
-            </p>
+              Maak hier gemakkelijk een nieuwe afspraak aan.
+              Selecteer een behandeling en tijdstip            </p>
             <button
               className="appointment-button"
               onClick={handleAppointmentClick}

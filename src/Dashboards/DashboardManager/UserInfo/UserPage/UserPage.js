@@ -112,21 +112,21 @@ const UserPage = () => {
                 >
                   Enquetes
                 </button> */}
-                <button
+                {/* <button
                   className={`tab-btn ${activeTab === 'Afspraken' ? 'active' : ''}`}
                   onClick={() => handleTabChange('Afspraken')}
                 >
                   Afspraken
-                </button>
+                </button> */}
               </div>
 
               <div className="profile-actions">
                 <button className="action-btn bijwerken-btn" onClick={handleBijwerken}>
                   Bijwerken
                 </button>
-                <button className="action-btn verwijderen-btn" onClick={handleVerwijderen}>
+                {/* <button className="action-btn verwijderen-btn" onClick={handleVerwijderen}>
                   Verwijderen
-                </button>
+                </button> */}
               </div>
             </div>
             <h2>Persoonlijke gegevens</h2>

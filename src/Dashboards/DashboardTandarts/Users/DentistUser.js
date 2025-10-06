@@ -39,6 +39,10 @@ const DentistUsers = () => {
 
   });
 
+  const [availableTreatments, setAvailableTreatments] = useState([
+
+  ]);
+
   const [treatments, setTreatments] = useState([
 
   ]);
@@ -52,6 +56,8 @@ const DentistUsers = () => {
   const handleSearch = (e) => {
     e.preventDefault();
   };
+
+
 
   const fetchPatientInfo = async (userid) => {
     try {
@@ -83,6 +89,7 @@ const DentistUsers = () => {
 
   useEffect(() => {
     fetchPatients();
+    fetchTreatments();
   }, []);
 
   const fetchPatients = async () => {

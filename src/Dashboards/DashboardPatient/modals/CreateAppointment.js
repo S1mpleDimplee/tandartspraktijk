@@ -308,7 +308,7 @@ const CreateAppointmentModal = ({ isOpen, loadPatients, onClose, appointmentId, 
                 ))}
 
                 <div className="behandeling-duration">
-                  Verwachte tijdsduur: {totalDuration} minuten
+                  {/* Verwachte tijdsduur: {totalDuration} minuten */}
                 </div>
               </div>
             </div>
