@@ -5,7 +5,7 @@ import { useToast } from '../../../../toastmessage/toastmessage';
 
 const UserPage = () => {
   const [activeTab, setActiveTab] = useState('Enquetes');
-  const [userRole, setUserRole] = useState(1);
+  const [userRole, setUserRole] = useState(0);
   const [formData, setFormData] = useState({
     userId: '',
     voornaam: '',
@@ -16,7 +16,7 @@ const UserPage = () => {
     postcode: '',
     straatnaam: '',
     toevoeging: '',
-    huisnummer: ''
+    huisnummer: '',
   });
 
   const { openToast } = useToast();
@@ -69,6 +69,14 @@ const UserPage = () => {
   };
 
   const handleRoleChange = async (e) => {
+
+    if (userRole === 1 || userRole === "1") {
+      const confirmed = window.confirm('Weet je zeker dat je de rol tandarts van de patient wil aanpassen? Alle afspraken met deze tandarts word verwijderd');
+      if (!confirmed) {
+        return; // Stop the function if the user cancels
+      }
+    }
+
     setUserRole(parseInt(e.target.value));
 
     const response = await postCall('updateuserrole', {
