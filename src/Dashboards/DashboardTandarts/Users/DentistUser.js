@@ -70,7 +70,7 @@ const DentistUsers = () => {
       } else {
         console.error("Fout bij het ophalen van patiënt info:", response.message);
       }
-    } catch (error) {
+    } catch (error) { 
       console.error("Error fetching patient info:", error);
     }
   };
@@ -89,8 +89,7 @@ const DentistUsers = () => {
 
   useEffect(() => {
     fetchPatients();
-    fetchTreatments();
-  }, []);
+    }, []);
 
   const fetchPatients = async () => {
     try {
@@ -108,7 +107,7 @@ const DentistUsers = () => {
               patient.postalcode +
               " " +
               patient.city
-              : "-",
+              : "-",  
             status: patient.status,
             created_at: patient.created_at,
           }))

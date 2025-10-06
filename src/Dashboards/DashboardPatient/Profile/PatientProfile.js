@@ -40,7 +40,7 @@ const PatientProfile = () => {
     const userinfo = localStorage.getItem("loggedInData");
     const userid = JSON.parse(userinfo).userid;
 
-    const result = await postCall("fetchUserData", userid);
+    const result = await postCall("fetchalluserdata", userid);
     console.log("Data succesvol opgehaald", result);
 
     setFormData({
@@ -49,11 +49,11 @@ const PatientProfile = () => {
       lastname: result.data.lastname || "",
       email: result.data.email || "",
       phonenumber: result.data.phonenumber || "",
-      city: "",
-      postalcode: "",
-      streetname: "",
-      addition: "",
-      housenumber: "",
+      city: result.data.city || "",
+      postalcode: result.data.postalcode || "",
+      streetname: result.data.streetname || "",
+      addition: result.data.addition || "",
+      housenumber: result.data.housenumber || "",
     });
 
   };
