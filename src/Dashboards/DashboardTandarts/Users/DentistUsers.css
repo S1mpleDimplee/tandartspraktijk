@@ -78,6 +78,20 @@
 /* Patient Table */
 .patient-table {
   margin-bottom: 1rem;
+  border-radius: 12px;
+  overflow-y: auto;
+  max-height: 500px;
+}
+
+.patient-table::-webkit-scrollbar {
+  width: 8px;
+  background: rgba(15, 23, 42, 0.6);
+  border-top-right-radius: 10px;
+}
+
+.patient-table::-webkit-scrollbar-thumb {
+  background: rgba(0, 180, 166, 0.4);
+  border-radius: 10px;
 }
 
 .table-header {

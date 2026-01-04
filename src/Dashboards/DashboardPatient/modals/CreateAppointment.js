@@ -4,33 +4,20 @@ import postCall from '../../../Calls/calls';
 import { set } from 'date-fns';
 import { useToast } from '../../../toastmessage/toastmessage';
 
-const CreateAppointmentModal = ({ isOpen, onClose, appointmentId }) => {
+const CreateAppointmentModal = ({ isOpen, loadPatients, onClose, appointmentId, date, selectedStartDate }) => {
   const [formData, setFormData] = useState({
     dentistid: '',
     userid: '',
-    date: '',
+    date: date || '',
     duration: 30,
-    time: { hours: '10', minutes: '30' },
-    treatments: [
-    ],
+    time: selectedStartDate ? { hours: selectedStartDate.hour, minutes: selectedStartDate.minute } : { hours: 8, minutes: 0 },
+    treatments: [],
     note: ''
   });
+  const [loadedUsers, setLoadedUsers] = useState([]);
+  const [selectedUserName, setSelectedUserName] = useState('');
 
-  const [datums, setDatums] = useState([
-    'Vrijdag 10 september',
-    'Maandag 13 september',
-    'Dinsdag 14 september',
-    'Woensdag 15 september'
-  ]);
-
-  const [dentistName, setDentistName] = useState('');
-
-  const [availableDentists, setAvailableDentists] = useState([{
-  }]);
-
-  const [availableTreatments, setAvailableTreatments] = useState([{
-
-  }]);
+  const [availableTreatments, setAvailableTreatments] = useState([]);
 
   const [showDentistsDropdown, setShowDentistsDropdown] = useState(false);
   const [showDateDropdown, setShowDateDropdown] = useState(false);
@@ -41,11 +28,18 @@ const CreateAppointmentModal = ({ isOpen, onClose, appointmentId }) => {
   const { openToast } = useToast();
 
   useEffect(() => {
-    fetchAvailableDentists();
+    loadPatients ? fetchAllPatients() : fetchAvailableDentists();
     fetchAvailableTreatments();
-
-    fetchAppointmentDetails();
+    if (appointmentId) {
+      fetchAppointmentDetails();
+    }
   }, []);
+
+  // Calculate total duration when treatments change
+  useEffect(() => {
+    const duration = formData.treatments.reduce((sum, treatment) => sum + (treatment.duration || 0), 0);
+    setTotalDuration(duration);
+  }, [formData.treatments]);
 
   const fetchAppointmentDetails = async () => {
     try {
@@ -58,21 +52,34 @@ const CreateAppointmentModal = ({ isOpen, onClose, appointmentId }) => {
 
       const appointment = response.data[0];
 
-      if (!appointment.time) {
-        console.error("Appointment time is missing:", appointment);
-        return;
+      // Parse time to { hours, minutes }
+      let hours = '10', minutes = '30';
+      if (appointment.time) {
+        const timeParts = appointment.time.split(':');
+        if (timeParts.length >= 2) {
+          hours = timeParts[0];
+          minutes = timeParts[1];
+        }
       }
 
-      const timeParts = appointment.time.split(':');
-      if (timeParts.length < 2) {
-        console.error("Invalid time format:", appointment.time);
-        return;
+      setFormData(prev => ({
+        ...prev,
+        dentistid: appointment.dentistid || '',
+        userid: appointment.userid || '',
+        date: appointment.date || '',
+        time: { hours, minutes },
+        treatments: appointment.treatment
+          ? [{ id: 1, name: appointment.treatment, duration: appointment.duration }]
+          : [],
+        note: appointment.note || ''
+      }));
+
+      // Set the selected user name for display
+      const targetUserId = loadPatients ? appointment.dentistid : appointment.userid;
+      const foundUser = loadedUsers.find(u => u.userid === targetUserId);
+      if (foundUser) {
+        setSelectedUserName(foundUser.name);
       }
-
-      const [hours, minutes] = timeParts.map(Number);
-      console.log("Parsed time:", hours, minutes);
-
-      // Do something with the time or appointment data here
     } catch (err) {
       console.error("Failed to fetch appointment details:", err);
     }
@@ -81,7 +88,11 @@ const CreateAppointmentModal = ({ isOpen, onClose, appointmentId }) => {
   const fetchAvailableTreatments = async () => {
     const response = await postCall('getAllTreatments');
     if (response.isSuccess) {
-      setAvailableTreatments(response.data.map(treatment => ({ id: treatment.id, name: treatment.treatment, duration: treatment.duration })));
+      setAvailableTreatments(response.data.map(treatment => ({
+        id: treatment.id,
+        name: treatment.treatment,
+        duration: treatment.duration
+      })));
     } else {
       console.error('Fout bij het ophalen van behandelingen');
     }
@@ -90,9 +101,34 @@ const CreateAppointmentModal = ({ isOpen, onClose, appointmentId }) => {
   const fetchAvailableDentists = async () => {
     const response = await postCall('getAllDentists');
     if (response.isSuccess) {
-      setAvailableDentists(response.data.map(dentist => ({ userid: dentist.userid, name: dentist.name })));
+      setLoadedUsers(response.data.map(dentist => ({
+        userid: dentist.userid,
+        name: dentist.name
+      })));
     } else {
       console.error('Fout bij het ophalen van tandartsen');
+    }
+  };
+
+  const fetchAllPatients = async () => {
+    const response = await postCall('getAllPatients');
+    if (response.isSuccess) {
+      setLoadedUsers(response.data.map(patient => ({
+        userid: patient.userid,
+        name: patient.firstname + ' ' + patient.lastname
+      })));
+    } else {
+      openToast(response.message);
+    }
+  };
+
+  const DeleteAppointment = async (appointmentId) => {
+    const response = await postCall('deleteAppointment', { appointmentId });
+    if (response.isSuccess) {
+      openToast(response.message);
+      onClose();
+    } else {
+      openToast(response.message);
     }
   };
 
@@ -113,18 +149,21 @@ const CreateAppointmentModal = ({ isOpen, onClose, appointmentId }) => {
     }));
   };
 
-  const handleDentistSelect = (dentist, userid) => {
-    handleInputChange('dentistid', userid);
-    setDentistName(dentist);
+  const handleUserSelect = (userName, userid) => {
+    if (loadPatients) {
+      handleInputChange('userid', userid);
+    } else {
+      handleInputChange('dentistid', userid);
+    }
+    setSelectedUserName(userName);
     setShowDentistsDropdown(false);
   };
-
 
   const addTreatment = (treatment) => {
     setShowTreatmentsDropdown(false);
 
     setFormData(prev => {
-      const alreadyAdded = prev.treatments.find(t => t.name === treatment);
+      const alreadyAdded = prev.treatments.find(t => t.name === treatment.name);
       if (alreadyAdded) return prev;
 
       return {
@@ -135,7 +174,8 @@ const CreateAppointmentModal = ({ isOpen, onClose, appointmentId }) => {
             id: prev.treatments.length + 1,
             name: treatment.name,
             duration: treatment.duration
-          }]
+          }
+        ]
       };
     });
   };
@@ -146,52 +186,51 @@ const CreateAppointmentModal = ({ isOpen, onClose, appointmentId }) => {
       treatments: prev.treatments.filter(t => t.id !== id)
     }));
   };
-  const handleSubmit = () => {
 
+  const handleSubmit = async () => {
     const loggedInData = JSON.parse(localStorage.getItem('loggedInData'));
 
-    const response = postCall('createAppointment', {
-      userid: loggedInData.userid,
-      dentistid: formData.dentistid,
+    // Determine which IDs to use based on loadPatients
+    const submitData = {
+      userid: loadPatients ? formData.userid : loggedInData.userid,
+      dentistid: loadPatients ? loggedInData.userid : formData.dentistid,
       date: formData.date,
       time: `${formData.time.hours}:${formData.time.minutes}`,
       treatments: formData.treatments.map(t => t.name).join(', '),
       note: formData.note || ''
-    });
-    if (response.isSuccess) {
-      openToast('Afspraak succesvol gemaakt!');
-      onClose();
-    }
-    else {
-      openToast('Fout bij het maken van de afspraak. Probeer het opnieuw.' + response.message);
-      return;
-    }
+    };
 
-    console.log(`Afspraak gemaakt!\nTandarts: ${dentistName}\nDatum: ${formData.date}\nTijd: ${formData.time.hours}:${formData.time.minutes}\nBehandeling: ${formData.treatments}`);
-    onClose();
+    const response = await postCall('createAppointment', submitData);
+
+    if (response.isSuccess) {
+      openToast(response.message);
+      onClose();
+    } else {
+      openToast(response.message);
+    }
   };
 
   const handleUpdate = async () => {
     const loggedInData = JSON.parse(localStorage.getItem('loggedInData'));
-    const response = await postCall('updateAppointment', {
+
+    const updateData = {
       appointmentId: appointmentId,
-      userid: loggedInData.userid,
-      dentistid: formData.dentistid,
+      userid: loadPatients ? formData.userid : loggedInData.userid,
+      dentistid: loadPatients ? loggedInData.userid : formData.dentistid,
       date: formData.date,
       time: `${formData.time.hours}:${formData.time.minutes}`,
       treatments: formData.treatments.map(t => t.name).join(', '),
       note: formData.note || ''
-    });
+    };
+
+    const response = await postCall('editappointment', updateData);
+
     if (response.isSuccess) {
-      openToast('Afspraak succesvol bijgewerkt!');
+      openToast(response.message);
       onClose();
+    } else {
+      openToast(response.message);
     }
-    else {
-      openToast('Fout bij het bijwerken van de afspraak. Probeer het opnieuw.' + response.message);
-      return;
-    }
-    console.log(`Afspraak bijgewerkt!\nTandarts: ${dentistName}\nDatum: ${formData.date}\nTijd: ${formData.time.hours}:${formData.time.minutes}\nBehandeling: ${formData.treatments}`);
-    onClose();
   };
 
   return (
@@ -199,7 +238,7 @@ const CreateAppointmentModal = ({ isOpen, onClose, appointmentId }) => {
       <div className="modal-createappointment-container">
         {/* Header */}
         <div className="modal-createappointment-header">
-          <h2>Afspraak maken</h2>
+          <h2>{appointmentId ? 'Afspraak bijwerken' : 'Afspraak maken'}</h2>
           <button className="close-btn" onClick={onClose}>
             ×
           </button>
@@ -208,29 +247,28 @@ const CreateAppointmentModal = ({ isOpen, onClose, appointmentId }) => {
         <div className="modal-createappointment-content">
           {/* Left Column */}
           <div className="left-createappointment-column">
-            {/* Tandarts Selection */}
+            {/* Tandarts/Patient Selection */}
             <div className="form-group-appointments">
-              <label>Tandarts</label>
+              <label>{loadPatients ? 'Patiënt' : 'Tandarts'}</label>
               <div className="dropdown-container">
                 <button
                   className="dropdown-btn"
                   onClick={() => {
                     setShowDentistsDropdown(!showDentistsDropdown);
-                    console.log(availableDentists);
                   }}
                 >
-                  {dentistName || 'Selecteerd uw tandarts'}
+                  {selectedUserName || (loadPatients ? 'Selecteer een patiënt' : 'Selecteer uw tandarts')}
                   <span className="dropdown-arrow">∨</span>
                 </button>
                 {showDentistsDropdown && (
                   <div className="dropdown-menu">
-                    {availableDentists.map((dentist, index) => (
+                    {loadedUsers.map((user, index) => (
                       <div
                         key={index}
                         className="dropdown-item"
-                        onClick={() => handleDentistSelect(dentist.name, dentist.userid)}
+                        onClick={() => handleUserSelect(user.name, user.userid)}
                       >
-                        {dentist.name}
+                        {user.name}
                       </div>
                     ))}
                   </div>
@@ -245,7 +283,6 @@ const CreateAppointmentModal = ({ isOpen, onClose, appointmentId }) => {
                   className="dropdown-treatments-btn"
                   onClick={() => {
                     setShowTreatmentsDropdown(!showTreatmentsDropdown);
-                    console.log(availableTreatments);
                   }}
                 >+</button>
 
@@ -264,18 +301,19 @@ const CreateAppointmentModal = ({ isOpen, onClose, appointmentId }) => {
                 )}
 
                 {formData.treatments.map(treatment => (
-                  <> <div className="behandeling-item selected">
-                    <span key={treatment.id} className="behandeling-name">{treatment.name}</span>
+                  <div key={treatment.id} className="behandeling-item selected">
+                    <span className="behandeling-name">{treatment.name}</span>
                     <button className="remove-btn" onClick={() => removeTreatment(treatment.id)}>×</button>
-                  </div></>
+                  </div>
                 ))}
 
-
                 <div className="behandeling-duration">
-                  Verwachte tijdsduur: {totalDuration} minuten
+                  {/* Verwachte tijdsduur: {totalDuration} minuten */}
                 </div>
               </div>
-            </div> {/* Notitie */}
+            </div>
+
+            {/* Notitie */}
             <div className="form-group-appointments">
               <label>Notitie (Optioneel)</label>
               <textarea
@@ -322,14 +360,14 @@ const CreateAppointmentModal = ({ isOpen, onClose, appointmentId }) => {
                   className="tijd-input"
                 />
                 <span className="tijd-separator">:</span>
-                <input
-                  type="number"
-                  min="0"
-                  max="59"
+                <select
                   value={formData.time.minutes}
                   onChange={(e) => handleTimeSelect('minutes', e.target.value)}
-                  className="tijd-input"
-                />
+                  className="tijd-input tijd-select"
+                >
+                  <option value="00">00</option>
+                  <option value="30">30</option>
+                </select>
               </div>
             </div>
 
@@ -338,11 +376,14 @@ const CreateAppointmentModal = ({ isOpen, onClose, appointmentId }) => {
               <button className="submit-createappointment-btn" onClick={() => appointmentId ? handleUpdate() : handleSubmit()}>
                 {appointmentId ? 'Afspraak bijwerken' : 'Afspraak maken'}
               </button>
+              {appointmentId && (
+                <button className="submit-createappointment-btn" onClick={() => DeleteAppointment(appointmentId)}>
+                  Afspraak afzeggen
+                </button>
+              )}
             </div>
           </div>
         </div>
-
-
       </div>
     </div>
   );

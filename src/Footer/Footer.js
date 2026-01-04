@@ -19,9 +19,9 @@ const Footer = () => {
           <h4 className="footer-heading">Snelle Links</h4>
           <ul className="footer-links">
             <li><a href="/home">Home</a></li>
-            <li><a href="/over-ons">Over Ons</a></li>
+            {/* <li><a href="/over-ons">Over Ons</a></li>
             <li><a href="/behandelingen">Behandelingen</a></li>
-            <li><a href="/afspraak">Afspraak Maken</a></li>
+            <li><a href="/afspraak">Afspraak Maken</a></li> */}
           </ul>
         </div>
 

@@ -39,6 +39,10 @@ const DentistUsers = () => {
 
   });
 
+  const [availableTreatments, setAvailableTreatments] = useState([
+
+  ]);
+
   const [treatments, setTreatments] = useState([
 
   ]);
@@ -53,6 +57,8 @@ const DentistUsers = () => {
     e.preventDefault();
   };
 
+
+
   const fetchPatientInfo = async (userid) => {
     try {
       const response = await postCall("fetchAllUserData", userid);
@@ -64,7 +70,7 @@ const DentistUsers = () => {
       } else {
         console.error("Fout bij het ophalen van patiënt info:", response.message);
       }
-    } catch (error) {
+    } catch (error) { 
       console.error("Error fetching patient info:", error);
     }
   };
@@ -83,7 +89,7 @@ const DentistUsers = () => {
 
   useEffect(() => {
     fetchPatients();
-  }, []);
+    }, []);
 
   const fetchPatients = async () => {
     try {
@@ -101,7 +107,7 @@ const DentistUsers = () => {
               patient.postalcode +
               " " +
               patient.city
-              : "-",
+              : "-",  
             status: patient.status,
             created_at: patient.created_at,
           }))
@@ -216,19 +222,7 @@ const DentistUsers = () => {
             </button>
           </div>
 
-          {/* Next Appointment */}
-          <div className="appointment-card">
-            <h3>Volgende afspraak</h3>
-            <p className="appointment-text">
-              Deze patiënt heeft momenteel geen toekomstige afspraken
-            </p>
-            <button
-              onClick={handleAfspraakInplannen}
-              className="appointment-btn"
-            >
-              Afspraak inplannen
-            </button>
-          </div>
+
         </div>
       </div>
       {showModal && <PatientTreatment userid={selectedPatient.userid} onclose={() => setShowModal(false)} />}

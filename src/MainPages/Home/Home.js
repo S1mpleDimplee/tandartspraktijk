@@ -61,15 +61,15 @@ const Home = () => {
                         <div className="stat-icon">
                             <img src={LocationIcon} alt="Locatie" className='stat-icon-img' />
                         </div>
-                        <h3 className="stat-number">2</h3>
-                        <p className="stat-label">Vestigingen</p>
+                        <h3 className="stat-number">1</h3>
+                        <p className="stat-label">Vestiging</p>
                     </div>
 
                     <div className="stat-card">
                         <div className="stat-icon">
                             <img src={ToothIcon} alt="Tandarts" className='stat-icon-img' />
                         </div>
-                        <h3 className="stat-number">21</h3>
+                        <h3 className="stat-number">8</h3>
                         <p className="stat-label">Ervaren tandartsen</p>
                     </div>
 
@@ -93,10 +93,7 @@ const Home = () => {
                             <div className="review-stars">★★★★★</div>
                             <div className="reviewer-name">Jaylano van der Veen</div>
                             <p className="review-text">
-                                "Ik voelde me direct op mijn gemak,<br />
-                                de tandarts heeft alles rustig uit en er<br />
-                                wordt goed naar je geluisterd.<br />
-                                Echt een aanrader!"
+                                "Donders goed doan, goa der vaker hen omeunig goed. ik raad het oe an"
                             </p>
                         </div>
 
